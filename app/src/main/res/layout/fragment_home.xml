@@ -6,12 +6,62 @@
     tools:context=".HomeFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Home Fragment"
-        android:textSize="30sp"
-        android:layout_centerInParent="true"
-        android:textColor="@color/blue"/>
+    <GridLayout
+        android:id="@+id/gridLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:columnCount="2"
+        android:rowCount="3"
+        android:padding="16dp"
+        android:layout_gravity="center">
+
+        <!-- First large box -->
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_rowSpan="1"
+            android:layout_columnSpan="2"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            android:background="@drawable/rectangle"
+            android:layout_margin="8dp"/>
+
+        <!-- First small box -->
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            android:background="@drawable/cube"
+            android:layout_margin="8dp"/>
+
+        <!-- Second small box -->
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            android:background="@drawable/cube"
+            android:layout_margin="8dp"/>
+
+        <!-- Third small box -->
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            android:background="@drawable/cube"
+            android:layout_margin="8dp"/>
+
+        <!-- Fourth small box -->
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            android:background="@drawable/cube"
+            android:layout_margin="8dp"/>
+
+    </GridLayout>
 
 </RelativeLayout>
