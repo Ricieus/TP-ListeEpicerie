@@ -16,45 +16,10 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.example.tp_listeepicerie.recycler.GenericItemAdaptor
+import com.example.tp_listeepicerie.recycler.GenericItemHolder
 
-class GenericItemHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    val layout: ConstraintLayout
-    val textName: TextView
-    val textQuantity: TextView
-    val img: ImageView
-    val btn: Button
 
-    init {
-        layout = itemView as ConstraintLayout
-        textName = itemView.findViewById(R.id.genericName)
-        textQuantity = itemView.findViewById(R.id.genericQuantity)
-        img = itemView.findViewById(R.id.genericImg)
-        btn = itemView.findViewById(R.id.genericBtn)
-    }
-}
-
-class GenericItemAdaptor(val ctx: Context, val activity: MainActivity, var data: List<GenericItem>) : RecyclerView.Adapter<GenericItemHolder>() {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GenericItemHolder {
-        val view = LayoutInflater.from(ctx).inflate(R.layout.liste_epicerie_item, parent, false)
-        return GenericItemHolder(view)
-    }
-
-    override fun getItemCount(): Int {
-        return data.size
-    }
-
-    override fun onBindViewHolder(holder: GenericItemHolder, position: Int) {
-        val currentGenericItem = data[position]
-
-        holder.textName.text = currentGenericItem.nom
-        holder.textQuantity.text = currentGenericItem.quantite.toString()
-        holder.img.setImageResource(R.drawable.baseline_emoji_food_beverage_24)
-        holder.btn.setOnClickListener {
-                currentGenericItem.quantite++
-                holder.textQuantity.text = currentGenericItem.quantite.toString()
-        }
-    }
-}
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -73,8 +38,8 @@ class MainActivity : AppCompatActivity() {
         val recyclerView: RecyclerView = findViewById(R.id.recycler)
         val genericList = listOf(
             GenericItem("name1", 1, R.drawable.img, "fruits", R.id.buttonAcheter),
-            GenericItem("name2", 1, R.drawable.img_1, "Legumes", R.id.buttonAcheter),
-            GenericItem("name3", 1, R.drawable.img_1, "Legumes", R.id.buttonAcheter),
+            GenericItem("name2", 1, R.drawable.img_1, "legumes", R.id.buttonAcheter),
+            GenericItem("name3", 1, R.drawable.img_1, "legumes", R.id.buttonAcheter),
         )
         recyclerView.adapter = GenericItemAdaptor(applicationContext, this, genericList)
 
