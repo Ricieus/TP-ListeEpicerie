@@ -72,9 +72,9 @@ class MainActivity : AppCompatActivity() {
 
         val recyclerView: RecyclerView = findViewById(R.id.recycler)
         val genericList = listOf(
-            GenericItem("name1", 1, R.drawable.baseline_emoji_food_beverage_24, "fruits", R.id.buttonAcheter),
-            GenericItem("name2", 1, R.drawable.baseline_emoji_food_beverage_24, "Legumes", R.id.buttonAcheter),
-            GenericItem("name3", 1, R.drawable.baseline_emoji_food_beverage_24, "Legumes", R.id.buttonAcheter),
+            GenericItem("name1", 1, R.drawable.img, "fruits", R.id.buttonAcheter),
+            GenericItem("name2", 1, R.drawable.img_1, "Legumes", R.id.buttonAcheter),
+            GenericItem("name3", 1, R.drawable.img_1, "Legumes", R.id.buttonAcheter),
         )
         recyclerView.adapter = GenericItemAdaptor(applicationContext, this, genericList)
 
