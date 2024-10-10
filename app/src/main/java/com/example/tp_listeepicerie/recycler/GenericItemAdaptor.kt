@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tp_listeepicerie.GenericItem
-import com.example.tp_listeepicerie.GenericItemHolder
+import com.example.tp_listeepicerie.recycler.GenericItemHolder
 import com.example.tp_listeepicerie.MainActivity
 import com.example.tp_listeepicerie.R
 
