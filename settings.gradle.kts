@@ -21,4 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "TP-ListeEpicerie"
 include(":app")
- 
+include(":app")
