@@ -13,13 +13,15 @@ class GenericItemHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     val textName: TextView
     val textQuantity: TextView
     val img: ImageView
-    val btn: Button
+    val btnInformation: Button
+    val btnPanier: Button
 
     init {
         layout = itemView as ConstraintLayout
         textName = itemView.findViewById(R.id.genericName)
         textQuantity = itemView.findViewById(R.id.genericQuantity)
         img = itemView.findViewById(R.id.genericImg)
-        btn = itemView.findViewById(R.id.genericBtn)
+        btnInformation = itemView.findViewById(R.id.genericBtn)
+        btnPanier = itemView.findViewById(R.id.buttonAcheter)
     }
 }
