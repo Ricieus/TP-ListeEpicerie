@@ -15,6 +15,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tp_listeepicerie.recycler.GenericItemAdaptor
 import com.example.tp_listeepicerie.recycler.GenericItemHolder
@@ -36,10 +37,17 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         val recyclerView: RecyclerView = findViewById(R.id.recycler)
+
+        val gridLayoutManager = GridLayoutManager(this, 2)
+        recyclerView.layoutManager = gridLayoutManager
+
         val genericList = listOf(
-            GenericItem("name1", 1, R.drawable.img, "fruits", R.id.buttonAcheter),
-            GenericItem("name2", 1, R.drawable.img_1, "legumes", R.id.buttonAcheter),
-            GenericItem("name3", 1, R.drawable.img_1, "legumes", R.id.buttonAcheter),
+            GenericItem("Pomme", 2, R.drawable.img, "fruits", R.id.genericBtn, R.id.buttonAcheter),
+            GenericItem("Tomate", 3, R.drawable.img_1, "legumes", R.id.genericBtn, R.id.buttonAcheter),
+            GenericItem("Tomate Special", 5, R.drawable.img_1, "legumes", R.id.genericBtn, R.id.buttonAcheter),
+            GenericItem("Pomme", 2, R.drawable.img, "fruits", R.id.genericBtn, R.id.buttonAcheter),
+            GenericItem("Tomate", 3, R.drawable.img_1, "legumes", R.id.genericBtn, R.id.buttonAcheter),
+            GenericItem("Tomate Special", 5, R.drawable.img_1, "legumes", R.id.genericBtn, R.id.buttonAcheter),
         )
         recyclerView.adapter = GenericItemAdaptor(applicationContext, this, genericList)
 
@@ -52,4 +60,4 @@ class MainActivity : AppCompatActivity() {
 
 }
 
-data class GenericItem(var nom: String, var quantite: Int, var image: Int, var categorie: String, var bouton: Int)
+data class GenericItem(var nom: String, var prix: Int, var imageNourriture: Int, var categorie: String, var boutonPanier: Int, var boutonInformation: Int)

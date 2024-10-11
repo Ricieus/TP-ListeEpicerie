@@ -23,11 +23,13 @@ class GenericItemAdaptor(val ctx: Context, val activity: MainActivity, var data:
         val currentGenericItem = data[position]
 
         holder.textName.text = currentGenericItem.nom
-        holder.textQuantity.text = currentGenericItem.quantite.toString()
-        holder.img.setImageResource(currentGenericItem.image)
-        holder.btn.setOnClickListener {
-            currentGenericItem.quantite++
-            holder.textQuantity.text = currentGenericItem.quantite.toString()
+        holder.textQuantity.text = currentGenericItem.prix.toString()
+        holder.img.setImageResource(currentGenericItem.imageNourriture)
+        holder.btnInformation.setOnClickListener {
+            //DO SOMETHING (NEW PAGE)
+        }
+        holder.btnPanier.setOnClickListener {
+            //DO SOMETHING (AJOUTER PANIER)
         }
     }
 }
