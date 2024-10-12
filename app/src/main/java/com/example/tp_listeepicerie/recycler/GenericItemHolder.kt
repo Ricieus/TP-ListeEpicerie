@@ -2,6 +2,7 @@ package com.example.tp_listeepicerie.recycler
 
 import android.view.View
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -13,15 +14,15 @@ class GenericItemHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     val textName: TextView
     val textQuantity: TextView
     val img: ImageView
-    val btnInformation: Button
-    val btnPanier: Button
+    val btnInformation: ImageButton
+    val btnPanier: ImageButton
 
     init {
         layout = itemView as ConstraintLayout
         textName = itemView.findViewById(R.id.genericName)
         textQuantity = itemView.findViewById(R.id.genericQuantity)
         img = itemView.findViewById(R.id.genericImg)
-        btnInformation = itemView.findViewById(R.id.genericBtn)
-        btnPanier = itemView.findViewById(R.id.buttonAcheter)
+        btnInformation = itemView.findViewById(R.id.btnInfo)
+        btnPanier = itemView.findViewById(R.id.btnAjout)
     }
 }

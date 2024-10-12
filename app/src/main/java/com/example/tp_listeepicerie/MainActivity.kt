@@ -42,12 +42,12 @@ class MainActivity : AppCompatActivity() {
         recyclerView.layoutManager = gridLayoutManager
 
         val genericList = listOf(
-            GenericItem("Pomme", 2, R.drawable.img, "fruits", R.id.genericBtn, R.id.buttonAcheter),
-            GenericItem("Tomate", 3, R.drawable.img_1, "legumes", R.id.genericBtn, R.id.buttonAcheter),
-            GenericItem("Tomate Special", 5, R.drawable.img_1, "legumes", R.id.genericBtn, R.id.buttonAcheter),
-            GenericItem("Pomme", 2, R.drawable.img, "fruits", R.id.genericBtn, R.id.buttonAcheter),
-            GenericItem("Tomate", 3, R.drawable.img_1, "legumes", R.id.genericBtn, R.id.buttonAcheter),
-            GenericItem("Tomate Special", 5, R.drawable.img_1, "legumes", R.id.genericBtn, R.id.buttonAcheter),
+            GenericItem("Pomme", 2, R.drawable.img, "fruits", R.id.btnAjout, R.id.btnAjout),
+            GenericItem("Tomate", 3, R.drawable.img_1, "legumes", R.id.btnAjout, R.id.btnAjout),
+            GenericItem("Tomate Special", 5, R.drawable.img_1, "legumes", R.id.btnAjout, R.id.btnAjout),
+            GenericItem("Pomme", 2, R.drawable.img, "fruits", R.id.btnAjout, R.id.btnAjout),
+            GenericItem("Tomate", 3, R.drawable.img_1, "legumes", R.id.btnAjout, R.id.btnAjout),
+            GenericItem("Tomate Special", 5, R.drawable.img_1, "legumes", R.id.btnAjout, R.id.btnAjout),
         )
         recyclerView.adapter = GenericItemAdaptor(applicationContext, this, genericList)
 
