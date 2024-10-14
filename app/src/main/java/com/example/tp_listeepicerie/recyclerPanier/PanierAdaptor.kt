@@ -29,8 +29,7 @@ class PanierAdaptor(val ctx: Context, val activity: MainActivity, var data: List
         holder.img.setImageResource(currentGenericItem.imageNourriture)
 
         holder.btnInformation.setOnClickListener {
-            val intent = Intent(activity, PageDetails::class.java)
-            activity.startActivity(intent)
+
         }
         holder.btnPanier.setOnClickListener {
             //DO SOMETHING (AJOUTER PANIER)

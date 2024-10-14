@@ -1,11 +1,15 @@
 package com.example.tp_listeepicerie.recyclerItem
 
 import android.content.Context
+import android.content.Intent
+import android.graphics.pdf.PdfDocument.Page
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tp_listeepicerie.GenericItem
 import com.example.tp_listeepicerie.MainActivity
+import com.example.tp_listeepicerie.PageDetails
 import com.example.tp_listeepicerie.R
 
 class ItemAdaptor(val ctx: Context, val activity: MainActivity, var data: List<GenericItem>) : RecyclerView.Adapter<ItemHolder>() {
@@ -26,6 +30,13 @@ class ItemAdaptor(val ctx: Context, val activity: MainActivity, var data: List<G
         holder.img.setImageResource(currentGenericItem.imageNourriture)
         holder.btnInformation.setOnClickListener {
             //DO SOMETHING (NEW PAGE)
+//            val intent = Intent(activity, PageDetails::class.java)
+//            activity.startActivity(intent)
+
+            val intent = Intent(activity, PageDetails::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+            activity.startActivity(intent)
+
         }
         holder.btnPanier.setOnClickListener {
             //DO SOMETHING (AJOUTER PANIER)
