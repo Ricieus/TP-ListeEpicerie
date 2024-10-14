@@ -29,7 +29,7 @@ class ItemAdaptor(val ctx: Context, val activity: MainActivity, var data: List<G
         }
         holder.btnPanier.setOnClickListener {
             //DO SOMETHING (AJOUTER PANIER)
-            activity.addToCart(currentGenericItem)
+            activity.ajoutPanier(currentGenericItem)
         }
     }
 }

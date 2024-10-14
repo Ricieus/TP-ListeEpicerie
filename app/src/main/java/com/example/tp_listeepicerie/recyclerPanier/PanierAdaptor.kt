@@ -23,11 +23,11 @@ class PanierAdaptor(val ctx: Context, val activity: MainActivity, var data: List
         val currentGenericItem = data[position]
 
         holder.textName.text = currentGenericItem.nom
-        holder.textPrice.text = currentGenericItem.prix.toString() + "$"
+        holder.textPrice.text = currentGenericItem.quantite.toString() + "$"
         holder.img.setImageResource(currentGenericItem.imageNourriture)
-        holder.btnInformation.setOnClickListener {
-            //DO SOMETHING (NEW PAGE)
-        }
+//        holder.btnInformation.setOnClickListener {
+//            //DO SOMETHING (NEW PAGE)
+//        }
         holder.btnPanier.setOnClickListener {
             //DO SOMETHING (AJOUTER PANIER)
         }

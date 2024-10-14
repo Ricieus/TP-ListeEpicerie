@@ -12,15 +12,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.tp_listeepicerie.recyclerItem.ItemAdaptor
 import com.example.tp_listeepicerie.recyclerPanier.PanierAdaptor
 
-
 class MainActivity : AppCompatActivity() {
 
     private var genericList: MutableList<GenericItem> = mutableListOf()
     private var cartItems: MutableList<GenericItem> = mutableListOf()
-    private val recyclerViewCart: RecyclerView
-        get() {
-            TODO()
-        }
+    private lateinit var recyclerViewCart: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,23 +32,23 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         val recyclerView: RecyclerView = findViewById(R.id.recyclerItem)
-        val recyclerViewCart: RecyclerView = findViewById(R.id.recycleCart)
+        recyclerViewCart = findViewById(R.id.recycleCart)
 
-        val gridLayoutManager = GridLayoutManager(this, 2)
-        recyclerView.layoutManager = gridLayoutManager
+        val gridLayoutManagerItem = GridLayoutManager(this, 2)
+        recyclerView.layoutManager = gridLayoutManagerItem
+        val gridLayoutManagerPanier = GridLayoutManager(this, 2)
+        recyclerViewCart.layoutManager = gridLayoutManagerPanier
 
         val genericList = listOf(
-            GenericItem("Pomme", 2.50, R.drawable.img, "fruits", R.id.btnAjout, R.id.btnAjout),
-            GenericItem("Tomate", 3.25, R.drawable.img_1, "legumes", R.id.btnAjout, R.id.btnAjout),
-            GenericItem("Tomate Special", 5.00, R.drawable.img_1, "legumes", R.id.btnAjout, R.id.btnAjout),
-            GenericItem("Pomme", 2.50, R.drawable.img, "fruits", R.id.btnAjout, R.id.btnAjout),
-            GenericItem("Tomate", 3.25, R.drawable.img_1, "legumes", R.id.btnAjout, R.id.btnAjout),
-            GenericItem("Tomate Special", 5.00, R.drawable.img_1, "legumes", R.id.btnAjout, R.id.btnAjout),
+            GenericItem("Pomme", 2.50, 0, R.drawable.img, "fruits", "", R.id.btnAjout, R.id.btnAjout),
+            GenericItem("Tomate", 3.25, 0,R.drawable.img_1, "legumes", "",R.id.btnAjout, R.id.btnAjout),
+            GenericItem("Tomate Special", 5.00, 0,R.drawable.img_1, "legumes", "",R.id.btnAjout, R.id.btnAjout),
+            GenericItem("Pomme", 2.50, 0,R.drawable.img, "fruits", "",R.id.btnAjout, R.id.btnAjout),
+            GenericItem("Tomate", 3.25, 0,R.drawable.img_1, "legumes", "",R.id.btnAjout, R.id.btnAjout),
+            GenericItem("Tomate Special", 5.00, 0,R.drawable.img_1, "legumes", "",R.id.btnAjout, R.id.btnAjout),
         )
         recyclerView.adapter = ItemAdaptor(applicationContext, this, genericList)
         recyclerViewCart.adapter = PanierAdaptor(applicationContext, this, cartItems)
-
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -60,11 +56,32 @@ class MainActivity : AppCompatActivity() {
         return super.onCreateOptionsMenu(menu)
     }
 
-    fun addToCart(item: GenericItem) {
-        cartItems.add(item)
-        recyclerViewCart.adapter?.notifyItemInserted(cartItems.size - 1)
+    fun ajoutPanier(item: GenericItem) {
+        var checkExist = false
+        var index = 1
+        for ((i, x) in cartItems.withIndex()) {
+            if (item == x) {
+                item.quantite++
+                checkExist = true
+                index = i
+            }
+        }
+        if (!checkExist) {
+            cartItems.add(item)
+            recyclerViewCart.adapter?.notifyItemInserted(cartItems.size - 1)
+        } else {
+            recyclerViewCart.adapter?.notifyItemChanged(index)
+        }
     }
-
 }
 
-data class GenericItem(var nom: String, var prix: Double, var imageNourriture: Int, var categorie: String, var boutonPanier: Int, var boutonInformation: Int)
+data class GenericItem(
+    var nom: String,
+    var prix: Double,
+    var quantite: Int,
+    var imageNourriture: Int,
+    var categorie: String,
+    var description: String,
+    var boutonPanier: Int,
+    var boutonInformation: Int
+)
