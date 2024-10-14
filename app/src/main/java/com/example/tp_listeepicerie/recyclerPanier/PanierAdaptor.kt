@@ -1,11 +1,13 @@
 package com.example.tp_listeepicerie.recyclerPanier
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tp_listeepicerie.GenericItem
 import com.example.tp_listeepicerie.MainActivity
+import com.example.tp_listeepicerie.PageDetails
 import com.example.tp_listeepicerie.R
 import com.example.tp_listeepicerie.recyclerItem.ItemHolder
 

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <item
+        android:id="@+id/retourner"
+        android:icon="@drawable/baseline_arrow_back_24"
+        android:title="retourner"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/shoppingCart"
+        android:icon="@drawable/baseline_shopping_cart_24"
+        android:title="shoppingCart"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/favorite"
+        android:icon="@drawable/baseline_star_24"
+        android:title="favorite"
+        app:showAsAction="ifRoom" />
+</menu>
