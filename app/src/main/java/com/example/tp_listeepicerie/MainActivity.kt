@@ -50,8 +50,7 @@ class MainActivity : AppCompatActivity() {
             GenericItem("Tomate Special", 5, R.drawable.img_1, "legumes", R.id.btnAjout, R.id.btnAjout),
         )
         recyclerView.adapter = GenericItemAdaptor(applicationContext, this, genericList)
-
-
+        
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
