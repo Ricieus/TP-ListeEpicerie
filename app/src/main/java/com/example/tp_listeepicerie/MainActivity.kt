@@ -40,12 +40,12 @@ class MainActivity : AppCompatActivity() {
         recyclerViewCart.layoutManager = gridLayoutManagerPanier
 
         val genericList = listOf(
-            GenericItem("Pomme", 2.50, 0, R.drawable.img, "fruits", "", R.id.btnAjout, R.id.btnAjout),
-            GenericItem("Tomate", 3.25, 0,R.drawable.img_1, "legumes", "",R.id.btnAjout, R.id.btnAjout),
-            GenericItem("Tomate Special", 5.00, 0,R.drawable.img_1, "legumes", "",R.id.btnAjout, R.id.btnAjout),
-            GenericItem("Pomme", 2.50, 0,R.drawable.img, "fruits", "",R.id.btnAjout, R.id.btnAjout),
-            GenericItem("Tomate", 3.25, 0,R.drawable.img_1, "legumes", "",R.id.btnAjout, R.id.btnAjout),
-            GenericItem("Tomate Special", 5.00, 0,R.drawable.img_1, "legumes", "",R.id.btnAjout, R.id.btnAjout),
+            GenericItem("Pomme", 2.50, 1, R.drawable.img, "fruits", "", R.id.btnAjout, R.id.btnAjout),
+            GenericItem("Tomate", 3.25, 1,R.drawable.img_1, "legumes", "",R.id.btnAjout, R.id.btnAjout),
+            GenericItem("Tomate Special", 5.00, 1,R.drawable.img_1, "legumes", "",R.id.btnAjout, R.id.btnAjout),
+            GenericItem("Pomme", 2.50, 1,R.drawable.img, "fruits", "",R.id.btnAjout, R.id.btnAjout),
+            GenericItem("Tomate", 3.25, 1,R.drawable.img_1, "legumes", "",R.id.btnAjout, R.id.btnAjout),
+            GenericItem("Tomate Special", 5.00, 1,R.drawable.img_1, "legumes", "",R.id.btnAjout, R.id.btnAjout),
         )
         recyclerView.adapter = ItemAdaptor(applicationContext, this, genericList)
         recyclerViewCart.adapter = PanierAdaptor(applicationContext, this, cartItems)
