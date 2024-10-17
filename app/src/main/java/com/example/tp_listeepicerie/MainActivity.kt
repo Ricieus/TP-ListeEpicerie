@@ -40,12 +40,29 @@ class MainActivity : AppCompatActivity() {
         recyclerViewCart.layoutManager = gridLayoutManagerPanier
 
         val genericList = listOf(
-            GenericItem("Pomme", 2.50, 1, R.drawable.img, "fruits", "", R.id.btnAjout, R.id.btnAjout),
-            GenericItem("Tomate", 3.25, 1,R.drawable.img_1, "legumes", "",R.id.btnAjout, R.id.btnAjout),
-            GenericItem("Tomate Special", 5.00, 1,R.drawable.img_1, "legumes", "",R.id.btnAjout, R.id.btnAjout),
-            GenericItem("Pomme", 2.50, 1,R.drawable.img, "fruits", "",R.id.btnAjout, R.id.btnAjout),
-            GenericItem("Tomate", 3.25, 1,R.drawable.img_1, "legumes", "",R.id.btnAjout, R.id.btnAjout),
-            GenericItem("Tomate Special", 5.00, 1,R.drawable.img_1, "legumes", "",R.id.btnAjout, R.id.btnAjout),
+            GenericItem("Pomme", 2.50, 1, R.drawable.img, "fruits", "Lorem ipsum dolor sit amet, consectetur adipiscing elit," +
+                    " sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut" +
+                    " aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur" +
+                    " sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", R.id.btnAjout, R.id.btnAjout),
+            GenericItem("Tomate", 3.25, 1,R.drawable.img_1, "legumes", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, " +
+                    "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex" +
+                    " ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat" +
+                    " non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",R.id.btnAjout, R.id.btnAjout),
+            GenericItem("Tomate Special", 5.00, 1,R.drawable.img_1, "legumes", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed" +
+                    " do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo" +
+                    " consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident," +
+                    " sunt in culpa qui officia deserunt mollit anim id est laborum.",R.id.btnAjout, R.id.btnAjout),
+            GenericItem("Pomme", 2.50, 1,R.drawable.img, "fruits", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor" +
+                    " incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure" +
+                    " dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt" +
+                    " mollit anim id est laborum.",R.id.btnAjout, R.id.btnAjout),
+            GenericItem("Tomate", 3.25, 1,R.drawable.img_1, "legumes", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor" +
+                    " incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor" +
+                    " in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim" +
+                    " id est laborum.",R.id.btnAjout, R.id.btnAjout),
+            GenericItem("Tomate Special", 5.00, 1,R.drawable.img_1, "legumes", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor " +
+                    "incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in " +
+                    "reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",R.id.btnAjout, R.id.btnAjout),
         )
         recyclerView.adapter = ItemAdaptor(applicationContext, this, genericList)
         recyclerViewCart.adapter = PanierAdaptor(applicationContext, this, cartItems)

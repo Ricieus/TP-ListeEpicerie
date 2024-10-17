@@ -33,8 +33,16 @@ class ItemAdaptor(val ctx: Context, val activity: MainActivity, var data: List<G
 //            val intent = Intent(activity, PageDetails::class.java)
 //            activity.startActivity(intent)
 
+              //Working code to open page details:
+//            val intent = Intent(activity, PageDetails::class.java)
+//            intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+//            activity.startActivity(intent)
+
+            //Test code pour transfer info dans page details
             val intent = Intent(activity, PageDetails::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+            intent.putExtra("nomProduit", currentGenericItem.nom)
+            intent.putExtra("imageProduit", currentGenericItem.imageNourriture)
+            intent.putExtra("productDescription", currentGenericItem.description)
             activity.startActivity(intent)
 
         }
