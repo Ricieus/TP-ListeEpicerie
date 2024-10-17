@@ -9,8 +9,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerItem"
-        android:layout_width="404dp"
-        android:layout_height="325dp"
+        android:layout_width="373dp"
+        android:layout_height="281dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -30,8 +30,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycleCart"
-        android:layout_width="399dp"
-        android:layout_height="326dp"
+        android:layout_width="373dp"
+        android:layout_height="281dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.99"
