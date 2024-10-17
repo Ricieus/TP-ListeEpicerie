@@ -13,7 +13,7 @@ import com.example.tp_listeepicerie.recyclerItem.ItemHolder
 
 class PanierAdaptor(val ctx: Context, val activity: MainActivity, var data: List<GenericItem>) : RecyclerView.Adapter<ItemHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
-        val view = LayoutInflater.from(ctx).inflate(R.layout.liste_epicerie_item, parent, false)
+        val view = LayoutInflater.from(ctx).inflate(R.layout.panier_epicerie_item, parent, false)
         return ItemHolder(view)
     }
 

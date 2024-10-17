@@ -22,6 +22,6 @@ class PanierHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         textPrice = itemView.findViewById(R.id.genericQuantity)
         img = itemView.findViewById(R.id.genericImg)
         btnInformation = itemView.findViewById(R.id.btnInfo)
-        btnPanier = itemView.findViewById(R.id.btnAjout)
+        btnPanier = itemView.findViewById(R.id.btnRetirer)
     }
 }
