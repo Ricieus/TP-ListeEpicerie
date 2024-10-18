@@ -17,6 +17,7 @@ class MainActivity : AppCompatActivity() {
     private var genericList: MutableList<GenericItem> = mutableListOf()
     private var cartItems: MutableList<GenericItem> = mutableListOf()
     private lateinit var recyclerViewCart: RecyclerView
+    private lateinit var recyclerView: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +32,7 @@ class MainActivity : AppCompatActivity() {
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
-        val recyclerView: RecyclerView = findViewById(R.id.recyclerItem)
+        recyclerView = findViewById(R.id.recyclerItem)
         recyclerViewCart = findViewById(R.id.recycleCart)
 
         val gridLayoutManagerItem = GridLayoutManager(this, 2)
@@ -74,22 +75,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun ajoutPanier(item: GenericItem) {
-        var checkExist = false
-        var index = 1
-        for ((i, x) in cartItems.withIndex()) {
-            if (item == x) {
-                item.quantite++
-                checkExist = true
-                index = i
-            }
-        }
-        if (!checkExist) {
-            cartItems.add(item)
-            recyclerViewCart.adapter?.notifyItemInserted(cartItems.size - 1)
-        } else {
-            recyclerViewCart.adapter?.notifyItemChanged(index)
-        }
+        cartItems.add(item)
+        recyclerViewCart.adapter?.notifyItemInserted(cartItems.size - 1)
+
     }
+
+//    fun deleteProduct(item: GenericItem){
+//        val index = genericList.indexOf(item)
+//
+//            genericList.removeAt(index)
+//            recyclerView.adapter?.notifyItemRemoved(index)
+//    }
 }
 
 data class GenericItem(
