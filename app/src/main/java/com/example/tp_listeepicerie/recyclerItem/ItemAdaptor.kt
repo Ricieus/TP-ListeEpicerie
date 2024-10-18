@@ -49,6 +49,7 @@ class ItemAdaptor(val ctx: Context, val activity: MainActivity, var data: List<G
         holder.btnPanier.setOnClickListener {
             //DO SOMETHING (AJOUTER PANIER)
             activity.ajoutPanier(currentGenericItem)
+            activity.deleteProduct(currentGenericItem)
         }
     }
 }
