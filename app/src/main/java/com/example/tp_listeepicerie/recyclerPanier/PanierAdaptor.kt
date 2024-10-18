@@ -11,17 +11,17 @@ import com.example.tp_listeepicerie.PageDetails
 import com.example.tp_listeepicerie.R
 import com.example.tp_listeepicerie.recyclerItem.ItemHolder
 
-class PanierAdaptor(val ctx: Context, val activity: MainActivity, var data: List<GenericItem>) : RecyclerView.Adapter<ItemHolder>() {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
+class PanierAdaptor(val ctx: Context, val activity: MainActivity, var data: List<GenericItem>) : RecyclerView.Adapter<PanierHolder>() {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PanierHolder {
         val view = LayoutInflater.from(ctx).inflate(R.layout.panier_epicerie_item, parent, false)
-        return ItemHolder(view)
+        return PanierHolder(view)
     }
 
     override fun getItemCount(): Int {
         return data.size
     }
 
-    override fun onBindViewHolder(holder: ItemHolder, position: Int) {
+    override fun onBindViewHolder(holder: PanierHolder, position: Int) {
         val currentGenericItem = data[position]
 
         holder.textName.text = currentGenericItem.nom

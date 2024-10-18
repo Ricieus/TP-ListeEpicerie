@@ -9,8 +9,8 @@
         android:id="@+id/genericName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
         android:text="name"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,9 +22,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:text="1"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/genericName" />
+        app:layout_constraintTop_toBottomOf="@+id/genericName"
+        app:layout_constraintVertical_bias="0.044" />
 
     <ImageView
         android:id="@+id/genericImg"
@@ -36,7 +38,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.592"
-        tools:srcCompat="@tools:sample/avatars" />
+        tools:srcCompat="@tools:sample/avatars"
+        android:contentDescription="Image"/>
 
     <ImageButton
         android:id="@+id/btnInfo"
