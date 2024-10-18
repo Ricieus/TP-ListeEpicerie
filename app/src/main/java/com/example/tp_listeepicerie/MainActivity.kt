@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
         val gridLayoutManagerPanier = GridLayoutManager(this, 2)
         recyclerViewCart.layoutManager = gridLayoutManagerPanier
 
-        val genericList = listOf(
+        genericList = mutableListOf(
             GenericItem("Pomme", 2.50, 1, R.drawable.img, "fruits", "Lorem ipsum dolor sit amet, consectetur adipiscing elit," +
                     " sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut" +
                     " aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur" +
@@ -80,12 +80,14 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-//    fun deleteProduct(item: GenericItem){
-//        val index = genericList.indexOf(item)
-//
-//            genericList.removeAt(index)
-//            recyclerView.adapter?.notifyItemRemoved(index)
-//    }
+    fun deleteProduct(item: GenericItem){
+        val position = genericList.indexOf(item)
+        if (position != -1) {
+            genericList.removeAt(position)
+            recyclerView.adapter?.notifyItemRemoved(position)
+        }
+
+    }
 }
 
 data class GenericItem(
