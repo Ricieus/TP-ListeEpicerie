@@ -1,21 +1,25 @@
 package com.example.tp_listeepicerie
 
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tp_listeepicerie.recyclerItem.ItemAdaptor
 import com.example.tp_listeepicerie.recyclerPanier.PanierAdaptor
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
-    private var genericList: MutableList<GenericItem> = mutableListOf()
-    private var cartItems: MutableList<GenericItem> = mutableListOf()
+    private var genericList: MutableList<Table_Epicerie> = mutableListOf()
+    private var cartItems: MutableList<Table_Epicerie> = mutableListOf()
     private lateinit var recyclerViewCart: RecyclerView
     private lateinit var recyclerView: RecyclerView
 
@@ -41,30 +45,40 @@ class MainActivity : AppCompatActivity() {
         recyclerViewCart.layoutManager = gridLayoutManagerPanier
 
         genericList = mutableListOf(
-            GenericItem("Pomme", 2.50, 1, R.drawable.img, "fruits", "Lorem ipsum dolor sit amet, consectetur adipiscing elit," +
+            Table_Epicerie(0,"Pomme", 2.50, 1, R.drawable.img, "fruits", "Lorem ipsum dolor sit amet, consectetur adipiscing elit," +
                     " sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut" +
                     " aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur" +
                     " sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", R.id.btnAjout, R.id.btnAjout),
-            GenericItem("Tomate", 3.25, 1,R.drawable.img_1, "legumes", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, " +
+            Table_Epicerie(0,"Tomate", 3.25, 1,R.drawable.img_1, "legumes", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, " +
                     "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex" +
                     " ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat" +
                     " non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",R.id.btnAjout, R.id.btnAjout),
-            GenericItem("Tomate Special", 5.00, 1,R.drawable.img_1, "legumes", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed" +
+            Table_Epicerie(0,"Tomate Special", 5.00, 1,R.drawable.img_1, "legumes", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed" +
                     " do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo" +
                     " consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident," +
                     " sunt in culpa qui officia deserunt mollit anim id est laborum.",R.id.btnAjout, R.id.btnAjout),
-            GenericItem("Pomme", 2.50, 1,R.drawable.img, "fruits", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor" +
+            Table_Epicerie(0,"Pomme", 2.50, 1,R.drawable.img, "fruits", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor" +
                     " incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure" +
                     " dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt" +
                     " mollit anim id est laborum.",R.id.btnAjout, R.id.btnAjout),
-            GenericItem("Tomate", 3.25, 1,R.drawable.img_1, "legumes", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor" +
+            Table_Epicerie(0,"Tomate", 3.25, 1,R.drawable.img_1, "legumes", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor" +
                     " incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor" +
                     " in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim" +
                     " id est laborum.",R.id.btnAjout, R.id.btnAjout),
-            GenericItem("Tomate Special", 5.00, 1,R.drawable.img_1, "legumes", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor " +
+            Table_Epicerie(0,"Tomate Special", 5.00, 1,R.drawable.img_1, "legumes", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor " +
                     "incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in " +
                     "reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",R.id.btnAjout, R.id.btnAjout),
         )
+
+        val database = Database_Epicerie.getDatabase(applicationContext)
+        lifecycleScope.launch(Dispatchers.IO) {
+            for (epicerie in genericList) {
+                val existingItems = database.epicerieDao().loadAllByIds(intArrayOf(1))
+                if (existingItems.isEmpty()) {
+                    database.epicerieDao().insertEpicerie(epicerie)
+                }
+            }
+        }
         recyclerView.adapter = ItemAdaptor(applicationContext, this, genericList)
         recyclerViewCart.adapter = PanierAdaptor(applicationContext, this, cartItems)
     }
@@ -74,13 +88,13 @@ class MainActivity : AppCompatActivity() {
         return super.onCreateOptionsMenu(menu)
     }
 
-    fun ajoutPanier(item: GenericItem) {
+    fun ajoutPanier(item: Table_Epicerie) {
         cartItems.add(item)
         recyclerViewCart.adapter?.notifyItemInserted(cartItems.size - 1)
 
     }
 
-    fun deleteProduct(item: GenericItem){
+    fun deleteProduct(item: Table_Epicerie){
         val position = genericList.indexOf(item)
         if (position != -1) {
             genericList.removeAt(position)

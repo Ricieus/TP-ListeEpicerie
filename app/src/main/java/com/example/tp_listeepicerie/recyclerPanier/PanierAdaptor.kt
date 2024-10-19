@@ -9,9 +9,10 @@ import com.example.tp_listeepicerie.GenericItem
 import com.example.tp_listeepicerie.MainActivity
 import com.example.tp_listeepicerie.PageDetails
 import com.example.tp_listeepicerie.R
+import com.example.tp_listeepicerie.Table_Epicerie
 import com.example.tp_listeepicerie.recyclerItem.ItemHolder
 
-class PanierAdaptor(val ctx: Context, val activity: MainActivity, var data: List<GenericItem>) : RecyclerView.Adapter<PanierHolder>() {
+class PanierAdaptor(val ctx: Context, val activity: MainActivity, var data: List<Table_Epicerie>) : RecyclerView.Adapter<PanierHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PanierHolder {
         val view = LayoutInflater.from(ctx).inflate(R.layout.panier_epicerie_item, parent, false)
         return PanierHolder(view)
