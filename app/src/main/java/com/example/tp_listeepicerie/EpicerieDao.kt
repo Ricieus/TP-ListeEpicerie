@@ -9,10 +9,10 @@ import androidx.room.Query
 @Dao
 interface EpicerieDao {
     @Query("SELECT * FROM Table_Epicerie")
-    suspend fun getAll(): List<Table_Epicerie>
+    suspend fun getAll(): MutableList<Table_Epicerie>
 
     @Query("SELECT * FROM Table_Epicerie WHERE uid IN (:userIds)")
-    suspend fun loadAllByIds(userIds: IntArray): List<Table_Epicerie>
+    suspend fun loadAllByIds(userIds: IntArray): MutableList<Table_Epicerie>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertEpicerie(epicerie: Table_Epicerie)

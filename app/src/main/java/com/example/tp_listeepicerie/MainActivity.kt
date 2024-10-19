@@ -15,6 +15,7 @@ import com.example.tp_listeepicerie.recyclerItem.ItemAdaptor
 import com.example.tp_listeepicerie.recyclerPanier.PanierAdaptor
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class MainActivity : AppCompatActivity() {
 
@@ -22,6 +23,7 @@ class MainActivity : AppCompatActivity() {
     private var cartItems: MutableList<Table_Epicerie> = mutableListOf()
     private lateinit var recyclerViewCart: RecyclerView
     private lateinit var recyclerView: RecyclerView
+    private var listEpicerie: MutableList<Table_Epicerie> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,31 +58,27 @@ class MainActivity : AppCompatActivity() {
             Table_Epicerie(0,"Tomate Special", 5.00, 1,R.drawable.img_1, "legumes", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed" +
                     " do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo" +
                     " consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident," +
-                    " sunt in culpa qui officia deserunt mollit anim id est laborum.",R.id.btnAjout, R.id.btnAjout),
-            Table_Epicerie(0,"Pomme", 2.50, 1,R.drawable.img, "fruits", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor" +
-                    " incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure" +
-                    " dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt" +
-                    " mollit anim id est laborum.",R.id.btnAjout, R.id.btnAjout),
-            Table_Epicerie(0,"Tomate", 3.25, 1,R.drawable.img_1, "legumes", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor" +
-                    " incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor" +
-                    " in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim" +
-                    " id est laborum.",R.id.btnAjout, R.id.btnAjout),
-            Table_Epicerie(0,"Tomate Special", 5.00, 1,R.drawable.img_1, "legumes", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor " +
-                    "incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in " +
-                    "reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",R.id.btnAjout, R.id.btnAjout),
+                    " sunt in culpa qui officia deserunt mollit anim id est laborum.",R.id.btnAjout, R.id.btnAjout)
+
         )
 
         val database = Database_Epicerie.getDatabase(applicationContext)
         lifecycleScope.launch(Dispatchers.IO) {
             for (epicerie in genericList) {
-                val existingItems = database.epicerieDao().loadAllByIds(intArrayOf(1))
+                val existingItems = database.epicerieDao().loadAllByIds(intArrayOf(2))
                 if (existingItems.isEmpty()) {
                     database.epicerieDao().insertEpicerie(epicerie)
                 }
             }
+            listEpicerie = database.epicerieDao().getAll()
+
+            launch(Dispatchers.Main) {
+                recyclerView.adapter =
+                    ItemAdaptor(applicationContext, this@MainActivity, listEpicerie)
+                recyclerViewCart.adapter =
+                    PanierAdaptor(applicationContext, this@MainActivity, cartItems)
+            }
         }
-        recyclerView.adapter = ItemAdaptor(applicationContext, this, genericList)
-        recyclerViewCart.adapter = PanierAdaptor(applicationContext, this, cartItems)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
