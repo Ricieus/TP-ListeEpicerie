@@ -65,18 +65,18 @@ class MainActivity : AppCompatActivity() {
         val database = Database_Epicerie.getDatabase(applicationContext)
         lifecycleScope.launch(Dispatchers.IO) {
             for (epicerie in genericList) {
-                val existingItems = database.epicerieDao().loadAllByIds(intArrayOf(2))
-                if (existingItems.isEmpty()) {
+                val existingItem = database.epicerieDao().findByName(epicerie.nom)
+
+                if (existingItem == null) {
                     database.epicerieDao().insertEpicerie(epicerie)
                 }
             }
+
             listEpicerie = database.epicerieDao().getAll()
 
             launch(Dispatchers.Main) {
-                recyclerView.adapter =
-                    ItemAdaptor(applicationContext, this@MainActivity, listEpicerie)
-                recyclerViewCart.adapter =
-                    PanierAdaptor(applicationContext, this@MainActivity, cartItems)
+                recyclerView.adapter = ItemAdaptor(applicationContext, this@MainActivity, listEpicerie)
+                recyclerViewCart.adapter = PanierAdaptor(applicationContext, this@MainActivity, cartItems)
             }
         }
     }

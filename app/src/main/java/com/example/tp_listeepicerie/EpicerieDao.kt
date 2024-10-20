@@ -11,6 +11,9 @@ interface EpicerieDao {
     @Query("SELECT * FROM Table_Epicerie")
     suspend fun getAll(): MutableList<Table_Epicerie>
 
+    @Query("SELECT * FROM Table_Epicerie WHERE nom = :nom LIMIT 1")
+    suspend fun findByName(nom: String): Table_Epicerie?
+
     @Query("SELECT * FROM Table_Epicerie WHERE uid IN (:userIds)")
     suspend fun loadAllByIds(userIds: IntArray): MutableList<Table_Epicerie>
 
