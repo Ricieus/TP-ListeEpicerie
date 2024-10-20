@@ -100,6 +100,28 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun ajoutPanier(item: Table_Epicerie) {
+        val database = Database_Epicerie.getDatabase(applicationContext)
+        lifecycleScope.launch(Dispatchers.IO) {
+            for (epicerie in genericList) {
+                val existingItem = database.epicerieDao().findByName(epicerie.nom)
+
+                if (existingItem == epicerie) {
+                    database.epicerieDao().deleteEpicerie(epicerie)
+                    val itemPanier = Table_Panier(
+                        uid = epicerie.uid,
+                        nom = epicerie.nom,
+                        prix = epicerie.prix,
+                        quantite = epicerie.quantite,
+                        imageNourriture = epicerie.imageNourriture,
+                        categorie = epicerie.categorie,
+                        description = epicerie.description,
+                        boutonPanier = epicerie.boutonPanier,
+                        boutonInformation = epicerie.boutonInformation
+                    )
+                    database.epicerieDao().insertPanier(itemPanier)
+                }
+            }
+        }
         cartItems.add(item)
         recyclerViewCart.adapter?.notifyItemInserted(cartItems.size - 1)
 

@@ -5,7 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [Table_Epicerie::class], version = 1, exportSchema = false)
+@Database(entities = [Table_Epicerie::class, Table_Panier::class], version = 1, exportSchema = false)
 abstract class Database_Epicerie: RoomDatabase() {
     abstract fun epicerieDao(): EpicerieDao
 

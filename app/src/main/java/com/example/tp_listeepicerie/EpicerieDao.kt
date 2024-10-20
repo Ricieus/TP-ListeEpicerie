@@ -23,6 +23,9 @@ interface EpicerieDao {
     @Delete
     suspend fun deleteEpicerie(epicerie: Table_Epicerie)
 
+    @Insert
+    suspend fun insertPanier(epicerie: Table_Panier)
+
     @Query("DELETE FROM Table_Epicerie")
     suspend fun clearTable()
 }
