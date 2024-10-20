@@ -5,6 +5,11 @@
 
 
     <item
+        android:id="@+id/itemAjout"
+        android:icon="@drawable/ic_item_add_foreground"
+        android:title="favorite"
+        app:showAsAction="ifRoom" />
+    <item
         android:id="@+id/shoppingCart"
         android:icon="@drawable/baseline_shopping_cart_24"
         android:title="shoppingCart"
