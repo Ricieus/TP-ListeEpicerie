@@ -102,11 +102,12 @@ class MainActivity : AppCompatActivity() {
     fun ajoutPanier(item: Table_Epicerie) {
         val database = Database_Epicerie.getDatabase(applicationContext)
         lifecycleScope.launch(Dispatchers.IO) {
-            for (epicerie in genericList) {
-                val existingItem = database.epicerieDao().findByName(epicerie.nom)
+            for (epicerie in database.epicerieDao().getAll()) {
+                val existingItem = database.epicerieDao().findByName(item.nom)
 
-                if (existingItem == epicerie) {
-                    database.epicerieDao().deleteEpicerie(epicerie)
+                if (existingItem?.nom == epicerie.nom) {
+                    database.epicerieDao().deleteEpicerie(existingItem)
+
                     val itemPanier = Table_Panier(
                         uid = epicerie.uid,
                         nom = epicerie.nom,
@@ -121,6 +122,7 @@ class MainActivity : AppCompatActivity() {
                     database.epicerieDao().insertPanier(itemPanier)
                 }
             }
+
         }
         cartItems.add(item)
         recyclerViewCart.adapter?.notifyItemInserted(cartItems.size - 1)
