@@ -28,4 +28,7 @@ interface EpicerieDao {
 
     @Query("DELETE FROM Table_Epicerie")
     suspend fun clearTable()
+
+    @Query ("SELECT * FROM Table_Panier")
+    suspend fun getAllPanier(): MutableList<Table_Panier>
 }

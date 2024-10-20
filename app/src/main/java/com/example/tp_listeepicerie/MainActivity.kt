@@ -1,7 +1,6 @@
 package com.example.tp_listeepicerie
 
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -22,7 +21,7 @@ import kotlinx.coroutines.withContext
 class MainActivity : AppCompatActivity() {
 
     private var genericList: MutableList<Table_Epicerie> = mutableListOf()
-    private var cartItems: MutableList<Table_Epicerie> = mutableListOf()
+    private var cartItems: MutableList<Table_Panier> = mutableListOf()
     private lateinit var recyclerViewCart: RecyclerView
     private lateinit var recyclerView: RecyclerView
     private var listEpicerie: MutableList<Table_Epicerie> = mutableListOf()
@@ -75,13 +74,17 @@ class MainActivity : AppCompatActivity() {
                 }
             }
 
-            listEpicerie = database.epicerieDao().getAll()
 
+
+            listEpicerie = database.epicerieDao().getAll()
+            cartItems = database.epicerieDao().getAllPanier()
             launch(Dispatchers.Main) {
                 recyclerView.adapter = ItemAdaptor(applicationContext, this@MainActivity, listEpicerie)
                 recyclerViewCart.adapter = PanierAdaptor(applicationContext, this@MainActivity, cartItems)
             }
         }
+//        val dbName = "epicerie_database"  // Your database name
+//        applicationContext.deleteDatabase(dbName)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -120,23 +123,27 @@ class MainActivity : AppCompatActivity() {
                         boutonInformation = epicerie.boutonInformation
                     )
                     database.epicerieDao().insertPanier(itemPanier)
+                    withContext(Dispatchers.Main){
+                        cartItems.add(itemPanier)
+                        recyclerViewCart.adapter?.notifyItemInserted(cartItems.size - 1)
+                        deleteProduct(item)
+                    }
                 }
             }
 
         }
-        cartItems.add(item)
-        recyclerViewCart.adapter?.notifyItemInserted(cartItems.size - 1)
-
     }
 
     fun deleteProduct(item: Table_Epicerie){
-        val position = genericList.indexOf(item)
+        val position = listEpicerie.indexOf(item)
         if (position != -1) {
-            genericList.removeAt(position)
+            listEpicerie.removeAt(position)
             recyclerView.adapter?.notifyItemRemoved(position)
         }
 
     }
+
+
 }
 
 data class GenericItem(
