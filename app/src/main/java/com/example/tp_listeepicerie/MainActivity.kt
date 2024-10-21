@@ -68,7 +68,7 @@ class MainActivity : AppCompatActivity() {
 
         val database = Database_Epicerie.getDatabase(applicationContext)
         // https://stackoverflow.com/questions/3386667/query-if-android-database-exists
-        if ((applicationContext.getDatabasePath("epicerie_database")).exists()) {
+        if (!(applicationContext.getDatabasePath("epicerie_database")).exists()) {
             lifecycleScope.launch(Dispatchers.IO) {
                 for (epicerie in genericList) {
                     val existingItem = database.epicerieDao().findByName(epicerie.nom)
