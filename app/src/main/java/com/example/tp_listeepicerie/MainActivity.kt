@@ -65,26 +65,30 @@ class MainActivity : AppCompatActivity() {
         )
 
         val database = Database_Epicerie.getDatabase(applicationContext)
-        lifecycleScope.launch(Dispatchers.IO) {
-            for (epicerie in genericList) {
-                val existingItem = database.epicerieDao().findByName(epicerie.nom)
+        // https://stackoverflow.com/questions/3386667/query-if-android-database-exists
+        if ((applicationContext.getDatabasePath("epicerie_database")).exists()) {
+            lifecycleScope.launch(Dispatchers.IO) {
+                for (epicerie in genericList) {
+                    val existingItem = database.epicerieDao().findByName(epicerie.nom)
 
-                if (existingItem == null) {
-                    database.epicerieDao().insertEpicerie(epicerie)
+                    if (existingItem == null) {
+                        database.epicerieDao().insertEpicerie(epicerie)
+                    }
+                }
+
+
+
+                listEpicerie = database.epicerieDao().getAll()
+                cartItems = database.epicerieDao().getAllPanier()
+                launch(Dispatchers.Main) {
+                    recyclerView.adapter = ItemAdaptor(applicationContext, this@MainActivity, listEpicerie)
+                    recyclerViewCart.adapter = PanierAdaptor(applicationContext, this@MainActivity, cartItems)
                 }
             }
-
-
-
-            listEpicerie = database.epicerieDao().getAll()
-            cartItems = database.epicerieDao().getAllPanier()
-            launch(Dispatchers.Main) {
-                recyclerView.adapter = ItemAdaptor(applicationContext, this@MainActivity, listEpicerie)
-                recyclerViewCart.adapter = PanierAdaptor(applicationContext, this@MainActivity, cartItems)
-            }
         }
-        val dbName = "epicerie_database"  // Your database name
-        applicationContext.deleteDatabase(dbName)
+
+//        val dbName = "epicerie_database"
+//        applicationContext.deleteDatabase(dbName)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
