@@ -66,8 +66,8 @@ class MainActivity : AppCompatActivity() {
 
         val database = Database_Epicerie.getDatabase(applicationContext)
         // https://stackoverflow.com/questions/3386667/query-if-android-database-exists
-        if ((applicationContext.getDatabasePath("epicerie_database")).exists()) {
-            lifecycleScope.launch(Dispatchers.IO) {
+        lifecycleScope.launch(Dispatchers.IO) {
+            if (!(applicationContext.getDatabasePath("epicerie_database")).exists()) {
                 for (epicerie in genericList) {
                     val existingItem = database.epicerieDao().findByName(epicerie.nom)
 
@@ -75,15 +75,15 @@ class MainActivity : AppCompatActivity() {
                         database.epicerieDao().insertEpicerie(epicerie)
                     }
                 }
+            }
 
 
 
-                listEpicerie = database.epicerieDao().getAll()
-                cartItems = database.epicerieDao().getAllPanier()
-                launch(Dispatchers.Main) {
-                    recyclerView.adapter = ItemAdaptor(applicationContext, this@MainActivity, listEpicerie)
-                    recyclerViewCart.adapter = PanierAdaptor(applicationContext, this@MainActivity, cartItems)
-                }
+            listEpicerie = database.epicerieDao().getAll()
+            cartItems = database.epicerieDao().getAllPanier()
+            launch(Dispatchers.Main) {
+                recyclerView.adapter = ItemAdaptor(applicationContext, this@MainActivity, listEpicerie)
+                recyclerViewCart.adapter = PanierAdaptor(applicationContext, this@MainActivity, cartItems)
             }
         }
 
