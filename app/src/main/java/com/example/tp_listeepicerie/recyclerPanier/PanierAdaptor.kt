@@ -29,6 +29,7 @@ class PanierAdaptor(val ctx: Context, val activity: MainActivity, var data: Muta
 //        }
         holder.btnPanier.setOnClickListener {
             //DO SOMETHING (AJOUTER PANIER)
+            activity.removeFromPanier(currentGenericItem)
         }
     }
 }

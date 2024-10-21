@@ -1,8 +1,6 @@
 package com.example.tp_listeepicerie
 
-import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -67,28 +65,26 @@ class MainActivity : AppCompatActivity() {
         )
 
         val database = Database_Epicerie.getDatabase(applicationContext)
-        // https://stackoverflow.com/questions/3386667/query-if-android-database-exists
-        if (!(applicationContext.getDatabasePath("epicerie_database")).exists()) {
-            lifecycleScope.launch(Dispatchers.IO) {
-                for (epicerie in genericList) {
-                    val existingItem = database.epicerieDao().findByName(epicerie.nom)
+        lifecycleScope.launch(Dispatchers.IO) {
+            for (epicerie in genericList) {
+                val existingItem = database.epicerieDao().findByName(epicerie.nom)
 
-                    if (existingItem == null) {
-                        database.epicerieDao().insertEpicerie(epicerie)
-                    }
-                }
-
-                listEpicerie = database.epicerieDao().getAll()
-                cartItems = database.epicerieDao().getAllPanier()
-                launch(Dispatchers.Main) {
-                    recyclerView.adapter = ItemAdaptor(applicationContext, this@MainActivity, listEpicerie)
-                    recyclerViewCart.adapter = PanierAdaptor(applicationContext, this@MainActivity, cartItems)
+                if (existingItem == null) {
+                    database.epicerieDao().insertEpicerie(epicerie)
                 }
             }
-        }
 
-//        val dbName = "epicerie_database"
-//        applicationContext.deleteDatabase(dbName)
+
+
+            listEpicerie = database.epicerieDao().getAll()
+            cartItems = database.epicerieDao().getAllPanier()
+            launch(Dispatchers.Main) {
+                recyclerView.adapter = ItemAdaptor(applicationContext, this@MainActivity, listEpicerie)
+                recyclerViewCart.adapter = PanierAdaptor(applicationContext, this@MainActivity, cartItems)
+            }
+        }
+        val dbName = "epicerie_database"  // Your database name
+        applicationContext.deleteDatabase(dbName)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -146,6 +142,40 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
+
+    fun removeFromPanier(item: Table_Panier) {
+        val database = Database_Epicerie.getDatabase(applicationContext)
+        lifecycleScope.launch(Dispatchers.IO) {
+            database.epicerieDao().deleteEpiceriePanier(item)
+
+            val itemProduct = Table_Epicerie(
+                uid = item.uid,
+                nom = item.nom,
+                prix = item.prix,
+                quantite = item.quantite,
+                imageNourriture = item.imageNourriture,
+                categorie = item.categorie,
+                description = item.description,
+                boutonPanier = item.boutonPanier,
+                boutonInformation = item.boutonInformation
+            )
+
+            database.epicerieDao().insertProductList(itemProduct)
+
+            withContext(Dispatchers.Main) {
+                listEpicerie.add(itemProduct)
+                recyclerView.adapter?.notifyItemInserted(genericList.size - 1)
+
+                val position = cartItems.indexOf(item)
+                if (position != -1) {
+                    cartItems.removeAt(position)
+                    recyclerViewCart.adapter?.notifyItemRemoved(position)
+                }
+            }
+        }
+    }
+
+
 
 
 }

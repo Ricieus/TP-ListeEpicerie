@@ -31,4 +31,10 @@ interface EpicerieDao {
 
     @Query ("SELECT * FROM Table_Panier")
     suspend fun getAllPanier(): MutableList<Table_Panier>
+
+    @Delete
+    suspend fun deleteEpiceriePanier(epicerie: Table_Panier)
+
+    @Insert
+    suspend fun insertProductList(epicerie: Table_Epicerie)
 }
