@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     id("com.google.devtools.ksp")
+    id("org.jetbrains.kotlin.plugin.parcelize")
 }
 
 android {
@@ -62,5 +63,7 @@ dependencies {
 
     // To use lifecycle
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.6")
+
+
 
 }

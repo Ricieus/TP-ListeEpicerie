@@ -130,7 +130,7 @@
         app:srcCompat="@drawable/baseline_edit_24" />
 
     <Button
-        android:id="@+id/changeImage"
+        android:id="@+id/changeImageButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Changer Image"

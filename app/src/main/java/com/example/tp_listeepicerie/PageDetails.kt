@@ -1,5 +1,6 @@
 package com.example.tp_listeepicerie
 
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -10,6 +11,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
@@ -29,6 +32,12 @@ class PageDetails : AppCompatActivity() {
     private lateinit var textQuantity: TextView
     private lateinit var saveButton: Button
     private var productId: Int = 0
+
+    private lateinit var updateImageButton: Button
+    private val selectionPhoto =
+        registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri: Uri? ->
+            if (uri != null) productImage.setImageURI(uri)
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,6 +65,7 @@ class PageDetails : AppCompatActivity() {
         textCategory = findViewById(R.id.productCategory)
         textQuantity = findViewById(R.id.productQuantity)
         saveButton = findViewById(R.id.saveButton)
+        updateImageButton = findViewById(R.id.changeImageButton)
 
         textProductName.text = itemName
         productImage.setImageResource(itemImage)
@@ -63,7 +73,7 @@ class PageDetails : AppCompatActivity() {
         textCategory.text = itemCategory
         textQuantity.text = itemQuantity.toString()
 
-        editButton.setOnClickListener{
+        editButton.setOnClickListener {
             textProductName.isEnabled = true
             textProductDescription.isEnabled = true
             textCategory.isEnabled = true
@@ -71,13 +81,19 @@ class PageDetails : AppCompatActivity() {
             saveButton.isEnabled = true
         }
 
+        updateImageButton.setOnClickListener {
+            selectionPhoto.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+        }
+
+
         saveButton.setOnClickListener {
             updateItems()
         }
 
+
     }
 
-    private fun updateItems(){
+    private fun updateItems() {
         val updatedName = textProductName.text.toString()
         val updatedDescription = textProductDescription.text.toString()
         val updatedCategory = textCategory.text.toString()
@@ -100,12 +116,15 @@ class PageDetails : AppCompatActivity() {
             database.epicerieDao().updateEpicerie(updatedItem)
 
             withContext(Dispatchers.Main) {
-                Toast.makeText(applicationContext, "Produit mis à jour avec succès", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    applicationContext,
+                    "Produit mis à jour avec succès",
+                    Toast.LENGTH_SHORT
+                ).show()
                 finish()
             }
         }
     }
-
 
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
