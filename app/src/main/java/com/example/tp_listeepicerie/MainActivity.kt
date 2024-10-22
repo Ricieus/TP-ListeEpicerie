@@ -88,8 +88,8 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        val dbName = "epicerie_database"
-        applicationContext.deleteDatabase(dbName)
+//        val dbName = "epicerie_database"
+//        applicationContext.deleteDatabase(dbName)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
