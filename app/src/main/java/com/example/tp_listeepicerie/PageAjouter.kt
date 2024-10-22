@@ -21,7 +21,12 @@ import kotlinx.coroutines.launch
 class PageAjouter : AppCompatActivity() {
 
     private lateinit var btnAdd: Button
-
+    private lateinit var btnLoadImg: Button
+    private lateinit var productImage: ImageView
+    private val selectionPhoto =
+        registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri: Uri? ->
+            if (uri != null) productImage.setImageURI(uri)
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,7 +45,7 @@ class PageAjouter : AppCompatActivity() {
         val categoryItem: EditText = findViewById(R.id.CategoryEdit)
         val descriptionItem: EditText = findViewById(R.id.DescriptionEdit)
 
-
+        btnLoadImg = findViewById(R.id.btnLoadImg)
         btnAdd = findViewById(R.id.btnSave)
         btnAdd.setOnClickListener {
             val database = Database_Epicerie.getDatabase(applicationContext)
@@ -64,7 +69,9 @@ class PageAjouter : AppCompatActivity() {
         }
 
 
-
+        btnLoadImg.setOnClickListener {
+            selectionPhoto.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
