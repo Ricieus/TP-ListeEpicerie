@@ -5,7 +5,6 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
 import android.widget.EditText
-import android.widget.ImageButton
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -14,11 +13,10 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class PageAjouter : AppCompatActivity() {
 
-    private lateinit var btnAdd : Button
+    private lateinit var btnAdd: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,36 +30,30 @@ class PageAjouter : AppCompatActivity() {
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
-        val nameItem : EditText = findViewById(R.id.editTextNom)
-        val quantityItem : EditText = findViewById(R.id.editTextNom)
-        val categoryItem : EditText = findViewById(R.id.editTextNom)
-        val descriptionItem : EditText = findViewById(R.id.editTextNom)
+        val nameItem: EditText = findViewById(R.id.NameEdit)
+        val quantityItem: EditText = findViewById(R.id.QuantityEdit)
+        val categoryItem: EditText = findViewById(R.id.CategoryEdit)
+        val descriptionItem: EditText = findViewById(R.id.DescriptionEdit)
 
 
         btnAdd = findViewById(R.id.btnSave)
-        btnAdd.setOnClickListener{
+        btnAdd.setOnClickListener {
             val database = Database_Epicerie.getDatabase(applicationContext)
             lifecycleScope.launch(Dispatchers.IO) {
-                for (epicerie in database.epicerieDao().getAll()) {
-                    val existingItem = database.epicerieDao().findByName(nameItem.toString())
 
-                    if (existingItem?.nom == epicerie.nom) {
-                        database.epicerieDao().deleteEpicerie(existingItem)
 
-                        val itemEpicerie = Table_Epicerie(
-                            uid = 0,
-                            nom = nameItem.toString(),
-                            prix = 0.0,
-                            quantite = quantityItem.toString().toInt(),
-                            imageNourriture = epicerie.imageNourriture,
-                            categorie = categoryItem.toString(),
-                            description = descriptionItem.toString(),
-                            boutonPanier = findViewById(R.id.btnAjout),
-                            boutonInformation = findViewById(R.id.btnInfo)
-                        )
-                        database.epicerieDao().insertEpicerie(itemEpicerie)
-                    }
-                }
+                val itemEpicerie = Table_Epicerie(
+                    uid = 0,
+                    nom = nameItem.text.toString(),
+                    prix = 0.0,
+                    quantite = quantityItem.text.toString().toIntOrNull() ?: 0, //Source chatgpt
+                    imageNourriture = R.drawable.img,
+                    categorie = categoryItem.text.toString(),
+                    description = descriptionItem.text.toString(),
+                    boutonPanier = 2131230818,
+                    boutonInformation = 2131230818
+                )
+                database.epicerieDao().insertEpicerie(itemEpicerie)
 
             }
         }

@@ -100,9 +100,8 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.itemAjout -> {
-                val activity = this
-                val intent = Intent(activity, PageAjouter::class.java)
-                activity.startActivity(intent)
+                val intent = Intent(this, PageAjouter::class.java)
+                startActivity(intent)
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -130,6 +129,7 @@ class MainActivity : AppCompatActivity() {
                         boutonInformation = epicerie.boutonInformation
                     )
                     database.epicerieDao().insertPanier(itemPanier)
+
                     withContext(Dispatchers.Main){
                         cartItems.add(itemPanier)
                         recyclerViewCart.adapter?.notifyItemInserted(cartItems.size - 1)
@@ -178,6 +178,20 @@ class MainActivity : AppCompatActivity() {
                     cartItems.removeAt(position)
                     recyclerViewCart.adapter?.notifyItemRemoved(position)
                 }
+            }
+        }
+    }
+
+    override fun onResume(){
+        super.onResume()
+
+        val database = Database_Epicerie.getDatabase(applicationContext)
+        lifecycleScope.launch(Dispatchers.IO) {
+            listEpicerie = database.epicerieDao().getAll()
+            cartItems = database.epicerieDao().getAllPanier()
+            launch(Dispatchers.Main) {
+                recyclerView.adapter = ItemAdaptor(applicationContext, this@MainActivity, listEpicerie)
+                recyclerViewCart.adapter = PanierAdaptor(applicationContext, this@MainActivity, cartItems)
             }
         }
     }

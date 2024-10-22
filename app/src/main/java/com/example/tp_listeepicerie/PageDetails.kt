@@ -48,7 +48,7 @@ class PageDetails : AppCompatActivity() {
         val itemCategory = intent.getStringExtra("productCategory")
         val itemQuantity = intent.getIntExtra("productQuantity", 1)
 
-        textProductName = findViewById(R.id.nomProduit)
+        textProductName = findViewById(R.id.productName)
         productImage = findViewById(R.id.imageProduit)
         textProductDescription = findViewById(R.id.productDescription)
         editButton = findViewById(R.id.editButton)
