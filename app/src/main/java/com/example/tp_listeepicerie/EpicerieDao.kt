@@ -5,6 +5,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
 
 @Dao
 interface EpicerieDao {
@@ -37,4 +38,7 @@ interface EpicerieDao {
 
     @Insert
     suspend fun insertProductList(epicerie: Table_Epicerie)
+
+    @Update
+    suspend fun updateEpicerie(item: Table_Epicerie)
 }

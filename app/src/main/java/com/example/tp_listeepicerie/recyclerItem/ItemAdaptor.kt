@@ -44,6 +44,8 @@ class ItemAdaptor(val ctx: Context, val activity: MainActivity, var data: Mutabl
             intent.putExtra("nomProduit", currentGenericItem.nom)
             intent.putExtra("imageProduit", currentGenericItem.imageNourriture)
             intent.putExtra("productDescription", currentGenericItem.description)
+            intent.putExtra("productCategory", currentGenericItem.categorie)
+            intent.putExtra("productQuantity", currentGenericItem.quantite)
             activity.startActivity(intent)
 
         }
