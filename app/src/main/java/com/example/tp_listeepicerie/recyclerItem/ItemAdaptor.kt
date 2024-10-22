@@ -41,6 +41,7 @@ class ItemAdaptor(val ctx: Context, val activity: MainActivity, var data: Mutabl
 
             //Test code pour transfer info dans page details
             val intent = Intent(activity, PageDetails::class.java)
+            intent.putExtra("productId", currentGenericItem.uid)
             intent.putExtra("nomProduit", currentGenericItem.nom)
             intent.putExtra("imageProduit", currentGenericItem.imageNourriture)
             intent.putExtra("productDescription", currentGenericItem.description)

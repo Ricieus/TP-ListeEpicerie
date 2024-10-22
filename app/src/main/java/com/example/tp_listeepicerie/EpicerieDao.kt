@@ -41,4 +41,8 @@ interface EpicerieDao {
 
     @Update
     suspend fun updateEpicerie(item: Table_Epicerie)
+
+    @Query("SELECT * FROM Table_Epicerie WHERE uid = :id")
+    fun getEpicerieById(id: Int): Table_Epicerie?
+
 }

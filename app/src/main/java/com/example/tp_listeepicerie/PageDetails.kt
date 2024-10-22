@@ -52,7 +52,7 @@ class PageDetails : AppCompatActivity() {
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
-        productId = intent.getIntExtra("productId", 1)
+        productId = intent.getIntExtra("productId", -1)
         val itemName = intent.getStringExtra("nomProduit")
         val itemImage = intent.getIntExtra("imageProduit", 1)
         val productDescription = intent.getStringExtra("productDescription")
@@ -133,26 +133,13 @@ class PageDetails : AppCompatActivity() {
     }
 
     private fun deleteItem() {
-        val deleteName = textProductName.text.toString()
-        val deleteDescription = textProductDescription.text.toString()
-        val deleteCategory = textCategory.text.toString()
-        val deleteQuantity = textQuantity.text.toString().toInt()
-
         val database = Database_Epicerie.getDatabase(applicationContext)
 
         lifecycleScope.launch(Dispatchers.IO) {
-            val updatedItem = Table_Epicerie(
-                uid = productId,
-                nom = deleteName,
-                description = deleteDescription,
-                prix = 0.0,
-                categorie = deleteCategory,
-                quantite = deleteQuantity,
-                imageNourriture = R.drawable.img,
-                boutonInformation = 2131230818,
-                boutonPanier = 2131230818
-            )
-            database.epicerieDao().deleteEpicerie(updatedItem)
+            val itemDelete = database.epicerieDao().getEpicerieById(productId)
+            if (itemDelete != null) {
+                database.epicerieDao().deleteEpicerie(itemDelete)
+            }
 
             withContext(Dispatchers.Main) {
                 Toast.makeText(
