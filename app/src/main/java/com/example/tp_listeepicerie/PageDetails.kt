@@ -31,6 +31,7 @@ class PageDetails : AppCompatActivity() {
     private lateinit var textCategory: TextView
     private lateinit var textQuantity: TextView
     private lateinit var saveButton: Button
+    private lateinit var deleteButton: Button
     private var productId: Int = 0
 
     private lateinit var updateImageButton: Button
@@ -65,6 +66,7 @@ class PageDetails : AppCompatActivity() {
         textCategory = findViewById(R.id.productCategory)
         textQuantity = findViewById(R.id.productQuantity)
         saveButton = findViewById(R.id.saveButton)
+        deleteButton = findViewById(R.id.deleteItem)
         updateImageButton = findViewById(R.id.changeImageButton)
 
         textProductName.text = itemName
@@ -79,6 +81,10 @@ class PageDetails : AppCompatActivity() {
             textCategory.isEnabled = true
             textQuantity.isEnabled = true
             saveButton.isEnabled = true
+        }
+
+        deleteButton.setOnClickListener {
+            deleteItem()
         }
 
         updateImageButton.setOnClickListener {
@@ -118,7 +124,40 @@ class PageDetails : AppCompatActivity() {
             withContext(Dispatchers.Main) {
                 Toast.makeText(
                     applicationContext,
-                    "Produit mis à jour avec succès",
+                    "Le produit à était mis à jours",
+                    Toast.LENGTH_SHORT
+                ).show()
+                finish()
+            }
+        }
+    }
+
+    private fun deleteItem() {
+        val deleteName = textProductName.text.toString()
+        val deleteDescription = textProductDescription.text.toString()
+        val deleteCategory = textCategory.text.toString()
+        val deleteQuantity = textQuantity.text.toString().toInt()
+
+        val database = Database_Epicerie.getDatabase(applicationContext)
+
+        lifecycleScope.launch(Dispatchers.IO) {
+            val updatedItem = Table_Epicerie(
+                uid = productId,
+                nom = deleteName,
+                description = deleteDescription,
+                prix = 0.0,
+                categorie = deleteCategory,
+                quantite = deleteQuantity,
+                imageNourriture = R.drawable.img,
+                boutonInformation = 2131230818,
+                boutonPanier = 2131230818
+            )
+            database.epicerieDao().deleteEpicerie(updatedItem)
+
+            withContext(Dispatchers.Main) {
+                Toast.makeText(
+                    applicationContext,
+                    "Le produit à était supprimer avec succès",
                     Toast.LENGTH_SHORT
                 ).show()
                 finish()
