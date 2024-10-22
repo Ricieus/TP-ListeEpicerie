@@ -23,6 +23,7 @@ class PageAjouter : AppCompatActivity() {
     private lateinit var btnAdd: Button
     private lateinit var btnLoadImg: Button
     private lateinit var productImage: ImageView
+
     private val selectionPhoto =
         registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri: Uri? ->
             if (uri != null) productImage.setImageURI(uri)
@@ -44,6 +45,7 @@ class PageAjouter : AppCompatActivity() {
         val quantityItem: EditText = findViewById(R.id.QuantityEdit)
         val categoryItem: EditText = findViewById(R.id.CategoryEdit)
         val descriptionItem: EditText = findViewById(R.id.DescriptionEdit)
+
 
         btnLoadImg = findViewById(R.id.btnLoadImg)
         btnAdd = findViewById(R.id.btnSave)
