@@ -3,11 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
-
     <item
         android:id="@+id/itemAjout"
         android:icon="@drawable/ic_item_add_foreground"
-        android:title="favorite"
+        android:title="ajout"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/shoppingCart"

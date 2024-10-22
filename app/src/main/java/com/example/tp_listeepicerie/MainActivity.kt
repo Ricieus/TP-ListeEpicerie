@@ -1,5 +1,6 @@
 package com.example.tp_listeepicerie
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -99,7 +100,9 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.itemAjout -> {
-                Toast.makeText(this, "Ajout click", Toast.LENGTH_SHORT).show()
+                val activity = this
+                val intent = Intent(activity, PageAjouter::class.java)
+                activity.startActivity(intent)
                 true
             }
             else -> super.onOptionsItemSelected(item)

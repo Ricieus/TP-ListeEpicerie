@@ -54,3 +54,4 @@ class ItemAdaptor(val ctx: Context, val activity: MainActivity, var data: Mutabl
         }
     }
 }
+// TODO: Add a new class to simplify the intent.putExtra into one line
