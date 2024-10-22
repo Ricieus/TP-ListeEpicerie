@@ -136,7 +136,7 @@ class PageDetails : AppCompatActivity() {
         val database = Database_Epicerie.getDatabase(applicationContext)
 
         lifecycleScope.launch(Dispatchers.IO) {
-            val itemDelete = database.epicerieDao().getEpicerieById(productId)
+            val itemDelete = database.epicerieDao().getEpicerieId(productId)
             if (itemDelete != null) {
                 database.epicerieDao().deleteEpicerie(itemDelete)
             }
