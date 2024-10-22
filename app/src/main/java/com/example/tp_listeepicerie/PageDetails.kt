@@ -1,6 +1,7 @@
 package com.example.tp_listeepicerie
 
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
@@ -92,9 +93,9 @@ class PageDetails : AppCompatActivity() {
                 prix = 0.0,
                 categorie = updatedCategory,
                 quantite = updatedQuantity,
-                boutonInformation = 1,
-                boutonPanier = findViewById(R.id.btnAjout),
-                imageNourriture = findViewById(R.id.btnInfo)
+                imageNourriture = R.drawable.img,
+                boutonInformation = 2131230818,
+                boutonPanier = 2131230818
             )
             database.epicerieDao().updateEpicerie(updatedItem)
 
