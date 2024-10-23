@@ -29,6 +29,7 @@ class PageAjouter : AppCompatActivity() {
     private val selectionPhoto =
         registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri: Uri? ->
             if (uri != null) productImage.setImageURI(uri)
+            imageUri = uri
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -93,7 +94,4 @@ class PageAjouter : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
-
-
-
 }
