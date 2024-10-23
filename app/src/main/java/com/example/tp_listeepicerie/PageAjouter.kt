@@ -25,6 +25,7 @@ class PageAjouter : AppCompatActivity() {
     private lateinit var productImage: ImageView
 
 
+    private var imageUri: Uri? = null
     private val selectionPhoto =
         registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri: Uri? ->
             if (uri != null) productImage.setImageURI(uri)
@@ -57,13 +58,12 @@ class PageAjouter : AppCompatActivity() {
             val database = Database_Epicerie.getDatabase(applicationContext)
             lifecycleScope.launch(Dispatchers.IO) {
 
-
                 val itemEpicerie = Table_Epicerie(
                     uid = 0,
                     nom = nameItem.text.toString(),
                     prix = 0.0,
                     quantite = quantityItem.text.toString().toIntOrNull() ?: 0, //Source chatgpt
-                    imageNourriture = R.drawable.img,
+                    imageNourriture = imageUri.toString(),
                     categorie = categoryItem.text.toString(),
                     description = descriptionItem.text.toString(),
                     boutonPanier = 2131230818,

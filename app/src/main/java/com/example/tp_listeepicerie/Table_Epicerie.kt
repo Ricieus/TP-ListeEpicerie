@@ -13,7 +13,7 @@ data class Table_Epicerie (
     var nom: String,
     var prix: Double,
     var quantite: Int,
-    var imageNourriture: Int,
+    var imageNourriture: String,
     var categorie: String,
     var description: String,
     var boutonPanier: Int,

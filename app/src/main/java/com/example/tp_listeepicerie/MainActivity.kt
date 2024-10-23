@@ -49,16 +49,18 @@ class MainActivity : AppCompatActivity() {
         val gridLayoutManagerPanier = GridLayoutManager(this, 2)
         recyclerViewCart.layoutManager = gridLayoutManagerPanier
 
+
+
         genericList = mutableListOf(
-            Table_Epicerie(0,"Pomme", 2.50, 1, R.drawable.img, "fruits", "Lorem ipsum dolor sit amet, consectetur adipiscing elit," +
+            Table_Epicerie(0,"Pomme", 2.50, 1, resources.getResourceEntryName(R.drawable.img), "fruits", "Lorem ipsum dolor sit amet, consectetur adipiscing elit," +
                     " sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut" +
                     " aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur" +
                     " sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", R.id.btnAjout, R.id.btnAjout),
-            Table_Epicerie(0,"Tomate", 3.25, 1,R.drawable.img_1, "legumes", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, " +
+            Table_Epicerie(0,"Tomate", 3.25, 1,resources.getResourceEntryName(R.drawable.img_1), "legumes", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, " +
                     "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex" +
                     " ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat" +
                     " non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",R.id.btnAjout, R.id.btnAjout),
-            Table_Epicerie(0,"Tomate Special", 5.00, 1,R.drawable.img_1, "legumes", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed" +
+            Table_Epicerie(0,"Tomate Special", 5.00, 1,resources.getResourceEntryName(R.drawable.img_1), "legumes", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed" +
                     " do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo" +
                     " consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident," +
                     " sunt in culpa qui officia deserunt mollit anim id est laborum.",R.id.btnAjout, R.id.btnAjout)

@@ -3,6 +3,7 @@ package com.example.tp_listeepicerie.recyclerItem
 import android.content.Context
 import android.content.Intent
 import android.graphics.pdf.PdfDocument.Page
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat.startActivity
@@ -28,18 +29,15 @@ class ItemAdaptor(val ctx: Context, val activity: MainActivity, var data: Mutabl
 
         holder.textName.text = currentGenericItem.nom
         holder.textPrice.text = currentGenericItem.prix.toString() + "$"
-        holder.img.setImageResource(currentGenericItem.imageNourriture)
+
+        val imageUri = currentGenericItem.imageNourriture
+        if (imageUri != null) {
+            holder.img.setImageURI(Uri.parse(imageUri))
+        } else {
+            holder.img.setImageResource(R.drawable.img)
+        }
+
         holder.btnInformation.setOnClickListener {
-            //DO SOMETHING (NEW PAGE)
-//            val intent = Intent(activity, PageDetails::class.java)
-//            activity.startActivity(intent)
-
-              //Working code to open page details:
-//            val intent = Intent(activity, PageDetails::class.java)
-//            intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
-//            activity.startActivity(intent)
-
-            //Test code pour transfer info dans page details
             val intent = Intent(activity, PageDetails::class.java)
             intent.putExtra("productId", currentGenericItem.uid)
             intent.putExtra("nomProduit", currentGenericItem.nom)
@@ -48,12 +46,10 @@ class ItemAdaptor(val ctx: Context, val activity: MainActivity, var data: Mutabl
             intent.putExtra("productCategory", currentGenericItem.categorie)
             intent.putExtra("productQuantity", currentGenericItem.quantite)
             activity.startActivity(intent)
-
         }
+
         holder.btnPanier.setOnClickListener {
-            //DO SOMETHING (AJOUTER PANIER)
             activity.ajoutPanier(currentGenericItem)
-            //activity.deleteProduct(currentGenericItem)
         }
     }
 }

@@ -35,6 +35,8 @@ class PageDetails : AppCompatActivity() {
     private var productId: Int = 0
 
     private lateinit var updateImageButton: Button
+
+    private var imageUri: Uri? = null
     private val selectionPhoto =
         registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri: Uri? ->
             if (uri != null) productImage.setImageURI(uri)
@@ -115,7 +117,7 @@ class PageDetails : AppCompatActivity() {
                 prix = 0.0,
                 categorie = updatedCategory,
                 quantite = updatedQuantity,
-                imageNourriture = R.drawable.img,
+                imageNourriture = imageUri.toString(),
                 boutonInformation = 2131230818,
                 boutonPanier = 2131230818
             )

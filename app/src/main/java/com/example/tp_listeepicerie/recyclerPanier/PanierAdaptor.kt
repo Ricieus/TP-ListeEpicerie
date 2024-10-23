@@ -1,6 +1,7 @@
 package com.example.tp_listeepicerie.recyclerPanier
 
 import android.content.Context
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -23,7 +24,14 @@ class PanierAdaptor(val ctx: Context, val activity: MainActivity, var data: Muta
 
         holder.textName.text = currentGenericItem.nom
         holder.textPrice.text = currentGenericItem.quantite.toString() + "$"
-        holder.img.setImageResource(currentGenericItem.imageNourriture)
+
+        val imageUri = currentGenericItem.imageNourriture
+        if (imageUri != null) {
+            holder.img.setImageURI(Uri.parse(imageUri))
+        } else {
+            holder.img.setImageResource(R.drawable.img)
+        }
+
 //        holder.btnInformation.setOnClickListener {
 //            //DO SOMETHING (NEW PAGE)
 //        }
