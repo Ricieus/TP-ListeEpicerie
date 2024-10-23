@@ -24,6 +24,7 @@ class PageAjouter : AppCompatActivity() {
     private lateinit var btnLoadImg: Button
     private lateinit var productImage: ImageView
 
+
     private val selectionPhoto =
         registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri: Uri? ->
             if (uri != null) productImage.setImageURI(uri)
@@ -33,6 +34,7 @@ class PageAjouter : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_page_ajouter)
+        productImage = findViewById(R.id.imageLoad)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -45,6 +47,8 @@ class PageAjouter : AppCompatActivity() {
         val quantityItem: EditText = findViewById(R.id.QuantityEdit)
         val categoryItem: EditText = findViewById(R.id.CategoryEdit)
         val descriptionItem: EditText = findViewById(R.id.DescriptionEdit)
+
+
 
 
         btnLoadImg = findViewById(R.id.btnLoadImg)
@@ -66,7 +70,6 @@ class PageAjouter : AppCompatActivity() {
                     boutonInformation = 2131230818
                 )
                 database.epicerieDao().insertEpicerie(itemEpicerie)
-
             }
         }
 
