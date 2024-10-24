@@ -75,6 +75,12 @@ class PageDetails : AppCompatActivity() {
         updateImageButton = findViewById(R.id.changeImageButton)
         takePhotoButton = findViewById(R.id.takePhotoButton)
 
+        if (!itemImage.isNullOrEmpty()){
+            val imageUri = Uri.parse(itemImage)
+            productImage.setImageURI(imageUri)
+            this.imageUri = imageUri
+        }
+
         val selectionPhoto = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uriSelect: Uri? ->
             if (uriSelect != null) {
                 applicationContext.contentResolver.takePersistableUriPermission(uriSelect, Intent.FLAG_GRANT_READ_URI_PERMISSION)
@@ -128,11 +134,10 @@ class PageDetails : AppCompatActivity() {
         val updatedDescription = textProductDescription.text.toString()
         val updatedCategory = textCategory.text.toString()
         val updatedQuantity = textQuantity.text.toString().toInt()
-
+        val updatedImageUri = imageUri.toString()
         val database = Database_Epicerie.getDatabase(applicationContext)
 
         lifecycleScope.launch(Dispatchers.IO) {
-
             val updatedItem = Table_Epicerie(
                 uid = productId,
                 nom = updatedName,
@@ -140,7 +145,7 @@ class PageDetails : AppCompatActivity() {
                 prix = 0.0,
                 categorie = updatedCategory,
                 quantite = updatedQuantity,
-                imageNourriture = imageUri.toString(),
+                imageNourriture = updatedImageUri,
                 boutonInformation = 2131230818,
                 boutonPanier = 2131230818
             )
