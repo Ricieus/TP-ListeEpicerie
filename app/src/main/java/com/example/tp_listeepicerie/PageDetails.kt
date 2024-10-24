@@ -1,5 +1,6 @@
 package com.example.tp_listeepicerie
 
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
@@ -74,11 +75,11 @@ class PageDetails : AppCompatActivity() {
         updateImageButton = findViewById(R.id.changeImageButton)
         takePhotoButton = findViewById(R.id.takePhotoButton)
 
-        val selectionPhoto = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri: Uri? ->
-            if (uri != null) {
-                val savedUri = saveImageFromUri(uri)
-                productImage.setImageURI(savedUri)
-                imageUri = savedUri
+        val selectionPhoto = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uriSelect: Uri? ->
+            if (uriSelect != null) {
+                applicationContext.contentResolver.takePersistableUriPermission(uriSelect, Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                productImage.setImageURI(uriSelect)
+                imageUri = uriSelect
             }
         }
 
@@ -130,21 +131,6 @@ class PageDetails : AppCompatActivity() {
 
 
     }
-
-    fun saveImageFromUri(uri: Uri): Uri? {
-        val inputStream = contentResolver.openInputStream(uri)
-        val fileName = "image_${System.currentTimeMillis()}.jpg"
-        val file = File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), fileName)
-
-        inputStream.use { input ->
-            file.outputStream().use { output ->
-                input?.copyTo(output)
-            }
-        }
-
-        return Uri.fromFile(file)
-    }
-
     private fun creerUriPhoto(): Uri {
         val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
         val photoFile: File = File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), "IMG_$timeStamp.jpg")
