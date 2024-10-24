@@ -89,8 +89,6 @@ class PageAjouter : AppCompatActivity() {
                         boutonInformation = 2131230818
                     )
                     database.epicerieDao().insertEpicerie(itemEpicerie)
-                } else {
-                    Log.e("SaveItem", "Image URI is null")
                 }
             }
         }
