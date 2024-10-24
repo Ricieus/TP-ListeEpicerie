@@ -2,6 +2,7 @@ package com.example.tp_listeepicerie
 
 import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
@@ -15,12 +16,17 @@ import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.FileProvider
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.io.File
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class PageDetails : AppCompatActivity() {
 
@@ -33,14 +39,10 @@ class PageDetails : AppCompatActivity() {
     private lateinit var saveButton: Button
     private lateinit var deleteButton: Button
     private var productId: Int = 0
-
     private lateinit var updateImageButton: Button
+    private lateinit var updatePhotoButton: Button
 
     private var imageUri: Uri? = null
-    private val selectionPhoto =
-        registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri: Uri? ->
-            if (uri != null) productImage.setImageURI(uri)
-        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,8 +72,26 @@ class PageDetails : AppCompatActivity() {
         saveButton = findViewById(R.id.saveButton)
         deleteButton = findViewById(R.id.deleteItem)
         updateImageButton = findViewById(R.id.changeImageButton)
+        updatePhotoButton = findViewById(R.id.changePhotoButton)
 
-        if (imageUri != null) {
+        val selectionPhoto = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri: Uri? ->
+            if (uri != null) {
+                val savedUri = saveImageFromUri(uri)
+                productImage.setImageURI(savedUri)
+                imageUri = savedUri
+            }
+        }
+
+
+        val uriPhoto = creerUriPhoto()
+        val prendrePhoto = registerForActivityResult(ActivityResultContracts.TakePicture()) { success ->
+            if (success) {
+                productImage.setImageURI(uriPhoto)
+                imageUri = uriPhoto
+            }
+        }
+
+        if (itemImage != null) {
             productImage.setImageURI(Uri.parse(itemImage))
         } else {
             productImage.setImageResource(R.drawable.img)
@@ -98,12 +118,37 @@ class PageDetails : AppCompatActivity() {
             selectionPhoto.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
         }
 
-
-        saveButton.setOnClickListener {
-            updateItems()
+        updatePhotoButton.setOnClickListener {
+            prendrePhoto.launch(uriPhoto)
         }
 
 
+        saveButton.setOnClickListener {
+            updateItems()
+            finish()
+        }
+
+
+    }
+
+    fun saveImageFromUri(uri: Uri): Uri? {
+        val inputStream = contentResolver.openInputStream(uri)
+        val fileName = "image_${System.currentTimeMillis()}.jpg"
+        val file = File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), fileName)
+
+        inputStream.use { input ->
+            file.outputStream().use { output ->
+                input?.copyTo(output)
+            }
+        }
+
+        return Uri.fromFile(file)
+    }
+
+    private fun creerUriPhoto(): Uri {
+        val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
+        val photoFile: File = File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), "IMG_$timeStamp.jpg")
+        return FileProvider.getUriForFile(this, "ca.qc.bdeb.c5gm.photoapp", photoFile)
     }
 
     private fun updateItems() {
