@@ -107,6 +107,10 @@ class PageListe : AppCompatActivity(){
                 startActivity(intent)
                 true
             }
+            R.id.HomeButton -> {
+                finish()
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }

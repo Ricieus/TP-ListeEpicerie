@@ -11,7 +11,11 @@ import com.example.tp_listeepicerie.PageListe
 import com.example.tp_listeepicerie.R
 import com.example.tp_listeepicerie.Table_Epicerie
 
-class ItemAdaptor(val ctx: Context, val activity: PageListe, var data: MutableList<Table_Epicerie>) : RecyclerView.Adapter<ItemHolder>() {
+class ItemAdaptor(
+    val ctx: Context,
+    val activity: PageListe,
+    var data: MutableList<Table_Epicerie>
+) : RecyclerView.Adapter<ItemHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
         val view = LayoutInflater.from(ctx).inflate(R.layout.liste_epicerie_item, parent, false)
         return ItemHolder(view)

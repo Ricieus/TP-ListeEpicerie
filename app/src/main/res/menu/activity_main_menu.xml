@@ -4,15 +4,17 @@
 
 
     <item
+        android:id="@+id/HomeButton"
+        android:icon="@drawable/baseline_arrow_back_24"
+        android:title="HomeButton"
+        app:showAsAction="ifRoom" />
+
+    <item
         android:id="@+id/itemAjout"
         android:icon="@drawable/ic_item_add_foreground"
         android:title="ajout"
         app:showAsAction="ifRoom" />
-    <item
-        android:id="@+id/shoppingCart"
-        android:icon="@drawable/baseline_shopping_cart_24"
-        android:title="shoppingCart"
-        app:showAsAction="ifRoom" />
+
 
     <item
         android:id="@+id/item3"
