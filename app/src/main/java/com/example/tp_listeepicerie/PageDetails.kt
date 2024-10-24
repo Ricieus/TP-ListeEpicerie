@@ -56,7 +56,7 @@ class PageDetails : AppCompatActivity() {
 
         productId = intent.getIntExtra("productId", -1)
         val itemName = intent.getStringExtra("nomProduit")
-        val itemImage = intent.getIntExtra("imageProduit", 1)
+        val itemImage = intent.getStringExtra("imageProduit")
         val productDescription = intent.getStringExtra("productDescription")
         val itemCategory = intent.getStringExtra("productCategory")
         val itemQuantity = intent.getIntExtra("productQuantity", 1)
@@ -71,8 +71,13 @@ class PageDetails : AppCompatActivity() {
         deleteButton = findViewById(R.id.deleteItem)
         updateImageButton = findViewById(R.id.changeImageButton)
 
+        if (imageUri != null) {
+            productImage.setImageURI(Uri.parse(itemImage))
+        } else {
+            productImage.setImageResource(R.drawable.img)
+        }
+
         textProductName.text = itemName
-        productImage.setImageResource(itemImage)
         textProductDescription.text = productDescription
         textCategory.text = itemCategory
         textQuantity.text = itemQuantity.toString()
