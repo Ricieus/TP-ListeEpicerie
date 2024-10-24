@@ -92,24 +92,10 @@ class PageDetails : AppCompatActivity() {
             }
         }
 
-        if (itemImage != null) {
-            productImage.setImageURI(Uri.parse(itemImage))
-        } else {
-            productImage.setImageResource(R.drawable.img)
-        }
-
         textProductName.text = itemName
         textProductDescription.text = productDescription
         textCategory.text = itemCategory
         textQuantity.text = itemQuantity.toString()
-
-//        editButton.setOnClickListener {
-//            textProductName.isEnabled = true
-//            textProductDescription.isEnabled = true
-//            textCategory.isEnabled = true
-//            textQuantity.isEnabled = true
-//            saveButton.isEnabled = true
-//        }
 
         deleteButton.setOnClickListener {
             deleteItem()
@@ -146,6 +132,7 @@ class PageDetails : AppCompatActivity() {
         val database = Database_Epicerie.getDatabase(applicationContext)
 
         lifecycleScope.launch(Dispatchers.IO) {
+
             val updatedItem = Table_Epicerie(
                 uid = productId,
                 nom = updatedName,
