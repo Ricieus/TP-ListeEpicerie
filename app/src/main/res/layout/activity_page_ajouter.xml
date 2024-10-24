@@ -32,13 +32,21 @@
             android:orientation="vertical">
 
             <Button
+                android:id="@+id/btnPhotoImg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="16dp"
+                android:text="Prendre un photo" />
+
+
+            <Button
                 android:id="@+id/btnLoadImg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="16dp"
-                android:text="Charger image" />
-
+                android:text="Charger un image" />
 
             <ImageView
                 android:id="@+id/imageLoad"
