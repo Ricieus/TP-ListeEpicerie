@@ -94,8 +94,7 @@ class PageListe : AppCompatActivity(){
             }
         }
 
-//        val dbName = "epicerie_database"
-//        applicationContext.deleteDatabase(dbName)
+//        applicationContext.deleteDatabase("epicerie_database")
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
