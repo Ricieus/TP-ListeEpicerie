@@ -94,6 +94,12 @@
                     android:layout_margin="8dp"
                     android:background="@drawable/cube_settings" />
             </GridLayout>
+
+            <Switch
+                android:id="@+id/switch3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Switch" />
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
