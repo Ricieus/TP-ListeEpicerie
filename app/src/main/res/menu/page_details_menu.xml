@@ -10,12 +10,6 @@
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/shoppingCart"
-        android:icon="@drawable/baseline_shopping_cart_24"
-        android:title="shoppingCart"
-        app:showAsAction="ifRoom" />
-
-    <item
         android:id="@+id/favorite"
         android:icon="@drawable/baseline_star_24"
         android:title="favorite"
