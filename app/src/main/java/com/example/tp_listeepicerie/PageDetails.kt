@@ -33,14 +33,14 @@ class PageDetails : AppCompatActivity() {
     private lateinit var textProductName: TextView
     private lateinit var productImage: ImageView
     private lateinit var textProductDescription: TextView
-    private lateinit var editButton: ImageButton
+    //private lateinit var editButton: ImageButton
     private lateinit var textCategory: TextView
     private lateinit var textQuantity: TextView
     private lateinit var saveButton: Button
     private lateinit var deleteButton: Button
     private var productId: Int = 0
     private lateinit var updateImageButton: Button
-    private lateinit var updatePhotoButton: Button
+    private lateinit var takePhotoButton: Button
 
     private var imageUri: Uri? = null
 
@@ -66,13 +66,13 @@ class PageDetails : AppCompatActivity() {
         textProductName = findViewById(R.id.productName)
         productImage = findViewById(R.id.imageProduit)
         textProductDescription = findViewById(R.id.productDescription)
-        editButton = findViewById(R.id.editButton)
+        //editButton = findViewById(R.id.editButton)
         textCategory = findViewById(R.id.productCategory)
         textQuantity = findViewById(R.id.productQuantity)
         saveButton = findViewById(R.id.saveButton)
         deleteButton = findViewById(R.id.deleteItem)
         updateImageButton = findViewById(R.id.changeImageButton)
-        updatePhotoButton = findViewById(R.id.changePhotoButton)
+        takePhotoButton = findViewById(R.id.takePhotoButton)
 
         val selectionPhoto = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri: Uri? ->
             if (uri != null) {
@@ -102,13 +102,13 @@ class PageDetails : AppCompatActivity() {
         textCategory.text = itemCategory
         textQuantity.text = itemQuantity.toString()
 
-        editButton.setOnClickListener {
-            textProductName.isEnabled = true
-            textProductDescription.isEnabled = true
-            textCategory.isEnabled = true
-            textQuantity.isEnabled = true
-            saveButton.isEnabled = true
-        }
+//        editButton.setOnClickListener {
+//            textProductName.isEnabled = true
+//            textProductDescription.isEnabled = true
+//            textCategory.isEnabled = true
+//            textQuantity.isEnabled = true
+//            saveButton.isEnabled = true
+//        }
 
         deleteButton.setOnClickListener {
             deleteItem()
@@ -118,7 +118,7 @@ class PageDetails : AppCompatActivity() {
             selectionPhoto.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
         }
 
-        updatePhotoButton.setOnClickListener {
+        takePhotoButton.setOnClickListener {
             prendrePhoto.launch(uriPhoto)
         }
 
@@ -216,6 +216,16 @@ class PageDetails : AppCompatActivity() {
                 //Temporaire
                 finish()
             }
+            R.id.edit -> {
+                updateImageButton.isEnabled = true
+                takePhotoButton.isEnabled = true
+                textProductName.isEnabled = true
+                textProductDescription.isEnabled = true
+                textCategory.isEnabled = true
+                textQuantity.isEnabled = true
+                saveButton.isEnabled = true
+            }
+
         }
         return super.onOptionsItemSelected(item)
     }
