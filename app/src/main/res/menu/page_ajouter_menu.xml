@@ -2,22 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-
     <item
         android:id="@+id/retourner"
         android:icon="@drawable/baseline_arrow_back_24"
         android:title="retourner"
-        app:showAsAction="ifRoom" />
-
-    <item
-        android:id="@+id/edit"
-        android:icon="@drawable/baseline_edit_24"
-        android:title="Edit"
-        app:showAsAction="ifRoom" />
-
-    <item
-        android:id="@+id/favorite"
-        android:icon="@drawable/baseline_star_24"
-        android:title="favorite"
         app:showAsAction="ifRoom" />
 </menu>

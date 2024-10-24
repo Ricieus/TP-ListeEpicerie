@@ -124,7 +124,7 @@ class PageAjouter : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.page_details_menu, menu)
+        menuInflater.inflate(R.menu.page_ajouter_menu, menu)
         return super.onCreateOptionsMenu(menu)
     }
 

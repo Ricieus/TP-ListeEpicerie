@@ -116,19 +116,6 @@
         android:layout_marginRight="8dp"
         android:enabled="false"/>
 
-    <ImageButton
-        android:id="@+id/editButton"
-        android:layout_width="58dp"
-        android:layout_height="54dp"
-        android:contentDescription="TODO"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.954"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.118"
-        app:srcCompat="@drawable/baseline_edit_24" />
-
     <Button
         android:id="@+id/changeImageButton"
         android:layout_width="wrap_content"
@@ -139,10 +126,11 @@
         app:layout_constraintHorizontal_bias="0.12"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.125" />
+        app:layout_constraintVertical_bias="0.125"
+        android:enabled="false"/>
 
     <Button
-        android:id="@+id/changePhotoButton"
+        android:id="@+id/takePhotoButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Prendre un photo"
@@ -151,6 +139,7 @@
         app:layout_constraintHorizontal_bias="0.809"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.125" />
+        app:layout_constraintVertical_bias="0.125"
+        android:enabled="false"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
