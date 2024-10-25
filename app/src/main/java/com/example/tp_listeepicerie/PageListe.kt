@@ -159,7 +159,6 @@ class PageListe : AppCompatActivity(){
     fun removeFromPanier(item: Table_Panier) {
         val database = Database_Epicerie.getDatabase(applicationContext)
         lifecycleScope.launch(Dispatchers.IO) {
-            database.epicerieDao().deleteEpiceriePanier(item)
 
             val itemProduct = Table_Epicerie(
                 uid = item.uid,
@@ -172,12 +171,12 @@ class PageListe : AppCompatActivity(){
                 boutonPanier = item.cartbutton,
                 boutonInformation = item.cartInformation
             )
-
             database.epicerieDao().insertProductList(itemProduct)
+            database.epicerieDao().deleteEpiceriePanier(item)
 
             withContext(Dispatchers.Main) {
                 listEpicerie.add(itemProduct)
-                recyclerView.adapter?.notifyItemInserted(genericList.size - 1)
+                recyclerView.adapter?.notifyItemInserted(genericList.size)
 
                 val position = cartItems.indexOf(item)
                 if (position != -1) {
@@ -195,6 +194,7 @@ class PageListe : AppCompatActivity(){
         lifecycleScope.launch(Dispatchers.IO) {
             listEpicerie = database.epicerieDao().getAll()
             cartItems = database.epicerieDao().getAllPanier()
+            Thread.sleep(1000)
             launch(Dispatchers.Main) {
                 recyclerView.adapter = ItemAdaptor(applicationContext, this@PageListe, listEpicerie)
                 recyclerViewCart.adapter = PanierAdaptor(applicationContext, this@PageListe, cartItems)
