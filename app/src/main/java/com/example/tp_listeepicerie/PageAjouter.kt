@@ -82,11 +82,11 @@ class PageAjouter : AppCompatActivity() {
                 if (imageUri != null) {
                     val itemEpicerie = Table_Epicerie(
                         uid = 0,
-                        nom = nameItem.text.toString(),
-                        prix = 0.0,
-                        quantite = quantityItem.text.toString().toIntOrNull() ?: 0,
-                        imageNourriture = imageUri.toString(),
-                        categorie = categoryItem.text.toString(),
+                        nameProduct = nameItem.text.toString(),
+                        price = 0.0,
+                        quantity = quantityItem.text.toString().toIntOrNull() ?: 0,
+                        FoodImageURI = imageUri.toString(),
+                        category = categoryItem.text.toString(),
                         description = descriptionItem.text.toString(),
                         boutonPanier = 2131230818,
                         boutonInformation = 2131230818

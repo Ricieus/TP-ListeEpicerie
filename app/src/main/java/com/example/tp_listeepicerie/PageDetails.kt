@@ -1,7 +1,9 @@
 package com.example.tp_listeepicerie
 
 import android.content.Intent
+import android.hardware.usb.UsbManager
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.util.Log
@@ -21,6 +23,7 @@ import androidx.core.content.FileProvider
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
+import com.example.tp_listeepicerie.recyclerItem.InfoItem
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -39,11 +42,18 @@ class PageDetails : AppCompatActivity() {
     private lateinit var textQuantity: TextView
     private lateinit var saveButton: Button
     private lateinit var deleteButton: Button
-    private var productId: Int = 0
     private lateinit var updateImageButton: Button
     private lateinit var takePhotoButton: Button
 
     private var imageUri: Uri? = null
+
+
+    private var productId: Int = 0
+    private var itemName: String = ""
+    private var itemImage: String = ""
+    private var productDescription: String = ""
+    private var itemCategory: String = ""
+    private var itemQuantity: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,12 +67,21 @@ class PageDetails : AppCompatActivity() {
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
-        productId = intent.getIntExtra("productId", -1)
-        val itemName = intent.getStringExtra("nomProduit")
-        val itemImage = intent.getStringExtra("imageProduit")
-        val productDescription = intent.getStringExtra("productDescription")
-        val itemCategory = intent.getStringExtra("productCategory")
-        val itemQuantity = intent.getIntExtra("productQuantity", 1)
+        val infoItem: InfoItem
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.S_V2) { // TIRAMISU onwards
+            infoItem = intent.getParcelableExtra("InfoItem", InfoItem::class.java)!!
+        } else {
+            infoItem = intent.getParcelableExtra(UsbManager.EXTRA_DEVICE)!!
+        }
+
+        infoItem.let {
+            productId = infoItem.uid
+            itemName = infoItem.nameItem
+            itemImage = infoItem.FoodImageURI
+            productDescription = infoItem.description
+            itemCategory = infoItem.category
+            itemQuantity = infoItem.quantity
+        }
 
         textProductName = findViewById(R.id.productName)
         productImage = findViewById(R.id.imageProduit)
@@ -75,7 +94,7 @@ class PageDetails : AppCompatActivity() {
         updateImageButton = findViewById(R.id.changeImageButton)
         takePhotoButton = findViewById(R.id.takePhotoButton)
 
-        if (!itemImage.isNullOrEmpty()){
+        if (itemImage.isNotEmpty()){
             val imageUri = Uri.parse(itemImage)
             productImage.setImageURI(imageUri)
             this.imageUri = imageUri
@@ -140,12 +159,12 @@ class PageDetails : AppCompatActivity() {
         lifecycleScope.launch(Dispatchers.IO) {
             val updatedItem = Table_Epicerie(
                 uid = productId,
-                nom = updatedName,
+                nameProduct = updatedName,
                 description = updatedDescription,
-                prix = 0.0,
-                categorie = updatedCategory,
-                quantite = updatedQuantity,
-                imageNourriture = updatedImageUri,
+                price = 0.0,
+                category = updatedCategory,
+                quantity = updatedQuantity,
+                FoodImageURI = updatedImageUri,
                 boutonInformation = 2131230818,
                 boutonPanier = 2131230818
             )

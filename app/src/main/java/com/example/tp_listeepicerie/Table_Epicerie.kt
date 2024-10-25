@@ -10,14 +10,14 @@ import androidx.room.Query
 data class Table_Epicerie (
     @PrimaryKey(autoGenerate = true)
     var uid: Int = 0,
-    var nom: String,
-    var prix: Double,
-    var quantite: Int,
-    var imageNourriture: String,
-    var categorie: String,
+    var nameProduct: String,
+    var price: Double,
+    var quantity: Int,
+    var FoodImageURI: String,
+    var category: String,
     var description: String,
     var boutonPanier: Int,
     var boutonInformation: Int
     ) {
-
+    //TODO NEED TO DELETE THE BUTTON INSIDE THE TABLE AND THE PRICE
 }

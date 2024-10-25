@@ -73,7 +73,7 @@ class PageListe : AppCompatActivity(){
         lifecycleScope.launch(Dispatchers.IO) {
             if (!(applicationContext.getDatabasePath("epicerie_database")).exists()) {
                 for (epicerie in genericList) {
-                    val existingItem = database.epicerieDao().findByName(epicerie.nom)
+                    val existingItem = database.epicerieDao().findByName(epicerie.nameProduct)
 
                     if (existingItem == null) {
                         database.epicerieDao().insertEpicerie(epicerie)
@@ -118,18 +118,18 @@ class PageListe : AppCompatActivity(){
         val database = Database_Epicerie.getDatabase(applicationContext)
         lifecycleScope.launch(Dispatchers.IO) {
             for (epicerie in database.epicerieDao().getAll()) {
-                val existingItem = database.epicerieDao().findByName(item.nom)
+                val existingItem = database.epicerieDao().findByName(item.nameProduct)
 
-                if (existingItem?.nom == epicerie.nom) {
+                if (existingItem?.nameProduct == epicerie.nameProduct) {
                     database.epicerieDao().deleteEpicerie(existingItem)
 
                     val itemPanier = Table_Panier(
                         uid = epicerie.uid,
-                        cartProductName = epicerie.nom,
-                        cartProductPrice = epicerie.prix,
-                        cartQuantity = epicerie.quantite,
-                        cartFoodImage = epicerie.imageNourriture,
-                        cartCategory = epicerie.categorie,
+                        cartProductName = epicerie.nameProduct,
+                        cartProductPrice = epicerie.price,
+                        cartQuantity = epicerie.quantity,
+                        cartFoodImage = epicerie.FoodImageURI,
+                        cartCategory = epicerie.category,
                         cartDescription = epicerie.description,
                         cartbutton = epicerie.boutonPanier,
                         cartInformation = epicerie.boutonInformation
@@ -163,11 +163,11 @@ class PageListe : AppCompatActivity(){
 
             val itemProduct = Table_Epicerie(
                 uid = item.uid,
-                nom = item.cartProductName,
-                prix = item.cartProductPrice,
-                quantite = item.cartQuantity,
-                imageNourriture = item.cartFoodImage,
-                categorie = item.cartCategory,
+                nameProduct = item.cartProductName,
+                price = item.cartProductPrice,
+                quantity = item.cartQuantity,
+                FoodImageURI = item.cartFoodImage,
+                category = item.cartCategory,
                 description = item.cartDescription,
                 boutonPanier = item.cartbutton,
                 boutonInformation = item.cartInformation
