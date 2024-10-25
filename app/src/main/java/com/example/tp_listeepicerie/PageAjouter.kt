@@ -86,13 +86,10 @@ class PageAjouter : AppCompatActivity() {
                     val itemEpicerie = Table_Epicerie(
                         uid = 0,
                         nameProduct = nameItem.text.toString(),
-                        price = 0.0,
                         quantity = quantityItem.text.toString().toIntOrNull() ?: 1,
                         FoodImageURI = imageUri.toString(),
                         category = categoryItem.text.toString(),
-                        description = descriptionItem.text.toString(),
-                        boutonPanier = 2131230818,
-                        boutonInformation = 2131230818
+                        description = descriptionItem.text.toString()
                     )
                     database.epicerieDao().insertEpicerie(itemEpicerie)
                 }

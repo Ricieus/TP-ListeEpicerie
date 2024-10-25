@@ -61,20 +61,20 @@ class PageListe : AppCompatActivity(){
 
 
         genericList = mutableListOf(
-            Table_Epicerie(0,"Pomme", 2.50, 1, Uri.Builder().scheme("android.resource").authority(packageName).appendPath(R.drawable.img.toString()).build().toString(), "fruits", "Lorem ipsum dolor sit amet, consectetur adipiscing elit," +
+            Table_Epicerie(0,"Pomme", 1, Uri.Builder().scheme("android.resource").authority(packageName).appendPath(R.drawable.img.toString()).build().toString(), "fruits", "Lorem ipsum dolor sit amet, consectetur adipiscing elit," +
                     " sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut" +
                     " aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur" +
-                    " sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", R.id.btnAjout, R.id.btnAjout),
-            Table_Epicerie(0,"Tomate", 3.25, 1,
+                    " sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."),
+            Table_Epicerie(0,"Tomate", 1,
                 Uri.Builder().scheme("android.resource").authority(packageName).appendPath(R.drawable.img_1.toString()).build().toString(), "legumes", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, " +
                     "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex" +
                     " ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat" +
-                    " non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",R.id.btnAjout, R.id.btnAjout),
-            Table_Epicerie(0,"Tomate Special", 5.00, 1,
+                    " non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."),
+            Table_Epicerie(0,"Tomate Special", 1,
                 Uri.Builder().scheme("android.resource").authority(packageName).appendPath(R.drawable.img_1.toString()).build().toString(), "legumes", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed" +
                     " do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo" +
                     " consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident," +
-                    " sunt in culpa qui officia deserunt mollit anim id est laborum.",R.id.btnAjout, R.id.btnAjout)
+                    " sunt in culpa qui officia deserunt mollit anim id est laborum.")
 
         )
 
@@ -101,7 +101,7 @@ class PageListe : AppCompatActivity(){
             }
         }
 
-        //applicationContext.deleteDatabase("epicerie_database")
+//        applicationContext.deleteDatabase("epicerie_database")
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -136,13 +136,10 @@ class PageListe : AppCompatActivity(){
                     val itemPanier = Table_Panier(
                         uid = epicerie.uid,
                         cartProductName = epicerie.nameProduct,
-                        cartProductPrice = epicerie.price,
                         cartQuantity = epicerie.quantity,
                         cartFoodImage = epicerie.FoodImageURI,
                         cartCategory = epicerie.category,
-                        cartDescription = epicerie.description,
-                        cartbutton = epicerie.boutonPanier,
-                        cartInformation = epicerie.boutonInformation
+                        cartDescription = epicerie.description
                     )
                     database.epicerieDao().insertPanier(itemPanier)
 
@@ -173,13 +170,10 @@ class PageListe : AppCompatActivity(){
             val itemProduct = Table_Epicerie(
                 uid = item.uid,
                 nameProduct = item.cartProductName,
-                price = item.cartProductPrice,
                 quantity = item.cartQuantity,
                 FoodImageURI = item.cartFoodImage,
                 category = item.cartCategory,
-                description = item.cartDescription,
-                boutonPanier = item.cartbutton,
-                boutonInformation = item.cartInformation
+                description = item.cartDescription
             )
             database.epicerieDao().insertProductList(itemProduct)
             database.epicerieDao().deleteEpiceriePanier(item)

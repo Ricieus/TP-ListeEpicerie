@@ -8,13 +8,10 @@ data class Table_Epicerie(
     @PrimaryKey(autoGenerate = true)
     var uid: Int = 0,
     var nameProduct: String,
-    var price: Double,
     var quantity: Int,
     var FoodImageURI: String,
     var category: String,
-    var description: String,
-    var boutonPanier: Int,
-    var boutonInformation: Int
+    var description: String
 ) {
     //TODO NEED TO DELETE THE BUTTON INSIDE THE TABLE AND THE PRICE
 }

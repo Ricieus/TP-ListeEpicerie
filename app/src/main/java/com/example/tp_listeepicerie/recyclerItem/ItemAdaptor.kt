@@ -41,13 +41,10 @@ class ItemAdaptor(
             val infoItem = InfoItem(
                 currentItem.uid,
                 currentItem.nameProduct,
-                currentItem.price,
                 currentItem.quantity,
                 currentItem.FoodImageURI,
                 currentItem.category,
-                currentItem.description,
-                currentItem.boutonPanier,
-                currentItem.boutonInformation
+                currentItem.description
                 )
             intent.putExtra("InfoItem", infoItem)
             activity.startActivity(intent)
@@ -62,12 +59,9 @@ class ItemAdaptor(
 @Parcelize
 class InfoItem(var uid: Int,
                var nameItem: String,
-               var price: Double,
                var quantity: Int,
                var FoodImageURI: String,
                var category: String,
-               var description: String,
-               var boutonPanier: Int,
-               var boutonInformation: Int) : Parcelable
+               var description: String) : Parcelable
 
 // TODO: Add a new class to simplify the intent.putExtra into one line

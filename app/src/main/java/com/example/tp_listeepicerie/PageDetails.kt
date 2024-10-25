@@ -165,12 +165,9 @@ class PageDetails : AppCompatActivity() {
                 uid = productId,
                 nameProduct = updatedName,
                 description = updatedDescription,
-                price = 0.0,
                 category = updatedCategory,
                 quantity = updatedQuantity,
-                FoodImageURI = updatedImageUri,
-                boutonInformation = 2131230818,
-                boutonPanier = 2131230818
+                FoodImageURI = updatedImageUri
             )
             database.epicerieDao().updateEpicerie(updatedItem)
 
