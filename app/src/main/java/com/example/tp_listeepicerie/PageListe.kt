@@ -91,7 +91,7 @@ class PageListe : AppCompatActivity(){
             }
         }
 
-//        applicationContext.deleteDatabase("epicerie_database")
+        //applicationContext.deleteDatabase("epicerie_database")
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
