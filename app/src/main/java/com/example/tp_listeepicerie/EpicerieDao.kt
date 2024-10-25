@@ -45,4 +45,12 @@ interface EpicerieDao {
     @Query("SELECT * FROM Table_Epicerie WHERE uid = :id")
     suspend fun getEpicerieId(id: Int): Table_Epicerie?
 
+    @Query("SELECT * FROM Table_Favoris")
+    suspend fun getAllFavoris(): MutableList<Table_Favoris>
+
+    @Query("SELECT * FROM Table_Favoris WHERE favoriteProductName = :nom LIMIT 1")
+    suspend fun findByNameFav(nom: String): Table_Favoris?
+
+    @Insert
+    suspend fun insertEpicerieFavorite(epicerie: Table_Favoris)
 }

@@ -20,8 +20,8 @@
         </shape>
     </item>
     <item
-        android:width="175dp"
-        android:height="175dp"
+        android:width="100dp"
+        android:height="100dp"
         android:drawable="@drawable/baseline_star_24"
         android:gravity="center"
         />

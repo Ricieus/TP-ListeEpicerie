@@ -3,6 +3,7 @@ package com.example.tp_listeepicerie
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.enableEdgeToEdge
@@ -91,7 +92,7 @@ class PageListe : AppCompatActivity(){
             }
         }
 
-        //applicationContext.deleteDatabase("epicerie_database")
+//        applicationContext.deleteDatabase("epicerie_database")
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
