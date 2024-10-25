@@ -45,9 +45,8 @@ class PageDetails : AppCompatActivity() {
     private lateinit var takePhotoButton: Button
 
     private var imageUri: Uri? = null
-
-
     private var productId: Int = 0
+
     private var itemName: String = ""
     private var itemImage: String = ""
     private var productDescription: String = ""
@@ -67,7 +66,7 @@ class PageDetails : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         val infoItem: InfoItem
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.S_V2) { // TIRAMISU onwards
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.S_V2) {
             infoItem = intent.getParcelableExtra("InfoItem", InfoItem::class.java)!!
         } else {
             infoItem = intent.getParcelableExtra(UsbManager.EXTRA_DEVICE)!!
@@ -80,43 +79,12 @@ class PageDetails : AppCompatActivity() {
         itemCategory = infoItem.category
         itemQuantity = infoItem.quantity
 
-        textProductName = findViewById(R.id.productName)
-        productImage = findViewById(R.id.imageProduit)
-        textProductDescription = findViewById(R.id.productDescription)
-        textCategory = findViewById(R.id.productCategory)
-        textQuantity = findViewById(R.id.productQuantity)
-        saveButton = findViewById(R.id.saveButton)
-        deleteButton = findViewById(R.id.deleteItem)
-        updateImageButton = findViewById(R.id.changeImageButton)
-        takePhotoButton = findViewById(R.id.takePhotoButton)
+        initializeVariables()
+        loadImageOfProducts()
 
-        if (itemImage.isNotEmpty()) {
-            val imageUri = Uri.parse(itemImage)
-            productImage.setImageURI(imageUri)
-            this.imageUri = imageUri
-        }
-
-        val selectionPhoto =
-            registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uriSelect: Uri? ->
-                if (uriSelect != null) {
-                    applicationContext.contentResolver.takePersistableUriPermission(
-                        uriSelect,
-                        Intent.FLAG_GRANT_READ_URI_PERMISSION
-                    )
-                    productImage.setImageURI(uriSelect)
-                    imageUri = uriSelect
-                }
-            }
-
-
-        val uriPhoto = creerUriPhoto()
-        val prendrePhoto =
-            registerForActivityResult(ActivityResultContracts.TakePicture()) { success ->
-                if (success) {
-                    productImage.setImageURI(uriPhoto)
-                    imageUri = uriPhoto
-                }
-            }
+        val selectionPhoto = takeImageFromDevice()
+        val uriPhoto = createUriPhoto()
+        val takePhoto = photoFromCamera(uriPhoto)
 
         textProductName.text = itemName
         textProductDescription.text = productDescription
@@ -132,19 +100,56 @@ class PageDetails : AppCompatActivity() {
         }
 
         takePhotoButton.setOnClickListener {
-            prendrePhoto.launch(uriPhoto)
+            takePhoto.launch(uriPhoto)
         }
-
 
         saveButton.setOnClickListener {
             updateItems()
             finish()
         }
-
-
     }
 
-    private fun creerUriPhoto(): Uri {
+    private fun takeImageFromDevice() =
+        registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uriSelect: Uri? ->
+            if (uriSelect != null) {
+                applicationContext.contentResolver.takePersistableUriPermission(
+                    uriSelect,
+                    Intent.FLAG_GRANT_READ_URI_PERMISSION
+                )
+                productImage.setImageURI(uriSelect)
+                imageUri = uriSelect
+            }
+        }
+
+    private fun photoFromCamera(photoUri: Uri) =
+        registerForActivityResult(ActivityResultContracts.TakePicture()) { success ->
+            if (success) {
+                productImage.setImageURI(photoUri)
+                imageUri = photoUri
+            }
+        }
+
+    private fun loadImageOfProducts() {
+        if (itemImage.isNotEmpty()) {
+            val imageUri = Uri.parse(itemImage)
+            productImage.setImageURI(imageUri)
+            this.imageUri = imageUri
+        }
+    }
+
+    private fun initializeVariables() {
+        textProductName = findViewById(R.id.productName)
+        productImage = findViewById(R.id.imageProduit)
+        textProductDescription = findViewById(R.id.productDescription)
+        textCategory = findViewById(R.id.productCategory)
+        textQuantity = findViewById(R.id.productQuantity)
+        saveButton = findViewById(R.id.saveButton)
+        deleteButton = findViewById(R.id.deleteItem)
+        updateImageButton = findViewById(R.id.changeImageButton)
+        takePhotoButton = findViewById(R.id.takePhotoButton)
+    }
+
+    private fun createUriPhoto(): Uri {
         val timeStamp: String =
             SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
         val photoFile: File =
@@ -167,7 +172,7 @@ class PageDetails : AppCompatActivity() {
                 description = updatedDescription,
                 category = updatedCategory,
                 quantity = updatedQuantity,
-                FoodImageURI = updatedImageUri
+                foodImageURI = updatedImageUri
             )
             database.epicerieDao().updateEpicerie(updatedItem)
 
@@ -210,8 +215,7 @@ class PageDetails : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.retourner -> {
-                //Temporaire
+            R.id.returnBack -> {
                 finish()
             }
 

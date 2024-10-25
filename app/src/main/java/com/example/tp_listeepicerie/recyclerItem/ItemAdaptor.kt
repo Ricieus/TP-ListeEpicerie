@@ -33,7 +33,7 @@ class ItemAdaptor(
         holder.textName.text = currentItem.nameProduct
         holder.textPrice.text = "Quantite: ${currentItem.quantity}"
 
-        val imageUri = currentItem.FoodImageURI
+        val imageUri = currentItem.foodImageURI
         holder.img.setImageURI(Uri.parse(imageUri))
 
         holder.btnInformation.setOnClickListener {
@@ -42,7 +42,7 @@ class ItemAdaptor(
                 currentItem.uid,
                 currentItem.nameProduct,
                 currentItem.quantity,
-                currentItem.FoodImageURI,
+                currentItem.foodImageURI,
                 currentItem.category,
                 currentItem.description
                 )

@@ -101,7 +101,7 @@ class PageListe : AppCompatActivity(){
             }
         }
 
-//        applicationContext.deleteDatabase("epicerie_database")
+        //applicationContext.deleteDatabase("epicerie_database")
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -137,7 +137,7 @@ class PageListe : AppCompatActivity(){
                         uid = epicerie.uid,
                         cartProductName = epicerie.nameProduct,
                         cartQuantity = epicerie.quantity,
-                        cartFoodImage = epicerie.FoodImageURI,
+                        cartFoodImage = epicerie.foodImageURI,
                         cartCategory = epicerie.category,
                         cartDescription = epicerie.description
                     )
@@ -171,7 +171,7 @@ class PageListe : AppCompatActivity(){
                 uid = item.uid,
                 nameProduct = item.cartProductName,
                 quantity = item.cartQuantity,
-                FoodImageURI = item.cartFoodImage,
+                foodImageURI = item.cartFoodImage,
                 category = item.cartCategory,
                 description = item.cartDescription
             )

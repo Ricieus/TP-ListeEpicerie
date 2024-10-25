@@ -9,7 +9,7 @@ data class Table_Epicerie(
     var uid: Int = 0,
     var nameProduct: String,
     var quantity: Int,
-    var FoodImageURI: String,
+    var foodImageURI: String,
     var category: String,
     var description: String
 ) {

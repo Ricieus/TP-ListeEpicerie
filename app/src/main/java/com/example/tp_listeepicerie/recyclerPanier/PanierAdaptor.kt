@@ -27,7 +27,7 @@ class PanierAdaptor(
         val currentGenericItem = data[position]
 
         holder.textName.text = currentGenericItem.cartProductName
-        holder.textPrice.text = currentGenericItem.cartQuantity.toString() + "$"
+        holder.textPrice.text = "Quantite: ${currentGenericItem.cartQuantity}"
 
         val imageUri = currentGenericItem.cartFoodImage
         if (imageUri != null) {

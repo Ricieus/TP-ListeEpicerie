@@ -39,7 +39,7 @@ class PageAjouter : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_page_ajouter)
-        productImage = findViewById(R.id.imageLoad)
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -48,63 +48,76 @@ class PageAjouter : AppCompatActivity() {
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
+        initializeVariables()
+        val uriPhoto = createUriPhoto()
+        val takePhoto = takePhotoFromCamera(uriPhoto)
+        val photoSelection = importImageFromDevice()
+
+
+        btnAdd.setOnClickListener {
+            addNewProduct()
+        }
+
+        btnPhotoImg.setOnClickListener {
+            takePhoto.launch(uriPhoto)
+        }
+        btnLoadImg.setOnClickListener {
+            photoSelection.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+        }
+    }
+
+    private fun addNewProduct() {
         val nameItem: EditText = findViewById(R.id.NameEdit)
         val quantityItem: EditText = findViewById(R.id.QuantityEdit)
         val categoryItem: EditText = findViewById(R.id.CategoryEdit)
         val descriptionItem: EditText = findViewById(R.id.DescriptionEdit)
 
-        val selectionPhoto =
-            registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uriSelect: Uri? ->
-                if (uriSelect != null) {
-                    applicationContext.contentResolver.takePersistableUriPermission(
-                        uriSelect,
-                        Intent.FLAG_GRANT_READ_URI_PERMISSION
-                    )
-                    productImage.setImageURI(uriSelect)
-                    imageUri = uriSelect
-                }
+        val database = Database_Epicerie.getDatabase(applicationContext)
+        lifecycleScope.launch(Dispatchers.IO) {
+            if (imageUri != null) {
+                val itemGrocery  = Table_Epicerie(
+                    uid = 0,
+                    nameProduct = nameItem.text.toString(),
+                    quantity = quantityItem.text.toString().toIntOrNull() ?: 1,
+                    foodImageURI = imageUri.toString(),
+                    category = categoryItem.text.toString(),
+                    description = descriptionItem.text.toString()
+                )
+                database.epicerieDao().insertEpicerie(itemGrocery)
             }
-
-
-        val uriPhoto = creerUriPhoto()
-        val prendrePhoto =
-            registerForActivityResult(ActivityResultContracts.TakePicture()) { success ->
-                if (success) {
-                    productImage.setImageURI(uriPhoto)
-                    imageUri = uriPhoto
-                }
-            }
-
-        btnPhotoImg = findViewById(R.id.btnPhotoImg)
-        btnLoadImg = findViewById(R.id.btnLoadImg)
-        btnAdd = findViewById(R.id.btnSave)
-
-        btnAdd.setOnClickListener {
-            val database = Database_Epicerie.getDatabase(applicationContext)
-            lifecycleScope.launch(Dispatchers.IO) {
-                if (imageUri != null) {
-                    val itemEpicerie = Table_Epicerie(
-                        uid = 0,
-                        nameProduct = nameItem.text.toString(),
-                        quantity = quantityItem.text.toString().toIntOrNull() ?: 1,
-                        FoodImageURI = imageUri.toString(),
-                        category = categoryItem.text.toString(),
-                        description = descriptionItem.text.toString()
-                    )
-                    database.epicerieDao().insertEpicerie(itemEpicerie)
-                }
-            }
-        }
-
-        btnPhotoImg.setOnClickListener {
-            prendrePhoto.launch(uriPhoto)
-        }
-        btnLoadImg.setOnClickListener {
-            selectionPhoto.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
         }
     }
 
-    private fun creerUriPhoto(): Uri {
+    private fun takePhotoFromCamera(photoUri: Uri) =
+        registerForActivityResult(ActivityResultContracts.TakePicture()) { success ->
+            if (success) {
+                productImage.setImageURI(photoUri)
+                imageUri = photoUri
+            }
+        }
+
+
+    private fun importImageFromDevice() =
+        registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uriSelect: Uri? ->
+            if (uriSelect != null) {
+                applicationContext.contentResolver.takePersistableUriPermission(
+                    uriSelect,
+                    Intent.FLAG_GRANT_READ_URI_PERMISSION
+                )
+                productImage.setImageURI(uriSelect)
+                imageUri = uriSelect
+            }
+        }
+
+
+    private fun initializeVariables() {
+        productImage = findViewById(R.id.imageLoad)
+        btnPhotoImg = findViewById(R.id.btnPhotoImg)
+        btnLoadImg = findViewById(R.id.btnLoadImg)
+        btnAdd = findViewById(R.id.btnSave)
+    }
+
+    private fun createUriPhoto(): Uri {
         val timeStamp: String =
             SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
         val photoFile: File =
@@ -119,7 +132,7 @@ class PageAjouter : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.retourner -> {
+            R.id.back -> {
                 finish()
             }
         }

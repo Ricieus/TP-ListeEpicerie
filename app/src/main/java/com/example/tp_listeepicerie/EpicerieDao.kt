@@ -15,8 +15,8 @@ interface EpicerieDao {
     @Query("SELECT * FROM Table_Epicerie WHERE nameProduct = :nom LIMIT 1")
     suspend fun findByName(nom: String): Table_Epicerie?
 
-    @Query("SELECT * FROM Table_Epicerie WHERE uid IN (:userIds)")
-    suspend fun loadAllByIds(userIds: IntArray): MutableList<Table_Epicerie>
+//    @Query("SELECT * FROM Table_Epicerie WHERE uid IN (:userIds)")
+//    suspend fun loadAllByIds(userIds: IntArray): MutableList<Table_Epicerie>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertEpicerie(epicerie: Table_Epicerie)
@@ -27,8 +27,8 @@ interface EpicerieDao {
     @Insert
     suspend fun insertPanier(epicerie: Table_Panier)
 
-    @Query("DELETE FROM Table_Epicerie")
-    suspend fun clearTable()
+//    @Query("DELETE FROM Table_Epicerie")
+//    suspend fun clearTable()
 
     @Query("SELECT * FROM Table_Panier")
     suspend fun getAllPanier(): MutableList<Table_Panier>
