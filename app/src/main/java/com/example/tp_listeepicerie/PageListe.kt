@@ -1,6 +1,7 @@
 package com.example.tp_listeepicerie
 
 import android.content.Intent
+import android.content.res.Configuration
 import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
@@ -43,10 +44,19 @@ class PageListe : AppCompatActivity(){
         recyclerView = findViewById(R.id.recyclerItem)
         recyclerViewCart = findViewById(R.id.recycleCart)
 
-        val gridLayoutManagerItem = GridLayoutManager(this, 2)
-        recyclerView.layoutManager = gridLayoutManagerItem
-        val gridLayoutManagerPanier = GridLayoutManager(this, 2)
-        recyclerViewCart.layoutManager = gridLayoutManagerPanier
+        val orientation = resources.configuration.orientation
+        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+
+            val gridLayoutManagerItem = GridLayoutManager(this, 4)
+            recyclerView.layoutManager = gridLayoutManagerItem
+            val gridLayoutManagerPanier = GridLayoutManager(this, 4)
+            recyclerViewCart.layoutManager = gridLayoutManagerPanier
+        } else {
+            val gridLayoutManagerItem = GridLayoutManager(this, 2)
+            recyclerView.layoutManager = gridLayoutManagerItem
+            val gridLayoutManagerPanier = GridLayoutManager(this, 2)
+            recyclerViewCart.layoutManager = gridLayoutManagerPanier
+        }
 
 
 
