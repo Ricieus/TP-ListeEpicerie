@@ -9,7 +9,11 @@ import com.example.tp_listeepicerie.PageListe
 import com.example.tp_listeepicerie.R
 import com.example.tp_listeepicerie.Table_Panier
 
-class PanierAdaptor(val ctx: Context, val activity: PageListe, var data: MutableList<Table_Panier>) : RecyclerView.Adapter<PanierHolder>() {
+class PanierAdaptor(
+    val ctx: Context,
+    val activity: PageListe,
+    var data: MutableList<Table_Panier>
+) : RecyclerView.Adapter<PanierHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PanierHolder {
         val view = LayoutInflater.from(ctx).inflate(R.layout.panier_epicerie_item, parent, false)
         return PanierHolder(view)
@@ -22,10 +26,10 @@ class PanierAdaptor(val ctx: Context, val activity: PageListe, var data: Mutable
     override fun onBindViewHolder(holder: PanierHolder, position: Int) {
         val currentGenericItem = data[position]
 
-        holder.textName.text = currentGenericItem.nom
-        holder.textPrice.text = currentGenericItem.quantite.toString() + "$"
+        holder.textName.text = currentGenericItem.cartProductName
+        holder.textPrice.text = currentGenericItem.cartQuantity.toString() + "$"
 
-        val imageUri = currentGenericItem.imageNourriture
+        val imageUri = currentGenericItem.cartFoodImage
         if (imageUri != null) {
             holder.img.setImageURI(Uri.parse(imageUri))
         } else {

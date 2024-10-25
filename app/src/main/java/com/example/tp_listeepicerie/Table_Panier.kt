@@ -5,19 +5,18 @@ import androidx.room.Entity
 import androidx.room.Insert
 import androidx.room.PrimaryKey
 import androidx.room.Query
-
 @Entity
 data class Table_Panier (
     @PrimaryKey(autoGenerate = true)
     var uid: Int = 0,
-    var nom: String,
-    var prix: Double,
-    var quantite: Int,
-    var imageNourriture: String,
-    var categorie: String,
-    var description: String,
-    var boutonPanier: Int,
-    var boutonInformation: Int
+    var cartProductName: String,
+    var cartProductPrice: Double,
+    var cartQuantity: Int,
+    var cartFoodImage: String,
+    var cartCategory: String,
+    var cartDescription: String,
+    var cartbutton: Int,
+    var cartInformation: Int
     ) {
-
+//TODO: NEED TO DELETE THE BUTTON INSIDE THE TABLE AND THE PRICE
 }

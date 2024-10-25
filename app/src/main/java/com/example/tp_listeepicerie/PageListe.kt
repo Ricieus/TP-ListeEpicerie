@@ -91,7 +91,7 @@ class PageListe : AppCompatActivity(){
             }
         }
 
-        //applicationContext.deleteDatabase("epicerie_database")
+        applicationContext.deleteDatabase("epicerie_database")
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -125,14 +125,14 @@ class PageListe : AppCompatActivity(){
 
                     val itemPanier = Table_Panier(
                         uid = epicerie.uid,
-                        nom = epicerie.nom,
-                        prix = epicerie.prix,
-                        quantite = epicerie.quantite,
-                        imageNourriture = epicerie.imageNourriture,
-                        categorie = epicerie.categorie,
-                        description = epicerie.description,
-                        boutonPanier = epicerie.boutonPanier,
-                        boutonInformation = epicerie.boutonInformation
+                        cartProductName = epicerie.nom,
+                        cartProductPrice = epicerie.prix,
+                        cartQuantity = epicerie.quantite,
+                        cartFoodImage = epicerie.imageNourriture,
+                        cartCategory = epicerie.categorie,
+                        cartDescription = epicerie.description,
+                        cartbutton = epicerie.boutonPanier,
+                        cartInformation = epicerie.boutonInformation
                     )
                     database.epicerieDao().insertPanier(itemPanier)
 
@@ -163,14 +163,14 @@ class PageListe : AppCompatActivity(){
 
             val itemProduct = Table_Epicerie(
                 uid = item.uid,
-                nom = item.nom,
-                prix = item.prix,
-                quantite = item.quantite,
-                imageNourriture = item.imageNourriture,
-                categorie = item.categorie,
-                description = item.description,
-                boutonPanier = item.boutonPanier,
-                boutonInformation = item.boutonInformation
+                nom = item.cartProductName,
+                prix = item.cartProductPrice,
+                quantite = item.cartQuantity,
+                imageNourriture = item.cartFoodImage,
+                categorie = item.cartCategory,
+                description = item.cartDescription,
+                boutonPanier = item.cartbutton,
+                boutonInformation = item.cartInformation
             )
 
             database.epicerieDao().insertProductList(itemProduct)
