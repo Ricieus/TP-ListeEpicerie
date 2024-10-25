@@ -29,12 +29,16 @@ class MainActivity : AppCompatActivity() {
 
         var View1: View = findViewById(R.id.promo_rec)
         var View2: View = findViewById(R.id.fruit)
-        var View3: View = findViewById(R.id.legume)
-        var View4: View = findViewById(R.id.lock)
+        var View3: View = findViewById(R.id.favoris)
         var View5: View = findViewById(R.id.settings)
 
         View2.setOnClickListener {
             val intent = Intent(this@MainActivity, PageListe::class.java)
+            this@MainActivity.startActivity(intent)
+        }
+
+        View3.setOnClickListener{
+            val intent = Intent(this@MainActivity, PageFavorite::class.java)
             this@MainActivity.startActivity(intent)
         }
         View5.setOnClickListener {
