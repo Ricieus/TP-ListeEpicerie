@@ -56,8 +56,11 @@ class PageAjouter : AppCompatActivity() {
         val selectionPhoto =
             registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uriSelect: Uri? ->
                 if (uriSelect != null) {
-                    applicationContext.contentResolver.takePersistableUriPermission(uriSelect, Intent.FLAG_GRANT_READ_URI_PERMISSION)
-                    productImage.setImageURI (uriSelect)
+                    applicationContext.contentResolver.takePersistableUriPermission(
+                        uriSelect,
+                        Intent.FLAG_GRANT_READ_URI_PERMISSION
+                    )
+                    productImage.setImageURI(uriSelect)
                     imageUri = uriSelect
                 }
             }
@@ -84,7 +87,7 @@ class PageAjouter : AppCompatActivity() {
                         uid = 0,
                         nameProduct = nameItem.text.toString(),
                         price = 0.0,
-                        quantity = quantityItem.text.toString().toIntOrNull() ?: 0,
+                        quantity = quantityItem.text.toString().toIntOrNull() ?: 1,
                         FoodImageURI = imageUri.toString(),
                         category = categoryItem.text.toString(),
                         description = descriptionItem.text.toString(),

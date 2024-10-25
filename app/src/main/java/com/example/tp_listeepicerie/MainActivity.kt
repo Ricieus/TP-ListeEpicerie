@@ -27,18 +27,20 @@ class MainActivity : AppCompatActivity() {
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
-        var View1 : View = findViewById(R.id.promo_rec)
-        var View2 : View = findViewById(R.id.fruit)
-        var View3 : View = findViewById(R.id.legume)
-        var View4 : View = findViewById(R.id.lock)
-        var View5 : View = findViewById(R.id.settings)
+        var View1: View = findViewById(R.id.promo_rec)
+        var View2: View = findViewById(R.id.fruit)
+        var View3: View = findViewById(R.id.legume)
+        var View4: View = findViewById(R.id.lock)
+        var View5: View = findViewById(R.id.settings)
 
         View2.setOnClickListener {
             val intent = Intent(this@MainActivity, PageListe::class.java)
             this@MainActivity.startActivity(intent)
         }
         View5.setOnClickListener {
-
+//            val intent = Intent(this@MainActivity, PageListe::class.java)
+//            this@MainActivity.startActivity(intent)
+            // TODO MUST PUT THE NEW SETTINGS PAGE HERE
         }
     }
 
@@ -54,6 +56,7 @@ class MainActivity : AppCompatActivity() {
                 startActivity(intent)
                 true
             }
+
             else -> super.onOptionsItemSelected(item)
         }
     }

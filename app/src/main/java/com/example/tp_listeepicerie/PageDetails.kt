@@ -37,7 +37,6 @@ class PageDetails : AppCompatActivity() {
     private lateinit var textProductName: TextView
     private lateinit var productImage: ImageView
     private lateinit var textProductDescription: TextView
-    //private lateinit var editButton: ImageButton
     private lateinit var textCategory: TextView
     private lateinit var textQuantity: TextView
     private lateinit var saveButton: Button
@@ -74,19 +73,16 @@ class PageDetails : AppCompatActivity() {
             infoItem = intent.getParcelableExtra(UsbManager.EXTRA_DEVICE)!!
         }
 
-        infoItem.let {
-            productId = infoItem.uid
-            itemName = infoItem.nameItem
-            itemImage = infoItem.FoodImageURI
-            productDescription = infoItem.description
-            itemCategory = infoItem.category
-            itemQuantity = infoItem.quantity
-        }
+        productId = infoItem.uid
+        itemName = infoItem.nameItem
+        itemImage = infoItem.FoodImageURI
+        productDescription = infoItem.description
+        itemCategory = infoItem.category
+        itemQuantity = infoItem.quantity
 
         textProductName = findViewById(R.id.productName)
         productImage = findViewById(R.id.imageProduit)
         textProductDescription = findViewById(R.id.productDescription)
-        //editButton = findViewById(R.id.editButton)
         textCategory = findViewById(R.id.productCategory)
         textQuantity = findViewById(R.id.productQuantity)
         saveButton = findViewById(R.id.saveButton)
@@ -94,28 +90,33 @@ class PageDetails : AppCompatActivity() {
         updateImageButton = findViewById(R.id.changeImageButton)
         takePhotoButton = findViewById(R.id.takePhotoButton)
 
-        if (itemImage.isNotEmpty()){
+        if (itemImage.isNotEmpty()) {
             val imageUri = Uri.parse(itemImage)
             productImage.setImageURI(imageUri)
             this.imageUri = imageUri
         }
 
-        val selectionPhoto = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uriSelect: Uri? ->
-            if (uriSelect != null) {
-                applicationContext.contentResolver.takePersistableUriPermission(uriSelect, Intent.FLAG_GRANT_READ_URI_PERMISSION)
-                productImage.setImageURI(uriSelect)
-                imageUri = uriSelect
+        val selectionPhoto =
+            registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uriSelect: Uri? ->
+                if (uriSelect != null) {
+                    applicationContext.contentResolver.takePersistableUriPermission(
+                        uriSelect,
+                        Intent.FLAG_GRANT_READ_URI_PERMISSION
+                    )
+                    productImage.setImageURI(uriSelect)
+                    imageUri = uriSelect
+                }
             }
-        }
 
 
         val uriPhoto = creerUriPhoto()
-        val prendrePhoto = registerForActivityResult(ActivityResultContracts.TakePicture()) { success ->
-            if (success) {
-                productImage.setImageURI(uriPhoto)
-                imageUri = uriPhoto
+        val prendrePhoto =
+            registerForActivityResult(ActivityResultContracts.TakePicture()) { success ->
+                if (success) {
+                    productImage.setImageURI(uriPhoto)
+                    imageUri = uriPhoto
+                }
             }
-        }
 
         textProductName.text = itemName
         textProductDescription.text = productDescription
@@ -142,9 +143,12 @@ class PageDetails : AppCompatActivity() {
 
 
     }
+
     private fun creerUriPhoto(): Uri {
-        val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
-        val photoFile: File = File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), "IMG_$timeStamp.jpg")
+        val timeStamp: String =
+            SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
+        val photoFile: File =
+            File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), "IMG_$timeStamp.jpg")
         return FileProvider.getUriForFile(this, "ca.qc.bdeb.c5gm.photoapp", photoFile)
     }
 
@@ -213,6 +217,7 @@ class PageDetails : AppCompatActivity() {
                 //Temporaire
                 finish()
             }
+
             R.id.edit -> {
                 updateImageButton.isEnabled = true
                 takePhotoButton.isEnabled = true
