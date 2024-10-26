@@ -62,32 +62,34 @@ class PageFavorite : AppCompatActivity() {
         val database = Database_Epicerie.getDatabase(applicationContext)
         // https://stackoverflow.com/questions/3386667/query-if-android-database-exists
         lifecycleScope.launch(Dispatchers.IO) {
-            if ((applicationContext.getDatabasePath("epicerie_database")).exists()) {
-                for (grocery in listFavorite) {
-                    val existingItem = database.epicerieDao().findByName(grocery.nameProduct)
-
-                    if (existingItem != null) {
-                        val itemPanier = existingItem.copy(isCart = true, isFavorite = false)
-                        database.epicerieDao().updateEpicerie(itemPanier)
-
-//                        withContext(Dispatchers.Main) {
-//                            cartItems = database.epicerieDao().getAllPanier()
-//                            groceryList = database.epicerieDao().getAllProduct()
-//                            refreshRecyclerView()
+//            if ((applicationContext.getDatabasePath("epicerie_database")).exists()) {
+//                for (grocery in listFavorite) {
+//                    val existingItem = database.epicerieDao().findByName(grocery.nameProduct)
+//
+//                    if (existingItem != null) {
+//                        if (existingItem.isFavorite) {
+//                            val itemPanier = existingItem.copy(isCart = true, isFavorite = false)
+//                            database.epicerieDao().updateEpicerie(itemPanier)
+//
+//                //                        withContext(Dispatchers.Main) {
+//                //                            cartItems = database.epicerieDao().getAllPanier()
+//                //                            groceryList = database.epicerieDao().getAllProduct()
+//                //                            refreshRecyclerView()
+//                //                        }
 //                        }
-                    }
-
-//                    withContext(Dispatchers.Main) {
-//                        cartItems = database.epicerieDao().getAllPanier()
-//                        groceryList = database.epicerieDao().getAllProduct()
-//                        refreshRecyclerView()
 //                    }
 //
-//                    if (existingItem == null) {
-//                        database.epicerieDao().updateEpicerie(grocery)
-//                    }
-                }
-            }
+////                    withContext(Dispatchers.Main) {
+////                        cartItems = database.epicerieDao().getAllPanier()
+////                        groceryList = database.epicerieDao().getAllProduct()
+////                        refreshRecyclerView()
+////                    }
+////
+////                    if (existingItem == null) {
+////                        database.epicerieDao().updateEpicerie(grocery)
+////                    }
+//                }
+//            }
 
             listFavorite = database.epicerieDao().getAllFavoris()
             launch(Dispatchers.Main) {

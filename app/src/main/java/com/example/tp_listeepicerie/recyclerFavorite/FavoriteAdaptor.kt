@@ -11,9 +11,6 @@ import com.example.tp_listeepicerie.PageFavorite
 import com.example.tp_listeepicerie.PageListe
 import com.example.tp_listeepicerie.R
 import com.example.tp_listeepicerie.Table_Epicerie
-import com.example.tp_listeepicerie.Table_Favoris
-import com.example.tp_listeepicerie.recyclerItem.InfoItem
-import com.example.tp_listeepicerie.recyclerItem.ItemHolder
 
 class FavoriteAdaptor(
     val ctx: Context,
