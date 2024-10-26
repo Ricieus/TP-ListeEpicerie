@@ -13,6 +13,9 @@
         android:theme="@style/Theme.TPListeEpicerie"
         tools:targetApi="31">
         <activity
+            android:name=".PageSettings"
+            android:exported="false" />
+        <activity
             android:name=".PageListe"
             android:exported="false" />
         <activity

@@ -97,7 +97,7 @@ class PageListe : AppCompatActivity(){
                 refreshRecyclerView()
             }
         }
-//        applicationContext.deleteDatabase("epicerie_database")
+        //applicationContext.deleteDatabase("epicerie_database")
     }
 
     private fun refreshRecyclerView(){
