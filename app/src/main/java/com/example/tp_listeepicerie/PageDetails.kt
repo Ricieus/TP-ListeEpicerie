@@ -172,7 +172,9 @@ class PageDetails : AppCompatActivity() {
                 description = updatedDescription,
                 category = updatedCategory,
                 quantity = updatedQuantity,
-                foodImageURI = updatedImageUri
+                foodImageURI = updatedImageUri,
+                isCart = false,
+                isFavorite = false
             )
             database.epicerieDao().updateEpicerie(updatedItem)
 

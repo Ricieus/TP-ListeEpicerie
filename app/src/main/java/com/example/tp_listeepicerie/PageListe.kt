@@ -23,7 +23,7 @@ import kotlinx.coroutines.withContext
 
 class PageListe : AppCompatActivity(){
     private var genericList: MutableList<Table_Epicerie> = mutableListOf()
-    private var cartItems: MutableList<Table_Panier> = mutableListOf()
+    private var cartItems: MutableList<Table_Epicerie> = mutableListOf()
     private lateinit var recyclerViewCart: RecyclerView
     private lateinit var recyclerView: RecyclerView
     private var groceryList: MutableList<Table_Epicerie> = mutableListOf()
@@ -65,17 +65,17 @@ class PageListe : AppCompatActivity(){
             Table_Epicerie(0,"Pomme", 1, Uri.Builder().scheme("android.resource").authority(packageName).appendPath(R.drawable.img.toString()).build().toString(), "fruits", "Lorem ipsum dolor sit amet, consectetur adipiscing elit," +
                     " sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut" +
                     " aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur" +
-                    " sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."),
+                    " sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", true, false),
             Table_Epicerie(0,"Tomate", 1,
                 Uri.Builder().scheme("android.resource").authority(packageName).appendPath(R.drawable.img_1.toString()).build().toString(), "legumes", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, " +
                     "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex" +
                     " ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat" +
-                    " non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."),
+                    " non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", false, false),
             Table_Epicerie(0,"Tomate Special", 1,
                 Uri.Builder().scheme("android.resource").authority(packageName).appendPath(R.drawable.img_1.toString()).build().toString(), "legumes", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed" +
                     " do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo" +
                     " consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident," +
-                    " sunt in culpa qui officia deserunt mollit anim id est laborum.")
+                    " sunt in culpa qui officia deserunt mollit anim id est laborum.", false, true)
 
         )
 
@@ -91,20 +91,20 @@ class PageListe : AppCompatActivity(){
                     }
                 }
             }
-
-            groceryList = database.epicerieDao().getAll()
+            groceryList = database.epicerieDao().getAllProduct()
             cartItems = database.epicerieDao().getAllPanier()
             launch(Dispatchers.Main) {
                 refreshRecyclerView()
             }
         }
-
 //        applicationContext.deleteDatabase("epicerie_database")
     }
 
     private fun refreshRecyclerView(){
         recyclerView.adapter = ItemAdaptor(applicationContext, this@PageListe, groceryList)
         recyclerViewCart.adapter = PanierAdaptor(applicationContext, this@PageListe, cartItems)
+        recyclerView.adapter?.notifyDataSetChanged()
+        recyclerViewCart.adapter?.notifyDataSetChanged()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -130,30 +130,19 @@ class PageListe : AppCompatActivity(){
     fun ajoutPanier(item: Table_Epicerie) {
         val database = Database_Epicerie.getDatabase(applicationContext)
         lifecycleScope.launch(Dispatchers.IO) {
-            for (epicerie in database.epicerieDao().getAll()) {
-                val existingItem = database.epicerieDao().findByName(item.nameProduct)
+            // TODO MUST CHANGE CHATGPT
+            val existingItem = database.epicerieDao().findByName(item.nameProduct)
 
-                if (existingItem?.nameProduct == epicerie.nameProduct) {
-                    database.epicerieDao().deleteEpicerie(existingItem)
+            if (existingItem != null) {
+                val itemPanier = existingItem.copy(isCart = true, isFavorite = false)
+                database.epicerieDao().updateEpicerie(itemPanier)
 
-                    val itemPanier = Table_Panier(
-                        uid = epicerie.uid,
-                        cartProductName = epicerie.nameProduct,
-                        cartQuantity = epicerie.quantity,
-                        cartFoodImage = epicerie.foodImageURI,
-                        cartCategory = epicerie.category,
-                        cartDescription = epicerie.description
-                    )
-                    database.epicerieDao().insertPanier(itemPanier)
-
-                    withContext(Dispatchers.Main){
-                        cartItems.add(itemPanier)
-                        recyclerViewCart.adapter?.notifyItemInserted(cartItems.size - 1)
-                        deleteProduct(item)
-                    }
+                withContext(Dispatchers.Main) {
+                    cartItems = database.epicerieDao().getAllPanier()
+                    groceryList = database.epicerieDao().getAllProduct()
+                    refreshRecyclerView()
                 }
             }
-
         }
     }
 
@@ -165,30 +154,25 @@ class PageListe : AppCompatActivity(){
         }
     }
 
-    fun removeFromPanier(item: Table_Panier) {
+    fun removeFromPanier(item: Table_Epicerie) {
         val database = Database_Epicerie.getDatabase(applicationContext)
         lifecycleScope.launch(Dispatchers.IO) {
 
             val itemProduct = Table_Epicerie(
                 uid = item.uid,
-                nameProduct = item.cartProductName,
-                quantity = item.cartQuantity,
-                foodImageURI = item.cartFoodImage,
-                category = item.cartCategory,
-                description = item.cartDescription
+                nameProduct = item.nameProduct,
+                quantity = item.quantity,
+                foodImageURI = item.foodImageURI,
+                category = item.category,
+                description = item.description,
+                isCart = false,
+                isFavorite = false
             )
-            database.epicerieDao().insertProductList(itemProduct)
-            database.epicerieDao().deleteEpiceriePanier(item)
-
-            withContext(Dispatchers.Main) {
-                groceryList.add(itemProduct)
-                recyclerView.adapter?.notifyItemInserted(genericList.size)
-
-                val position = cartItems.indexOf(item)
-                if (position != -1) {
-                    cartItems.removeAt(position)
-                    recyclerViewCart.adapter?.notifyItemRemoved(position)
-                }
+            database.epicerieDao().updateEpicerie(itemProduct)
+            withContext(Dispatchers.Main){
+                groceryList = database.epicerieDao().getAllProduct()
+                cartItems = database.epicerieDao().getAllPanier()
+                refreshRecyclerView()
             }
         }
     }
@@ -198,7 +182,7 @@ class PageListe : AppCompatActivity(){
 
         val database = Database_Epicerie.getDatabase(applicationContext)
         lifecycleScope.launch(Dispatchers.IO) {
-            groceryList = database.epicerieDao().getAll()
+            groceryList = database.epicerieDao().getAllProduct()
             cartItems = database.epicerieDao().getAllPanier()
             launch(Dispatchers.Main) {
                 refreshRecyclerView()

@@ -81,7 +81,9 @@ class PageAjouter : AppCompatActivity() {
                     quantity = quantityItem.text.toString().toIntOrNull() ?: 1,
                     foodImageURI = imageUri.toString(),
                     category = categoryItem.text.toString(),
-                    description = descriptionItem.text.toString()
+                    description = descriptionItem.text.toString(),
+                    isCart = false,
+                    isFavorite = false
                 )
                 database.epicerieDao().insertEpicerie(itemGrocery)
             }

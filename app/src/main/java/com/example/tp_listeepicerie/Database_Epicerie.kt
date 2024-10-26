@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 @Database(
-    entities = [Table_Epicerie::class, Table_Panier::class, Table_Favoris::class],
+    entities = [Table_Epicerie::class],
     version = 1,
     exportSchema = false
 )

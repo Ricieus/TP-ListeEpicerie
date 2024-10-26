@@ -18,7 +18,7 @@ import com.example.tp_listeepicerie.recyclerItem.ItemHolder
 class FavoriteAdaptor(
     val ctx: Context,
     val activity: PageFavorite,
-    var data: MutableList<Table_Favoris>
+    var data: MutableList<Table_Epicerie>
 ) : RecyclerView.Adapter<FavoriteHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteHolder {
         val view = LayoutInflater.from(ctx).inflate(R.layout.favorite_epicerie_item, parent, false)
@@ -32,10 +32,10 @@ class FavoriteAdaptor(
     override fun onBindViewHolder(holder: FavoriteHolder, position: Int) {
         val currentItem = data[position]
 
-        holder.textName.text = currentItem.favoriteProductName
-        holder.textPrice.text = "Quantite: ${currentItem.favoriteQuantity}"
+        holder.textName.text = currentItem.nameProduct
+        holder.textPrice.text = "Quantite: ${currentItem.quantity}"
 
-        val imageUri = currentItem.favoriteFoodImage
+        val imageUri = currentItem.foodImageURI
         if (imageUri.isNotEmpty()) {
             holder.img.setImageURI(Uri.parse(imageUri))
         } else {

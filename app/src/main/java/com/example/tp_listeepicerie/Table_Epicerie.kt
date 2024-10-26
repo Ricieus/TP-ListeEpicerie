@@ -11,7 +11,9 @@ data class Table_Epicerie(
     var quantity: Int,
     var foodImageURI: String,
     var category: String,
-    var description: String
+    var description: String,
+    var isCart: Boolean,
+    var isFavorite: Boolean
 ) {
     //TODO NEED TO DELETE THE BUTTON INSIDE THE TABLE AND THE PRICE
 }
