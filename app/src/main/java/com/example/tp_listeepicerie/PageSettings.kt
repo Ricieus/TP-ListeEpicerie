@@ -44,6 +44,10 @@ class PageSettings : AppCompatActivity() {
             deleteData()
         }
 
+        setTheme()
+    }
+
+    private fun setTheme(){
         val sharedPreferences = getSharedPreferences("Mode", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
         val nightMode = sharedPreferences.getBoolean("night", false)
@@ -69,7 +73,7 @@ class PageSettings : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.page_favorite_menu, menu)
+        menuInflater.inflate(R.menu.page_settings_menu, menu)
         return super.onCreateOptionsMenu(
             menu
         )
@@ -77,7 +81,7 @@ class PageSettings : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.HomeButtonBack -> {
+            R.id.goBack -> {
                 finish()
             }
         }

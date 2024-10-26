@@ -11,16 +11,16 @@ import com.example.tp_listeepicerie.R
 class FavoriteHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     val layout: ConstraintLayout
     val textName: TextView
-    val textPrice: TextView
+    val textQuantity: TextView
     val img: ImageView
     val btnInformation: ImageButton
     val btnPanier: ImageButton
 
     init {
         layout = itemView as ConstraintLayout
-        textName = itemView.findViewById(R.id.genericName)
-        textPrice = itemView.findViewById(R.id.genericQuantity)
-        img = itemView.findViewById(R.id.genericImg)
+        textName = itemView.findViewById(R.id.itemName)
+        textQuantity = itemView.findViewById(R.id.itemQuantity)
+        img = itemView.findViewById(R.id.itemImage)
         btnInformation = itemView.findViewById(R.id.btnInfo)
         btnPanier = itemView.findViewById(R.id.btnAjout)
     }

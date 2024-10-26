@@ -150,10 +150,10 @@ class PageFavorite : AppCompatActivity() {
             "Quantité: Beaucoup à Peu" -> listFavorite.sortedByDescending { it.quantity }
                 .toMutableList()
 
-            "Ordre en alphabetique (Par nom)" -> listFavorite.sortedByDescending { it.nameProduct }
+            "Ordre en alphabetique (Par nom)" -> listFavorite.sortedBy { it.nameProduct }
                 .toMutableList()
 
-            "Ordre en alphabetique (Par catégorie)" -> listFavorite.sortedByDescending { it.category }
+            "Ordre en alphabetique (Par catégorie)" -> listFavorite.sortedBy { it.category }
                 .toMutableList()
 
             else -> listFavorite

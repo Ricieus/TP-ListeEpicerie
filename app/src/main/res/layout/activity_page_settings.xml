@@ -63,7 +63,7 @@
                 android:contentDescription="Ajout"
                 android:src="@android:drawable/ic_menu_delete"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/genericImg"
+                app:layout_constraintEnd_toStartOf="@+id/itemImage"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"

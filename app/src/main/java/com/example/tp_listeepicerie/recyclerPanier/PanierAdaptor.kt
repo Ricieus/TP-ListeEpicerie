@@ -40,7 +40,6 @@ class PanierAdaptor(
 //            //DO SOMETHING (NEW PAGE)
 //        }
         holder.btnPanier.setOnClickListener {
-            //DO SOMETHING (AJOUTER PANIER)
             activity.removeFromPanier(currentGenericItem)
         }
     }

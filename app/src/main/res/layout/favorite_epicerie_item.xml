@@ -7,7 +7,7 @@
     android:padding="16dp">
 
     <ImageView
-        android:id="@+id/genericImg"
+        android:id="@+id/itemImage"
         android:layout_width="75dp"
         android:layout_height="75dp"
         app:layout_constraintTop_toTopOf="parent"
@@ -16,23 +16,23 @@
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
-        android:id="@+id/genericName"
+        android:id="@+id/itemName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="12dp"
         android:text="name"
-        app:layout_constraintStart_toEndOf="@id/genericImg"
-        app:layout_constraintTop_toTopOf="@id/genericImg" />
+        app:layout_constraintStart_toEndOf="@id/itemImage"
+        app:layout_constraintTop_toTopOf="@id/itemImage" />
 
     <TextView
-        android:id="@+id/genericQuantity"
+        android:id="@+id/itemQuantity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="1"
         android:layout_marginStart="16dp"
-        app:layout_constraintTop_toBottomOf="@id/genericName"
-        app:layout_constraintStart_toEndOf="@id/genericImg"
+        app:layout_constraintTop_toBottomOf="@id/itemName"
+        app:layout_constraintStart_toEndOf="@id/itemImage"
         app:layout_constraintBottom_toBottomOf="parent" />
 
     <ImageButton

@@ -6,7 +6,7 @@
     android:layout_height="200dp">
 
     <TextView
-        android:id="@+id/genericName"
+        android:id="@+id/itemName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="name"
@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/genericQuantity"
+        android:id="@+id/itemQuantity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
@@ -25,14 +25,14 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/genericName"
+        app:layout_constraintTop_toBottomOf="@+id/itemName"
         app:layout_constraintVertical_bias="0.044" />
 
     <ImageView
-        android:id="@+id/genericImg"
+        android:id="@+id/itemImage"
         android:layout_width="75dp"
         android:layout_height="75dp"
-        app:layout_constraintBottom_toTopOf="@+id/genericName"
+        app:layout_constraintBottom_toTopOf="@+id/itemName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
@@ -50,7 +50,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/genericImg"
+        app:layout_constraintStart_toEndOf="@+id/itemImage"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.953"
         app:tint="#000000" />
@@ -62,7 +62,7 @@
         android:contentDescription="Retirer"
         android:src="@android:drawable/arrow_up_float"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/genericImg"
+        app:layout_constraintEnd_toStartOf="@+id/itemImage"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
