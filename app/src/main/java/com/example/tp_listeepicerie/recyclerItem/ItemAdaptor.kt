@@ -63,15 +63,17 @@ class ItemAdaptor(
         }
 
         holder.favorite.setOnClickListener {
-
             if(!currentItem.isFavorite){
                 activity.addItemToFavorite(currentItem)
+                currentItem.isFavorite = true
                 holder.favorite.setImageResource(R.drawable.baseline_star_yellow_24)
             }
             else{
                 activity.removeItemFromFavorite(currentItem)
+                currentItem.isFavorite = false
                 holder.favorite.setImageResource(R.drawable.baseline_star_24)
             }
+
         }
 
 

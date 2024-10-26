@@ -61,46 +61,46 @@ class PageListe : AppCompatActivity(){
 
 
 
-        genericList = mutableListOf(
-            Table_Epicerie(0,"Pomme", 3, Uri.Builder().scheme("android.resource").authority(packageName).appendPath(R.drawable.img.toString()).build().toString(), "fruits", "Lorem ipsum dolor sit amet, consectetur adipiscing elit," +
-                    " sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut" +
-                    " aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur" +
-                    " sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", false, false),
-            Table_Epicerie(0,"Tomate", 2,
-                Uri.Builder().scheme("android.resource").authority(packageName).appendPath(R.drawable.img_1.toString()).build().toString(), "legumes", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, " +
-                    "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex" +
-                    " ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat" +
-                    " non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", false, false),
-            Table_Epicerie(0,"Tomate Special", 1,
-                Uri.Builder().scheme("android.resource").authority(packageName).appendPath(R.drawable.img_1.toString()).build().toString(), "legumes", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed" +
-                    " do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo" +
-                    " consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident," +
-                    " sunt in culpa qui officia deserunt mollit anim id est laborum.", false, false)
-
-        )
+//        genericList = mutableListOf(
+//            Table_Epicerie(0,"Pomme", 3, Uri.Builder().scheme("android.resource").authority(packageName).appendPath(R.drawable.img.toString()).build().toString(), "fruits", "Lorem ipsum dolor sit amet, consectetur adipiscing elit," +
+//                    " sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut" +
+//                    " aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur" +
+//                    " sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", false, false),
+//            Table_Epicerie(0,"Tomate", 2,
+//                Uri.Builder().scheme("android.resource").authority(packageName).appendPath(R.drawable.img_1.toString()).build().toString(), "legumes", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, " +
+//                    "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex" +
+//                    " ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat" +
+//                    " non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", false, false),
+//            Table_Epicerie(0,"Tomate Special", 1,
+//                Uri.Builder().scheme("android.resource").authority(packageName).appendPath(R.drawable.img_1.toString()).build().toString(), "legumes", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed" +
+//                    " do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo" +
+//                    " consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident," +
+//                    " sunt in culpa qui officia deserunt mollit anim id est laborum.", false, false)
+//
+//        )
 
         val database = Database_Epicerie.getDatabase(applicationContext)
         // https://stackoverflow.com/questions/3386667/query-if-android-database-exists
         lifecycleScope.launch(Dispatchers.IO) {
-            if (!(applicationContext.getDatabasePath("epicerie_database")).exists()) {
-                for (epicerie in genericList) {
-                    val existingItem = database.epicerieDao().findByName(epicerie.nameProduct)
-
-                    if (existingItem == null) {
-                        database.epicerieDao().insertEpicerie(epicerie)
-                    }
-                }
-            }
+//            if (!(applicationContext.getDatabasePath("epicerie_database")).exists()) {
+//                for (epicerie in genericList) {
+//                    val existingItem = database.epicerieDao().findByName(epicerie.nameProduct)
+//
+//                    if (existingItem == null) {
+//                        database.epicerieDao().insertEpicerie(epicerie)
+//                    }
+//                }
+//            }
             groceryList = database.epicerieDao().getAllProduct()
             cartItems = database.epicerieDao().getAllPanier()
             launch(Dispatchers.Main) {
                 refreshRecyclerView()
             }
         }
-        applicationContext.deleteDatabase("epicerie_database")
+        //applicationContext.deleteDatabase("epicerie_database")
     }
 
-    private fun refreshRecyclerView(){
+    fun refreshRecyclerView(){
         recyclerView.adapter = ItemAdaptor(applicationContext, this@PageListe, groceryList)
         recyclerViewCart.adapter = PanierAdaptor(applicationContext, this@PageListe, cartItems)
         recyclerView.adapter?.notifyDataSetChanged()
@@ -207,7 +207,6 @@ class PageListe : AppCompatActivity(){
             )
 
             database.epicerieDao().updateEpicerie(itemProduct)
-
         }
 
     }

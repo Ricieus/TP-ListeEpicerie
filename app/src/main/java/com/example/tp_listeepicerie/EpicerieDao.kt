@@ -50,6 +50,9 @@ interface EpicerieDao {
 
     @Query("SELECT * FROM Table_Epicerie WHERE isFavorite = true")
     suspend fun getAllFavoris(): MutableList<Table_Epicerie>
+
+    @Query ("DELETE FROM Table_Epicerie")
+    suspend fun deleteAllInformation()
 //
 //    @Query("SELECT * FROM Table_Favoris WHERE favoriteProductName = :nom LIMIT 1")
 //    suspend fun findByNameFav(nom: String): Table_Favoris?
