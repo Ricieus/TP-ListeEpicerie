@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.tp_listeepicerie.PageListe
 import com.example.tp_listeepicerie.R
 import com.example.tp_listeepicerie.Table_Epicerie
-import com.example.tp_listeepicerie.Table_Panier
 
 class PanierAdaptor(
     val ctx: Context,

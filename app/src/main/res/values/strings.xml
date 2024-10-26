@@ -1,3 +1,10 @@
 <resources>
-    <string name="app_name">TP-ListeEpicerie</string>
+    <string name="app_name">Liste d\'épicerie</string>
+    <string-array name="filter_options">
+        <item>Reaffichage des produits</item>
+        <item>Quantité: Peu à Beaucoup</item>
+        <item>Quantité: Beaucoup à Peu</item>
+        <item>Ordre en alphabetique (Par nom)</item>
+        <item>Ordre en alphabetique (Par catégorie)</item>
+    </string-array>
 </resources>
