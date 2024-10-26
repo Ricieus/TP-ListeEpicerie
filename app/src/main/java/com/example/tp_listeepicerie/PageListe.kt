@@ -26,7 +26,7 @@ class PageListe : AppCompatActivity(){
     private var cartItems: MutableList<Table_Panier> = mutableListOf()
     private lateinit var recyclerViewCart: RecyclerView
     private lateinit var recyclerView: RecyclerView
-    private var listEpicerie: MutableList<Table_Epicerie> = mutableListOf()
+    private var groceryList: MutableList<Table_Epicerie> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -92,17 +92,19 @@ class PageListe : AppCompatActivity(){
                 }
             }
 
-
-
-            listEpicerie = database.epicerieDao().getAll()
+            groceryList = database.epicerieDao().getAll()
             cartItems = database.epicerieDao().getAllPanier()
             launch(Dispatchers.Main) {
-                recyclerView.adapter = ItemAdaptor(applicationContext, this@PageListe, listEpicerie)
-                recyclerViewCart.adapter = PanierAdaptor(applicationContext, this@PageListe, cartItems)
+                refreshRecyclerView()
             }
         }
 
 //        applicationContext.deleteDatabase("epicerie_database")
+    }
+
+    private fun refreshRecyclerView(){
+        recyclerView.adapter = ItemAdaptor(applicationContext, this@PageListe, groceryList)
+        recyclerViewCart.adapter = PanierAdaptor(applicationContext, this@PageListe, cartItems)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -156,12 +158,11 @@ class PageListe : AppCompatActivity(){
     }
 
     fun deleteProduct(item: Table_Epicerie){
-        val position = listEpicerie.indexOf(item)
+        val position = groceryList.indexOf(item)
         if (position != -1) {
-            listEpicerie.removeAt(position)
+            groceryList.removeAt(position)
             recyclerView.adapter?.notifyItemRemoved(position)
         }
-
     }
 
     fun removeFromPanier(item: Table_Panier) {
@@ -180,7 +181,7 @@ class PageListe : AppCompatActivity(){
             database.epicerieDao().deleteEpiceriePanier(item)
 
             withContext(Dispatchers.Main) {
-                listEpicerie.add(itemProduct)
+                groceryList.add(itemProduct)
                 recyclerView.adapter?.notifyItemInserted(genericList.size)
 
                 val position = cartItems.indexOf(item)
@@ -197,12 +198,10 @@ class PageListe : AppCompatActivity(){
 
         val database = Database_Epicerie.getDatabase(applicationContext)
         lifecycleScope.launch(Dispatchers.IO) {
-            listEpicerie = database.epicerieDao().getAll()
+            groceryList = database.epicerieDao().getAll()
             cartItems = database.epicerieDao().getAllPanier()
-            Thread.sleep(1000)
             launch(Dispatchers.Main) {
-                recyclerView.adapter = ItemAdaptor(applicationContext, this@PageListe, listEpicerie)
-                recyclerViewCart.adapter = PanierAdaptor(applicationContext, this@PageListe, cartItems)
+                refreshRecyclerView()
             }
         }
     }
