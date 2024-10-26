@@ -5,8 +5,10 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.PopupMenu
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -53,7 +55,7 @@ class PageFavorite : AppCompatActivity() {
                         " aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur" +
                         " sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
                 false,
-                false
+                true
             )
         )
 
@@ -116,8 +118,53 @@ class PageFavorite : AppCompatActivity() {
             R.id.HomeButtonBack -> {
                 finish()
             }
+
+            R.id.ButtonFilter -> {
+                showFilterMenu()
+            }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    // Référence : https://www.geeksforgeeks.org/popup-menu-in-android-with-example/
+    private fun showFilterMenu() {
+        val popupMenu = PopupMenu(this, findViewById(R.id.ButtonFilter))
+        popupMenu.menuInflater.inflate(R.menu.filter_popup_menu, popupMenu.menu)
+        popupMenu.setOnMenuItemClickListener { selectedFilter ->
+            when (selectedFilter.itemId) {
+                R.id.filter_show_all -> applyFilter("Reaffichage des produits")
+                R.id.filter_price_low_to_high -> applyFilter("Quantité: Peu à Beaucoup")
+                R.id.filter_price_high_to_low -> applyFilter("Quantité: Beaucoup à Peu")
+                R.id.filter_alphabetic_ordre_name -> applyFilter("Ordre en alphabetique (Par nom)")
+                R.id.filter_alphabetic_ordre_category -> applyFilter("Ordre en alphabetique (Par catégorie)")
+            }
+            true
+        }
+        popupMenu.show()
+    }
+
+    private fun applyFilter(filter: String) {
+        val filterList: MutableList<Table_Epicerie> = when (filter) {
+            "Reaffichage des produits" -> listFavorite
+            "Quantité: Peu à Beaucoup" -> listFavorite.sortedBy { it.quantity }.toMutableList()
+            "Quantité: Beaucoup à Peu" -> listFavorite.sortedByDescending { it.quantity }
+                .toMutableList()
+
+            "Ordre en alphabetique (Par nom)" -> listFavorite.sortedByDescending { it.nameProduct }
+                .toMutableList()
+
+            "Ordre en alphabetique (Par catégorie)" -> listFavorite.sortedByDescending { it.category }
+                .toMutableList()
+
+            else -> listFavorite
+        }
+
+        lifecycleScope.launch(Dispatchers.IO) {
+            launch(Dispatchers.Main) {
+                recyclerViewFav.adapter =
+                    FavoriteAdaptor(applicationContext, this@PageFavorite, filterList)
+            }
+        }
     }
 
 }

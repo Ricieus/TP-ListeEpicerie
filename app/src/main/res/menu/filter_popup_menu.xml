@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/filter_show_all"
+        android:title="Reaffichage des produits" />
+    <item
+        android:id="@+id/filter_price_low_to_high"
+        android:title="Quantité: Peu à Beaucoup" />
+    <item
+        android:id="@+id/filter_price_high_to_low"
+        android:title="Quantité: Beaucoup à Peu" />
+    <item
+        android:id="@+id/filter_alphabetic_ordre_name"
+        android:title="Ordre en alphabetique (Par nom)" />
+    <item
+        android:id="@+id/filter_alphabetic_ordre_category"
+        android:title="Ordre en alphabetique (Par catégorie)" />
+</menu>

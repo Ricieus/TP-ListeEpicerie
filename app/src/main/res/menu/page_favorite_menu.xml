@@ -6,4 +6,10 @@
         android:icon="@drawable/baseline_arrow_back_24"
         android:title="HomeButton"
         app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/ButtonFilter"
+        android:icon="@drawable/ic_item_filter_foreground"
+        android:title="FilterButton"
+        app:showAsAction="ifRoom" />
 </menu>
