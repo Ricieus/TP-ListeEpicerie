@@ -36,6 +36,14 @@ class ItemAdaptor(
         val imageUri = currentItem.foodImageURI
         holder.img.setImageURI(Uri.parse(imageUri))
 
+        if(currentItem.isFavorite){
+            holder.favorite.setImageResource(R.drawable.baseline_star_yellow_24)
+
+        }
+        else{
+            holder.favorite.setImageResource(R.drawable.baseline_star_24)
+        }
+
         holder.btnInformation.setOnClickListener {
             val intent = Intent(activity, PageDetails::class.java)
             val infoItem = InfoItem(
@@ -53,6 +61,20 @@ class ItemAdaptor(
         holder.btnPanier.setOnClickListener {
             activity.ajoutPanier(currentItem)
         }
+
+        holder.favorite.setOnClickListener {
+
+            if(!currentItem.isFavorite){
+                activity.addItemToFavorite(currentItem)
+                holder.favorite.setImageResource(R.drawable.baseline_star_yellow_24)
+            }
+            else{
+                activity.removeItemFromFavorite(currentItem)
+                holder.favorite.setImageResource(R.drawable.baseline_star_24)
+            }
+        }
+
+
     }
 }
 

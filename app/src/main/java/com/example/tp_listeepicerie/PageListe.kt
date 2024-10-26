@@ -65,17 +65,17 @@ class PageListe : AppCompatActivity(){
             Table_Epicerie(0,"Pomme", 3, Uri.Builder().scheme("android.resource").authority(packageName).appendPath(R.drawable.img.toString()).build().toString(), "fruits", "Lorem ipsum dolor sit amet, consectetur adipiscing elit," +
                     " sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut" +
                     " aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur" +
-                    " sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", true, true),
+                    " sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", false, false),
             Table_Epicerie(0,"Tomate", 2,
                 Uri.Builder().scheme("android.resource").authority(packageName).appendPath(R.drawable.img_1.toString()).build().toString(), "legumes", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, " +
                     "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex" +
                     " ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat" +
-                    " non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", false, true),
+                    " non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", false, false),
             Table_Epicerie(0,"Tomate Special", 1,
                 Uri.Builder().scheme("android.resource").authority(packageName).appendPath(R.drawable.img_1.toString()).build().toString(), "legumes", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed" +
                     " do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo" +
                     " consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident," +
-                    " sunt in culpa qui officia deserunt mollit anim id est laborum.", false, true)
+                    " sunt in culpa qui officia deserunt mollit anim id est laborum.", false, false)
 
         )
 
@@ -97,7 +97,7 @@ class PageListe : AppCompatActivity(){
                 refreshRecyclerView()
             }
         }
-        //applicationContext.deleteDatabase("epicerie_database")
+        applicationContext.deleteDatabase("epicerie_database")
     }
 
     private fun refreshRecyclerView(){
@@ -187,6 +187,47 @@ class PageListe : AppCompatActivity(){
             launch(Dispatchers.Main) {
                 refreshRecyclerView()
             }
+        }
+    }
+
+    fun addItemToFavorite(item: Table_Epicerie){
+        val database = Database_Epicerie.getDatabase(applicationContext)
+        lifecycleScope.launch(Dispatchers.IO) {
+            //val existingItem = database.epicerieDao().findByName(item.nameProduct)
+
+            val itemProduct = Table_Epicerie(
+                uid = item.uid,
+                nameProduct = item.nameProduct,
+                quantity = item.quantity,
+                foodImageURI = item.foodImageURI,
+                category = item.category,
+                description = item.description,
+                isCart = item.isCart,
+                isFavorite = true
+            )
+
+            database.epicerieDao().updateEpicerie(itemProduct)
+
+        }
+
+    }
+
+    fun removeItemFromFavorite(item: Table_Epicerie){
+        val database = Database_Epicerie.getDatabase(applicationContext)
+
+        lifecycleScope.launch(Dispatchers.IO) {
+
+            val itemProduct = Table_Epicerie(
+                uid = item.uid,
+                nameProduct = item.nameProduct,
+                quantity = item.quantity,
+                foodImageURI = item.foodImageURI,
+                category = item.category,
+                description = item.description,
+                isCart = item.isCart,
+                isFavorite = false
+            )
+            database.epicerieDao().updateEpicerie(itemProduct)
         }
     }
 }
