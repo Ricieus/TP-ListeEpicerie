@@ -54,7 +54,6 @@
         app:tint="#000000" />
 
 
-
     <ImageButton
         android:id="@+id/btnAjout"
         android:layout_width="50dp"

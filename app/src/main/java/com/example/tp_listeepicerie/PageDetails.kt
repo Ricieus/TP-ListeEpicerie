@@ -156,7 +156,8 @@ class PageDetails : AppCompatActivity() {
     private fun updateItems() {
         // ChatGPT help me take variable even thought it could be null/blank
         val updatedName: String? = textProductName.text.toString().takeIf { it.isNotBlank() }
-        val updatedDescription: String? = textProductDescription.text.toString().takeIf { it.isNotBlank() }
+        val updatedDescription: String? =
+            textProductDescription.text.toString().takeIf { it.isNotBlank() }
         val updatedCategory: String? = textCategory.text.toString().takeIf { it.isNotBlank() }
         val updatedQuantity: Int? = textQuantity.text.toString().toIntOrNull()
         val updatedImageUri: String? = imageUri?.toString()

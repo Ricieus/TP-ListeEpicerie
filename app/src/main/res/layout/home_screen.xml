@@ -55,8 +55,8 @@
                     android:layout_columnSpan="2"
                     android:layout_columnWeight="1"
                     android:layout_margin="8dp"
-                    android:src="@drawable/ad_image"
-                    android:scaleType="centerCrop" />
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ad_image" />
 
                 <View
                     android:id="@+id/fruit"

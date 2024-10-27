@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun setListeners(){
+    private fun setListeners() {
 
         pageDevelopers.setOnClickListener {
             val intent = Intent(this@MainActivity, PageDevelopers::class.java)
@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity() {
             this@MainActivity.startActivity(intent)
         }
 
-        productFavorite.setOnClickListener{
+        productFavorite.setOnClickListener {
             val intent = Intent(this@MainActivity, PageFavorite::class.java)
             this@MainActivity.startActivity(intent)
         }
@@ -62,7 +62,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun initializeViewPages(){
+    private fun initializeViewPages() {
         pageDevelopers = findViewById(R.id.developerPage)
         productList = findViewById(R.id.fruit)
         productFavorite = findViewById(R.id.favoris)
@@ -75,14 +75,13 @@ class MainActivity : AppCompatActivity() {
         return super.onCreateOptionsMenu(menu)
     }
 
-    private fun nightMode(){
+    private fun nightMode() {
         val sharedPreferences = getSharedPreferences("Mode", Context.MODE_PRIVATE)
         val nightMode = sharedPreferences.getBoolean("night", false)
 
-        if(!nightMode){
+        if (!nightMode) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-        }
-        else{
+        } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         }
     }

@@ -67,17 +67,13 @@ class PageAddItem : AppCompatActivity() {
     }
 
 
-
     private fun addNewProduct() {
         val nameItem: EditText = findViewById(R.id.NameEdit)
         val quantityItem: EditText = findViewById(R.id.QuantityEdit)
         val categoryItem: EditText = findViewById(R.id.CategoryEdit)
         val descriptionItem: EditText = findViewById(R.id.DescriptionEdit)
 
-        if (nameItem.text.isNullOrBlank() ||
-            quantityItem.text.isNullOrBlank() ||
-            categoryItem.text.isNullOrBlank() ||
-            descriptionItem.text.isNullOrBlank()) {
+        if (nameItem.text.isNullOrBlank() || quantityItem.text.isNullOrBlank() || categoryItem.text.isNullOrBlank() || descriptionItem.text.isNullOrBlank()) {
 
             Toast.makeText(
                 this@PageAddItem,
@@ -118,8 +114,7 @@ class PageAddItem : AppCompatActivity() {
         registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uriSelect: Uri? ->
             if (uriSelect != null) {
                 applicationContext.contentResolver.takePersistableUriPermission(
-                    uriSelect,
-                    Intent.FLAG_GRANT_READ_URI_PERMISSION
+                    uriSelect, Intent.FLAG_GRANT_READ_URI_PERMISSION
                 )
                 productImage.setImageURI(uriSelect)
                 imageUri = uriSelect

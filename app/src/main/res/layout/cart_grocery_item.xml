@@ -32,14 +32,14 @@
         android:id="@+id/itemImage"
         android:layout_width="75dp"
         android:layout_height="75dp"
+        android:contentDescription="Image"
         app:layout_constraintBottom_toTopOf="@+id/itemName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.592"
-        tools:srcCompat="@tools:sample/avatars"
-        android:contentDescription="Image"/>
+        tools:srcCompat="@tools:sample/avatars" />
 
     <ImageButton
         android:id="@+id/btnInfo"
