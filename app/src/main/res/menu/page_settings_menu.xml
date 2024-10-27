@@ -3,15 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/HomeButton"
+        android:id="@+id/goBack"
         android:icon="@drawable/baseline_arrow_back_24"
         android:title="HomeButton"
         app:showAsAction="ifRoom" />
-
-    <item
-        android:id="@+id/itemAjout"
-        android:icon="@drawable/ic_item_add_foreground"
-        android:title="ajout"
-        app:showAsAction="ifRoom" />
-
 </menu>

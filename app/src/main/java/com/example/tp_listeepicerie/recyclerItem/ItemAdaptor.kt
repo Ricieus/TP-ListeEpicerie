@@ -36,56 +36,67 @@ class ItemAdaptor(
         val imageUri = currentItem.foodImageURI
         holder.img.setImageURI(Uri.parse(imageUri))
 
-        if(currentItem.isFavorite){
-            holder.favorite.setImageResource(R.drawable.baseline_star_yellow_24)
-
-        }
-        else{
-            holder.favorite.setImageResource(R.drawable.baseline_star_24)
-        }
-
-        holder.btnInformation.setOnClickListener {
-            val intent = Intent(activity, PageDetails::class.java)
-            val infoItem = InfoItem(
-                currentItem.uid,
-                currentItem.nameProduct,
-                currentItem.quantity,
-                currentItem.foodImageURI,
-                currentItem.category,
-                currentItem.description
-                )
-            intent.putExtra("InfoItem", infoItem)
-            activity.startActivity(intent)
-        }
+        changeIcon(holder, currentItem)
+        startPageDetails(holder, currentItem, activity)
 
         holder.btnPanier.setOnClickListener {
             activity.ajoutPanier(currentItem)
         }
 
-        holder.favorite.setOnClickListener {
-            if(!currentItem.isFavorite){
-                activity.addItemToFavorite(currentItem)
-                currentItem.isFavorite = true
-                holder.favorite.setImageResource(R.drawable.baseline_star_yellow_24)
-            }
-            else{
-                activity.removeItemFromFavorite(currentItem)
-                currentItem.isFavorite = false
-                holder.favorite.setImageResource(R.drawable.baseline_star_24)
-            }
+        addToFavoriteToggle(holder, currentItem, activity)
+    }
+}
 
+private fun startPageDetails(holder: ItemHolder, currentItem: Table_Epicerie, activity: PageListe) {
+    holder.btnInformation.setOnClickListener {
+        val intent = Intent(activity, PageDetails::class.java)
+        val infoItem = InfoItem(
+            currentItem.uid,
+            currentItem.nameProduct,
+            currentItem.quantity,
+            currentItem.foodImageURI,
+            currentItem.category,
+            currentItem.description
+        )
+        intent.putExtra("InfoItem", infoItem)
+        activity.startActivity(intent)
+    }
+}
+
+private fun changeIcon(holder: ItemHolder, currentItem: Table_Epicerie) {
+    if (currentItem.isFavorite) {
+        holder.favorite.setImageResource(R.drawable.baseline_star_yellow_24)
+    } else {
+        holder.favorite.setImageResource(R.drawable.baseline_star_24)
+    }
+}
+
+private fun addToFavoriteToggle(
+    holder: ItemHolder,
+    currentItem: Table_Epicerie,
+    activity: PageListe
+) {
+    holder.favorite.setOnClickListener {
+        if (!currentItem.isFavorite) {
+            activity.addItemToFavorite(currentItem)
+            currentItem.isFavorite = true
+            holder.favorite.setImageResource(R.drawable.baseline_star_yellow_24)
+        } else {
+            activity.removeItemFromFavorite(currentItem)
+            currentItem.isFavorite = false
+            holder.favorite.setImageResource(R.drawable.baseline_star_24)
         }
-
-
     }
 }
 
 @Parcelize
-class InfoItem(var uid: Int,
-               var nameItem: String,
-               var quantity: Int,
-               var FoodImageURI: String,
-               var category: String,
-               var description: String) : Parcelable
+class InfoItem(
+    var uid: Int,
+    var nameItem: String,
+    var quantity: Int,
+    var FoodImageURI: String,
+    var category: String,
+    var description: String
+) : Parcelable
 
 // TODO: Add a new class to simplify the intent.putExtra into one line
