@@ -14,7 +14,7 @@ class FavoriteHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     val textQuantity: TextView
     val img: ImageView
     val btnInformation: ImageButton
-    val btnPanier: ImageButton
+    val btnFavorite: ImageButton
 
     init {
         layout = itemView as ConstraintLayout
@@ -22,6 +22,6 @@ class FavoriteHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         textQuantity = itemView.findViewById(R.id.itemQuantity)
         img = itemView.findViewById(R.id.itemImage)
         btnInformation = itemView.findViewById(R.id.btnInfo)
-        btnPanier = itemView.findViewById(R.id.btnAjout)
+        btnFavorite = itemView.findViewById(R.id.btnFavorite)
     }
 }

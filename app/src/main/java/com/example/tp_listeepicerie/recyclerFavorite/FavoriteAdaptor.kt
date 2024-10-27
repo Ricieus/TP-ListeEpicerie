@@ -39,7 +39,7 @@ class FavoriteAdaptor(
             holder.img.setImageResource(R.drawable.img)
         }
 
-        holder.btnPanier.setImageResource(R.drawable.baseline_star_yellow_24)
+        holder.btnFavorite.setImageResource(R.drawable.baseline_star_yellow_24)
 
         holder.btnInformation.setOnClickListener {
             val intent = Intent(activity, PageDetails::class.java)
@@ -55,7 +55,7 @@ class FavoriteAdaptor(
             activity.startActivity(intent)
         }
 
-        holder.btnPanier.setOnClickListener {
+        holder.btnFavorite.setOnClickListener {
             activity.removeItemFromFavorite(currentItem)
         }
     }

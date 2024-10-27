@@ -36,18 +36,6 @@
         app:layout_constraintBottom_toBottomOf="parent" />
 
     <ImageButton
-        android:id="@+id/btnAjout"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginEnd="16dp"
-        android:contentDescription="Add to Cart"
-        android:src="@android:drawable/star_off"
-        app:tint="#000000"
-        app:layout_constraintEnd_toStartOf="@id/btnInfo"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
-
-    <ImageButton
         android:id="@+id/btnInfo"
         android:layout_width="50dp"
         android:layout_height="50dp"
@@ -57,5 +45,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />
+
+    <ImageButton
+        android:id="@+id/btnFavorite"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="20dp"
+        android:src="@android:drawable/star_off"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnInfo"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
