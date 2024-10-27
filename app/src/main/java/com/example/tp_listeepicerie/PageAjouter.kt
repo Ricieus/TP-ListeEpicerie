@@ -67,6 +67,8 @@ class PageAjouter : AppCompatActivity() {
         }
     }
 
+
+
     private fun addNewProduct() {
         val nameItem: EditText = findViewById(R.id.NameEdit)
         val quantityItem: EditText = findViewById(R.id.QuantityEdit)

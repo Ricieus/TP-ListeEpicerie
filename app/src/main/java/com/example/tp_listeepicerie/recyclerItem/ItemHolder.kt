@@ -19,9 +19,9 @@ class ItemHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     init {
         layout = itemView as ConstraintLayout
-        textName = itemView.findViewById(R.id.genericName)
-        textPrice = itemView.findViewById(R.id.genericQuantity)
-        img = itemView.findViewById(R.id.genericImg)
+        textName = itemView.findViewById(R.id.itemName)
+        textPrice = itemView.findViewById(R.id.itemQuantity)
+        img = itemView.findViewById(R.id.itemImage)
         btnInformation = itemView.findViewById(R.id.btnInfo)
         btnPanier = itemView.findViewById(R.id.btnAjout)
         favorite = itemView.findViewById(R.id.favButton)

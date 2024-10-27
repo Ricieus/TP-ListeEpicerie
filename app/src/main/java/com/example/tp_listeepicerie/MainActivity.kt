@@ -16,6 +16,10 @@ import androidx.core.view.WindowInsetsCompat
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var view1: View
+    private lateinit var productList: View
+    private lateinit var productFavorite: View
+    private lateinit var pageSettings: View
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,26 +35,35 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         nightMode()
+        initializeViewPages()
 
-        var View1: View = findViewById(R.id.promo_rec)
-        var View2: View = findViewById(R.id.fruit)
-        var View3: View = findViewById(R.id.favoris)
-        var View5: View = findViewById(R.id.settings)
+        setListeners()
 
-        View2.setOnClickListener {
+    }
+
+    private fun setListeners(){
+        productList.setOnClickListener {
             val intent = Intent(this@MainActivity, PageListe::class.java)
             this@MainActivity.startActivity(intent)
         }
 
-        View3.setOnClickListener{
+        productFavorite.setOnClickListener{
             val intent = Intent(this@MainActivity, PageFavorite::class.java)
             this@MainActivity.startActivity(intent)
         }
-        View5.setOnClickListener {
+        pageSettings.setOnClickListener {
             val intent = Intent(this@MainActivity, PageSettings::class.java)
             this@MainActivity.startActivity(intent)
         }
     }
+
+    private fun initializeViewPages(){
+        view1 = findViewById(R.id.promo_rec)
+        productList = findViewById(R.id.fruit)
+        productFavorite = findViewById(R.id.favoris)
+        pageSettings = findViewById(R.id.settings)
+    }
+
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main_activity_menu, menu)

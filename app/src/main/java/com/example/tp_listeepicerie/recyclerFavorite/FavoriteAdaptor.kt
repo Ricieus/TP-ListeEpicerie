@@ -35,7 +35,7 @@ class FavoriteAdaptor(
         val currentItem = data[position]
 
         holder.textName.text = currentItem.nameProduct
-        holder.textPrice.text = "Quantite: ${currentItem.quantity}"
+        holder.textQuantity.text = "Quantite: ${currentItem.quantity}"
 
         val imageUri = currentItem.foodImageURI
         if (imageUri.isNotEmpty()) {
