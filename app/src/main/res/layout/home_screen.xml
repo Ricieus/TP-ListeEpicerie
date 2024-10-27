@@ -16,7 +16,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -47,7 +46,7 @@
                 android:padding="16dp"
                 android:rowCount="3">
 
-                <View
+                <ImageView
                     android:id="@+id/promo_rec"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
@@ -56,7 +55,8 @@
                     android:layout_columnSpan="2"
                     android:layout_columnWeight="1"
                     android:layout_margin="8dp"
-                    android:background="@drawable/rectangle" />
+                    android:src="@drawable/ads_template"
+                    android:scaleType="centerCrop" />
 
                 <View
                     android:id="@+id/fruit"
@@ -74,18 +74,16 @@
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
                     android:layout_margin="8dp"
-                    android:background="@drawable/cube_favorite">
-
-                </View>
+                    android:background="@drawable/cube_favorite" />
 
                 <View
-                    android:id="@+id/lock"
+                    android:id="@+id/developerPage"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
                     android:layout_margin="8dp"
-                    android:background="@drawable/cube" />
+                    android:background="@drawable/cube_developers" />
 
                 <View
                     android:id="@+id/settings"

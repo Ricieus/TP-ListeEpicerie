@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-data class Table_Epicerie(
+data class Table_Grocery(
     @PrimaryKey(autoGenerate = true)
     var uid: Int = 0,
     var nameProduct: String,
@@ -15,5 +15,4 @@ data class Table_Epicerie(
     var isCart: Boolean,
     var isFavorite: Boolean
 ) {
-    //TODO NEED TO DELETE THE BUTTON INSIDE THE TABLE AND THE PRICE
 }

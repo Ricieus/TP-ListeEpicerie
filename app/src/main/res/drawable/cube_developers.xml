@@ -16,9 +16,9 @@
     </shape>
 </item>
 <item
-    android:width="175dp"
-    android:height="175dp"
-    android:drawable="@drawable/ic_item_settings_foreground"
+    android:width="100dp"
+    android:height="100dp"
+    android:drawable="@drawable/baseline_code_24"
     android:gravity="center"
     />
 </layer-list>

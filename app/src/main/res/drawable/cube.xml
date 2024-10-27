@@ -10,10 +10,6 @@
         <solid
             android:color="@color/blue"
             />
-        <stroke
-            android:color="@color/white"
-            android:width="2dp"
-            />
         <corners
             android:radius="5dp"
             />

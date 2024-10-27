@@ -13,10 +13,13 @@
         android:theme="@style/Theme.TPListeEpicerie"
         tools:targetApi="31">
         <activity
+            android:name=".PageDevelopers"
+            android:exported="false" />
+        <activity
             android:name=".PageSettings"
             android:exported="false" />
         <activity
-            android:name=".PageListe"
+            android:name=".PageList"
             android:exported="false" />
         <activity
             android:name=".PageFavorite"
@@ -35,7 +38,7 @@
         </activity>
 
         <activity
-            android:name=".PageAjouter"
+            android:name=".PageAddItem"
             android:exported="true" />
 
         <provider

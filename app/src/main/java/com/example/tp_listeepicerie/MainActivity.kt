@@ -2,7 +2,6 @@ package com.example.tp_listeepicerie
 
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -16,7 +15,7 @@ import androidx.core.view.WindowInsetsCompat
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var view1: View
+    private lateinit var pageDevelopers: View
     private lateinit var productList: View
     private lateinit var productFavorite: View
     private lateinit var pageSettings: View
@@ -42,8 +41,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setListeners(){
+
+        pageDevelopers.setOnClickListener {
+            val intent = Intent(this@MainActivity, PageDevelopers::class.java)
+            this@MainActivity.startActivity(intent)
+        }
+
         productList.setOnClickListener {
-            val intent = Intent(this@MainActivity, PageListe::class.java)
+            val intent = Intent(this@MainActivity, PageList::class.java)
             this@MainActivity.startActivity(intent)
         }
 
@@ -58,7 +63,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initializeViewPages(){
-        view1 = findViewById(R.id.promo_rec)
+        pageDevelopers = findViewById(R.id.developerPage)
         productList = findViewById(R.id.fruit)
         productFavorite = findViewById(R.id.favoris)
         pageSettings = findViewById(R.id.settings)
@@ -85,7 +90,7 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.itemAjout -> {
-                val intent = Intent(this, PageAjouter::class.java)
+                val intent = Intent(this, PageAddItem::class.java)
                 startActivity(intent)
                 true
             }

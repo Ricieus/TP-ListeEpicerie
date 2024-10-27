@@ -6,12 +6,12 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 @Database(
-    entities = [Table_Epicerie::class],
+    entities = [Table_Grocery::class],
     version = 1,
     exportSchema = false
 )
 abstract class Database_Epicerie : RoomDatabase() {
-    abstract fun epicerieDao(): EpicerieDao
+    abstract fun GroceryDAO(): GroceryDAO
 
     companion object {
         @Volatile

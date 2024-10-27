@@ -6,12 +6,9 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -174,9 +171,9 @@ class PageDetails : AppCompatActivity() {
         } else {
             lifecycleScope.launch(Dispatchers.IO) {
                 val database = Database_Epicerie.getDatabase(applicationContext)
-                val currentItem = database.epicerieDao().findByName(itemName)
+                val currentItem = database.GroceryDAO().findByName(itemName)
                 if (currentItem != null) {
-                    val updatedItem = Table_Epicerie(
+                    val updatedItem = Table_Grocery(
                         uid = productId,
                         nameProduct = updatedName,
                         description = updatedDescription,
@@ -186,8 +183,9 @@ class PageDetails : AppCompatActivity() {
                         isCart = currentItem.isCart,
                         isFavorite = currentItem.isFavorite
                     )
-                    database.epicerieDao().insertEpicerie(updatedItem)
-                    withContext(Dispatchers.Main) {
+                    database.GroceryDAO().insertEpicerie(updatedItem)
+
+                    withContext(Dispatchers.Main) { //Aided by ChatGPT
                         Toast.makeText(
                             applicationContext, "Le produit à était mis à jours", Toast.LENGTH_SHORT
                         ).show()
@@ -202,9 +200,9 @@ class PageDetails : AppCompatActivity() {
         val database = Database_Epicerie.getDatabase(applicationContext)
 
         lifecycleScope.launch(Dispatchers.IO) {
-            val itemDelete = database.epicerieDao().getEpicerieId(productId)
+            val itemDelete = database.GroceryDAO().getEpicerieId(productId)
             if (itemDelete != null) {
-                database.epicerieDao().deleteEpicerie(itemDelete)
+                database.GroceryDAO().deleteEpicerie(itemDelete)
             }
 
             withContext(Dispatchers.Main) {

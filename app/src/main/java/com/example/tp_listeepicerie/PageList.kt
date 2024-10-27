@@ -2,9 +2,7 @@ package com.example.tp_listeepicerie
 
 import android.content.Intent
 import android.content.res.Configuration
-import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.enableEdgeToEdge
@@ -16,17 +14,16 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tp_listeepicerie.recyclerItem.ItemAdaptor
-import com.example.tp_listeepicerie.recyclerPanier.PanierAdaptor
+import com.example.tp_listeepicerie.recyclerCart.CartAdaptor
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class PageListe : AppCompatActivity(){
-    private var genericList: MutableList<Table_Epicerie> = mutableListOf()
-    private var cartItems: MutableList<Table_Epicerie> = mutableListOf()
+class PageList : AppCompatActivity() {
+    private var cartItems: MutableList<Table_Grocery> = mutableListOf()
     private lateinit var recyclerViewCart: RecyclerView
     private lateinit var recyclerView: RecyclerView
-    private var groceryList: MutableList<Table_Epicerie> = mutableListOf()
+    private var groceryList: MutableList<Table_Grocery> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,7 +37,6 @@ class PageListe : AppCompatActivity(){
 
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
-
 
         recyclerView = findViewById(R.id.recyclerItem)
         recyclerViewCart = findViewById(R.id.recycleCart)
@@ -60,80 +56,52 @@ class PageListe : AppCompatActivity(){
         }
 
 
-
-//        genericList = mutableListOf(
-//            Table_Epicerie(0,"Pomme", 3, Uri.Builder().scheme("android.resource").authority(packageName).appendPath(R.drawable.img.toString()).build().toString(), "fruits", "Lorem ipsum dolor sit amet, consectetur adipiscing elit," +
-//                    " sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut" +
-//                    " aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur" +
-//                    " sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", false, false),
-//            Table_Epicerie(0,"Tomate", 2,
-//                Uri.Builder().scheme("android.resource").authority(packageName).appendPath(R.drawable.img_1.toString()).build().toString(), "legumes", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, " +
-//                    "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex" +
-//                    " ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat" +
-//                    " non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", false, false),
-//            Table_Epicerie(0,"Tomate Special", 1,
-//                Uri.Builder().scheme("android.resource").authority(packageName).appendPath(R.drawable.img_1.toString()).build().toString(), "legumes", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed" +
-//                    " do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo" +
-//                    " consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident," +
-//                    " sunt in culpa qui officia deserunt mollit anim id est laborum.", false, false)
-//
-//        )
-
         val database = Database_Epicerie.getDatabase(applicationContext)
-        // https://stackoverflow.com/questions/3386667/query-if-android-database-exists
         lifecycleScope.launch(Dispatchers.IO) {
-//            if (!(applicationContext.getDatabasePath("epicerie_database")).exists()) {
-//                for (epicerie in genericList) {
-//                    val existingItem = database.epicerieDao().findByName(epicerie.nameProduct)
-//
-//                    if (existingItem == null) {
-//                        database.epicerieDao().insertEpicerie(epicerie)
-//                    }
-//                }
-//            }
-            groceryList = database.epicerieDao().getAllProduct()
-            cartItems = database.epicerieDao().getAllPanier()
+            groceryList = database.GroceryDAO().getAllProduct()
+            cartItems = database.GroceryDAO().getAllPanier()
             launch(Dispatchers.Main) {
                 refreshRecyclerView()
             }
         }
-        //applicationContext.deleteDatabase("epicerie_database")
     }
 
-    fun refreshRecyclerView(){
-        recyclerView.adapter = ItemAdaptor(applicationContext, this@PageListe, groceryList)
-        recyclerViewCart.adapter = PanierAdaptor(applicationContext, this@PageListe, cartItems)
+    fun refreshRecyclerView() {
+        recyclerView.adapter = ItemAdaptor(applicationContext, this@PageList, groceryList)
+        recyclerViewCart.adapter = CartAdaptor(applicationContext, this@PageList, cartItems)
         recyclerView.adapter?.notifyDataSetChanged()
         recyclerViewCart.adapter?.notifyDataSetChanged()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.page_liste_menu, menu)
+        menuInflater.inflate(R.menu.page_list_menu, menu)
         return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.itemAjout -> {
-                val intent = Intent(this, PageAjouter::class.java)
+                val intent = Intent(this, PageAddItem::class.java)
                 startActivity(intent)
                 true
             }
+
             R.id.HomeButton -> {
                 finish()
                 true
             }
+
             else -> super.onOptionsItemSelected(item)
         }
     }
 
-    fun ajoutPanier(item: Table_Epicerie) {
+    fun ajoutPanier(item: Table_Grocery) {
         val database = Database_Epicerie.getDatabase(applicationContext)
         lifecycleScope.launch(Dispatchers.IO) {
-            val existingItem = database.epicerieDao().findByName(item.nameProduct)
+            val existingItem = database.GroceryDAO().findByName(item.nameProduct)
 
             if (existingItem != null) {
-                val itemPanier = Table_Epicerie(
+                val itemPanier = Table_Grocery(
                     uid = item.uid,
                     nameProduct = item.nameProduct,
                     quantity = item.quantity,
@@ -143,30 +111,22 @@ class PageListe : AppCompatActivity(){
                     isCart = true,
                     isFavorite = item.isFavorite
                 )
-                database.epicerieDao().updateEpicerie(itemPanier)
+                database.GroceryDAO().updateEpicerie(itemPanier)
 
                 withContext(Dispatchers.Main) {
-                    cartItems = database.epicerieDao().getAllPanier()
-                    groceryList = database.epicerieDao().getAllProduct()
+                    cartItems = database.GroceryDAO().getAllPanier()
+                    groceryList = database.GroceryDAO().getAllProduct()
                     refreshRecyclerView()
                 }
             }
         }
     }
 
-    fun deleteProduct(item: Table_Epicerie){
-        val position = groceryList.indexOf(item)
-        if (position != -1) {
-            groceryList.removeAt(position)
-            recyclerView.adapter?.notifyItemRemoved(position)
-        }
-    }
-
-    fun removeFromPanier(item: Table_Epicerie) {
+    fun removeFromPanier(item: Table_Grocery) {
         val database = Database_Epicerie.getDatabase(applicationContext)
         lifecycleScope.launch(Dispatchers.IO) {
 
-            val itemProduct = Table_Epicerie(
+            val itemProduct = Table_Grocery(
                 uid = item.uid,
                 nameProduct = item.nameProduct,
                 quantity = item.quantity,
@@ -176,34 +136,33 @@ class PageListe : AppCompatActivity(){
                 isCart = false,
                 isFavorite = item.isFavorite
             )
-            database.epicerieDao().updateEpicerie(itemProduct)
-            withContext(Dispatchers.Main){
-                groceryList = database.epicerieDao().getAllProduct()
-                cartItems = database.epicerieDao().getAllPanier()
+            database.GroceryDAO().updateEpicerie(itemProduct)
+            withContext(Dispatchers.Main) {
+                groceryList = database.GroceryDAO().getAllProduct()
+                cartItems = database.GroceryDAO().getAllPanier()
                 refreshRecyclerView()
             }
         }
     }
 
-    override fun onResume(){
+    override fun onResume() {
         super.onResume()
 
         val database = Database_Epicerie.getDatabase(applicationContext)
         lifecycleScope.launch(Dispatchers.IO) {
-            groceryList = database.epicerieDao().getAllProduct()
-            cartItems = database.epicerieDao().getAllPanier()
+            groceryList = database.GroceryDAO().getAllProduct()
+            cartItems = database.GroceryDAO().getAllPanier()
             launch(Dispatchers.Main) {
                 refreshRecyclerView()
             }
         }
     }
 
-    fun addItemToFavorite(item: Table_Epicerie){
+    fun addItemToFavorite(item: Table_Grocery) {
         val database = Database_Epicerie.getDatabase(applicationContext)
         lifecycleScope.launch(Dispatchers.IO) {
-            //val existingItem = database.epicerieDao().findByName(item.nameProduct)
 
-            val itemProduct = Table_Epicerie(
+            val itemProduct = Table_Grocery(
                 uid = item.uid,
                 nameProduct = item.nameProduct,
                 quantity = item.quantity,
@@ -213,18 +172,16 @@ class PageListe : AppCompatActivity(){
                 isCart = item.isCart,
                 isFavorite = true
             )
-
-            database.epicerieDao().updateEpicerie(itemProduct)
+            database.GroceryDAO().updateEpicerie(itemProduct)
         }
-
     }
 
-    fun removeItemFromFavorite(item: Table_Epicerie){
+    fun removeItemFromFavorite(item: Table_Grocery) {
         val database = Database_Epicerie.getDatabase(applicationContext)
 
         lifecycleScope.launch(Dispatchers.IO) {
 
-            val itemProduct = Table_Epicerie(
+            val itemProduct = Table_Grocery(
                 uid = item.uid,
                 nameProduct = item.nameProduct,
                 quantity = item.quantity,
@@ -234,7 +191,7 @@ class PageListe : AppCompatActivity(){
                 isCart = item.isCart,
                 isFavorite = false
             )
-            database.epicerieDao().updateEpicerie(itemProduct)
+            database.GroceryDAO().updateEpicerie(itemProduct)
         }
     }
 }
