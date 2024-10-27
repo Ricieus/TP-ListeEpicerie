@@ -12,7 +12,7 @@
     <item
         android:width="100dp"
         android:height="100dp"
-        android:drawable="@drawable/ads_template"
+        android:drawable="@drawable/ad_image"
         android:gravity="center"
         />
 </shape>
