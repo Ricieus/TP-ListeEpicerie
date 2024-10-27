@@ -20,7 +20,6 @@ class PageFavorite : AppCompatActivity() {
     private lateinit var recyclerViewFav: RecyclerView
 
     private var listFavorite: MutableList<Table_Grocery> = mutableListOf()
-    private var genericList: MutableList<Table_Grocery> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
