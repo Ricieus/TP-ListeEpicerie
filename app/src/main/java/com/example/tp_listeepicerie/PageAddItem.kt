@@ -4,7 +4,6 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
@@ -27,7 +26,7 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-class PageAjouter : AppCompatActivity() {
+class PageAddItem : AppCompatActivity() {
 
     private lateinit var btnAdd: Button
     private lateinit var btnPhotoImg: Button
@@ -39,7 +38,7 @@ class PageAjouter : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_page_ajouter)
+        setContentView(R.layout.activity_page_add_item)
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -81,7 +80,7 @@ class PageAjouter : AppCompatActivity() {
             descriptionItem.text.isNullOrBlank()) {
 
             Toast.makeText(
-                this@PageAjouter,
+                this@PageAddItem,
                 "Veuillez remplir tous les informations nécessaires",
                 Toast.LENGTH_LONG
             ).show()
@@ -89,7 +88,7 @@ class PageAjouter : AppCompatActivity() {
             val database = Database_Epicerie.getDatabase(applicationContext)
             lifecycleScope.launch(Dispatchers.IO) {
                 if (imageUri != null) {
-                    val itemGrocery = Table_Epicerie(
+                    val itemGrocery = Table_Grocery(
                         uid = 0,
                         nameProduct = nameItem.text.toString(),
                         quantity = quantityItem.text.toString().toIntOrNull() ?: 1,
@@ -99,7 +98,7 @@ class PageAjouter : AppCompatActivity() {
                         isCart = false,
                         isFavorite = false
                     )
-                    database.epicerieDao().insertEpicerie(itemGrocery)
+                    database.GroceryDAO().insertEpicerie(itemGrocery)
                     finish()
                 }
             }
@@ -144,7 +143,7 @@ class PageAjouter : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.page_ajouter_menu, menu)
+        menuInflater.inflate(R.menu.page_add_item_menu, menu)
         return super.onCreateOptionsMenu(menu)
     }
 

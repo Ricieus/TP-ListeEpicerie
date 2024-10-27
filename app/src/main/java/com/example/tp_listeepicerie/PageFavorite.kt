@@ -1,11 +1,8 @@
 package com.example.tp_listeepicerie
 
-import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.PopupMenu
@@ -16,17 +13,14 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tp_listeepicerie.recyclerFavorite.FavoriteAdaptor
-import com.example.tp_listeepicerie.recyclerItem.ItemAdaptor
-import com.example.tp_listeepicerie.recyclerPanier.PanierAdaptor
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class PageFavorite : AppCompatActivity() {
     private lateinit var recyclerViewFav: RecyclerView
 
-    private var listFavorite: MutableList<Table_Epicerie> = mutableListOf()
-    private var genericList: MutableList<Table_Epicerie> = mutableListOf()
+    private var listFavorite: MutableList<Table_Grocery> = mutableListOf()
+    private var genericList: MutableList<Table_Grocery> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,59 +35,13 @@ class PageFavorite : AppCompatActivity() {
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
-
-//        listFavorite = mutableListOf(
-//            Table_Epicerie(
-//                0,
-//                "Pomme",
-//                1,
-//                Uri.Builder().scheme("android.resource").authority(packageName)
-//                    .appendPath(R.drawable.img.toString()).build().toString(),
-//                "fruits",
-//                "Lorem ipsum dolor sit amet, consectetur adipiscing elit," +
-//                        " sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut" +
-//                        " aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur" +
-//                        " sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-//                false,
-//                false
-//            )
-//        )
-
         initializeReycler()
 
         val database = Database_Epicerie.getDatabase(applicationContext)
         // https://stackoverflow.com/questions/3386667/query-if-android-database-exists
         lifecycleScope.launch(Dispatchers.IO) {
-//            if ((applicationContext.getDatabasePath("epicerie_database")).exists()) {
-//                for (grocery in listFavorite) {
-//                    val existingItem = database.epicerieDao().findByName(grocery.nameProduct)
-//
-//                    if (existingItem != null) {
-//                        if (existingItem.isFavorite) {
-//                            val itemPanier = existingItem.copy(isCart = true, isFavorite = false)
-//                            database.epicerieDao().updateEpicerie(itemPanier)
-//
-//                //                        withContext(Dispatchers.Main) {
-//                //                            cartItems = database.epicerieDao().getAllPanier()
-//                //                            groceryList = database.epicerieDao().getAllProduct()
-//                //                            refreshRecyclerView()
-//                //                        }
-//                        }
-//                    }
-//
-////                    withContext(Dispatchers.Main) {
-////                        cartItems = database.epicerieDao().getAllPanier()
-////                        groceryList = database.epicerieDao().getAllProduct()
-////                        refreshRecyclerView()
-////                    }
-////
-////                    if (existingItem == null) {
-////                        database.epicerieDao().updateEpicerie(grocery)
-////                    }
-//                }
-//            }
 
-            listFavorite = database.epicerieDao().getAllFavoris()
+            listFavorite = database.GroceryDAO().getAllFavoris()
             launch(Dispatchers.Main) {
                 recyclerViewFav.adapter =
                     FavoriteAdaptor(applicationContext, this@PageFavorite, listFavorite)
@@ -132,7 +80,7 @@ class PageFavorite : AppCompatActivity() {
         popupMenu.menuInflater.inflate(R.menu.filter_popup_menu, popupMenu.menu)
         popupMenu.setOnMenuItemClickListener { selectedFilter ->
             when (selectedFilter.itemId) {
-                R.id.filter_show_all -> applyFilter("Reaffichage des produits")
+                R.id.filter_show_all -> applyFilter("Réaffichage des produits")
                 R.id.filter_price_low_to_high -> applyFilter("Quantité: Peu à Beaucoup")
                 R.id.filter_price_high_to_low -> applyFilter("Quantité: Beaucoup à Peu")
                 R.id.filter_alphabetic_ordre_name -> applyFilter("Ordre en alphabetique (Par nom)")
@@ -143,8 +91,10 @@ class PageFavorite : AppCompatActivity() {
         popupMenu.show()
     }
 
+
     private fun applyFilter(filter: String) {
-        val filterList: MutableList<Table_Epicerie> = when (filter) {
+        //Aided by chatgpt
+        val filterList: MutableList<Table_Grocery> = when (filter) {
             "Reaffichage des produits" -> listFavorite
             "Quantité: Peu à Beaucoup" -> listFavorite.sortedBy { it.quantity }.toMutableList()
             "Quantité: Beaucoup à Peu" -> listFavorite.sortedByDescending { it.quantity }
@@ -167,12 +117,12 @@ class PageFavorite : AppCompatActivity() {
         }
     }
 
-    fun removeItemFromFavorite(currentItem: Table_Epicerie) {
+    fun removeItemFromFavorite(currentItem: Table_Grocery) {
         val database = Database_Epicerie.getDatabase(applicationContext)
 
         lifecycleScope.launch(Dispatchers.IO) {
 
-            val itemProduct = Table_Epicerie(
+            val itemProduct = Table_Grocery(
                 uid = currentItem.uid,
                 nameProduct = currentItem.nameProduct,
                 quantity = currentItem.quantity,
@@ -182,9 +132,9 @@ class PageFavorite : AppCompatActivity() {
                 isCart = currentItem.isCart,
                 isFavorite = false
             )
-            database.epicerieDao().updateEpicerie(itemProduct)
+            database.GroceryDAO().updateEpicerie(itemProduct)
 
-            listFavorite = database.epicerieDao().getAllFavoris()
+            listFavorite = database.GroceryDAO().getAllFavoris()
             launch(Dispatchers.Main) {
                 recyclerViewFav.adapter =
                     FavoriteAdaptor(applicationContext, this@PageFavorite, listFavorite)
@@ -197,7 +147,7 @@ class PageFavorite : AppCompatActivity() {
 
         val database = Database_Epicerie.getDatabase(applicationContext)
         lifecycleScope.launch(Dispatchers.IO) {
-            listFavorite = database.epicerieDao().getAllFavoris()
+            listFavorite = database.GroceryDAO().getAllFavoris()
             launch(Dispatchers.Main) {
                 recyclerViewFav.adapter =
                     FavoriteAdaptor(applicationContext, this@PageFavorite, listFavorite)

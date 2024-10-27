@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setListeners(){
         productList.setOnClickListener {
-            val intent = Intent(this@MainActivity, PageListe::class.java)
+            val intent = Intent(this@MainActivity, PageList::class.java)
             this@MainActivity.startActivity(intent)
         }
 
@@ -85,7 +85,7 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.itemAjout -> {
-                val intent = Intent(this, PageAjouter::class.java)
+                val intent = Intent(this, PageAddItem::class.java)
                 startActivity(intent)
                 true
             }

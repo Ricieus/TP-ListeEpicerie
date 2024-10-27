@@ -1,4 +1,4 @@
-package com.example.tp_listeepicerie.recyclerPanier
+package com.example.tp_listeepicerie.recyclerCart
 
 import android.view.View
 import android.widget.ImageButton
@@ -8,7 +8,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tp_listeepicerie.R
 
-class PanierHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+class CartHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     val layout: ConstraintLayout
     val textName: TextView
     val textPrice: TextView

@@ -5,25 +5,20 @@ import android.content.Intent
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
-import com.example.tp_listeepicerie.Database_Epicerie
 import com.example.tp_listeepicerie.PageDetails
 import com.example.tp_listeepicerie.PageFavorite
-import com.example.tp_listeepicerie.PageListe
 import com.example.tp_listeepicerie.R
-import com.example.tp_listeepicerie.Table_Epicerie
+import com.example.tp_listeepicerie.Table_Grocery
 import com.example.tp_listeepicerie.recyclerItem.InfoItem
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 class FavoriteAdaptor(
     val ctx: Context,
     val activity: PageFavorite,
-    var data: MutableList<Table_Epicerie>
+    var data: MutableList<Table_Grocery>
 ) : RecyclerView.Adapter<FavoriteHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteHolder {
-        val view = LayoutInflater.from(ctx).inflate(R.layout.favorite_epicerie_item, parent, false)
+        val view = LayoutInflater.from(ctx).inflate(R.layout.favorite_grocery_item, parent, false)
         return FavoriteHolder(view)
     }
 

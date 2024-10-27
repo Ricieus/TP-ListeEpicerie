@@ -8,18 +8,18 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tp_listeepicerie.PageDetails
-import com.example.tp_listeepicerie.PageListe
+import com.example.tp_listeepicerie.PageList
 import com.example.tp_listeepicerie.R
-import com.example.tp_listeepicerie.Table_Epicerie
+import com.example.tp_listeepicerie.Table_Grocery
 import kotlinx.android.parcel.Parcelize
 
 class ItemAdaptor(
     val ctx: Context,
-    val activity: PageListe,
-    var data: MutableList<Table_Epicerie>
+    val activity: PageList,
+    var data: MutableList<Table_Grocery>
 ) : RecyclerView.Adapter<ItemHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
-        val view = LayoutInflater.from(ctx).inflate(R.layout.liste_epicerie_item, parent, false)
+        val view = LayoutInflater.from(ctx).inflate(R.layout.list_grocery_item, parent, false)
         return ItemHolder(view)
     }
 
@@ -47,7 +47,7 @@ class ItemAdaptor(
     }
 }
 
-private fun startPageDetails(holder: ItemHolder, currentItem: Table_Epicerie, activity: PageListe) {
+private fun startPageDetails(holder: ItemHolder, currentItem: Table_Grocery, activity: PageList) {
     holder.btnInformation.setOnClickListener {
         val intent = Intent(activity, PageDetails::class.java)
         val infoItem = InfoItem(
@@ -63,7 +63,7 @@ private fun startPageDetails(holder: ItemHolder, currentItem: Table_Epicerie, ac
     }
 }
 
-private fun changeIcon(holder: ItemHolder, currentItem: Table_Epicerie) {
+private fun changeIcon(holder: ItemHolder, currentItem: Table_Grocery) {
     if (currentItem.isFavorite) {
         holder.favorite.setImageResource(R.drawable.baseline_star_yellow_24)
     } else {
@@ -73,8 +73,8 @@ private fun changeIcon(holder: ItemHolder, currentItem: Table_Epicerie) {
 
 private fun addToFavoriteToggle(
     holder: ItemHolder,
-    currentItem: Table_Epicerie,
-    activity: PageListe
+    currentItem: Table_Grocery,
+    activity: PageList
 ) {
     holder.favorite.setOnClickListener {
         if (!currentItem.isFavorite) {
@@ -98,5 +98,3 @@ class InfoItem(
     var category: String,
     var description: String
 ) : Parcelable
-
-// TODO: Add a new class to simplify the intent.putExtra into one line
