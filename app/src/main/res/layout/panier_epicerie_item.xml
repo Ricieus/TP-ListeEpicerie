@@ -61,6 +61,7 @@
         android:layout_height="50dp"
         android:contentDescription="Retirer"
         android:src="@android:drawable/arrow_up_float"
+        android:tint="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/genericImg"
         app:layout_constraintHorizontal_bias="1.0"

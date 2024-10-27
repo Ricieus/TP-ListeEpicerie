@@ -5,12 +5,17 @@ import android.content.Intent
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
+import com.example.tp_listeepicerie.Database_Epicerie
 import com.example.tp_listeepicerie.PageDetails
 import com.example.tp_listeepicerie.PageFavorite
 import com.example.tp_listeepicerie.PageListe
 import com.example.tp_listeepicerie.R
 import com.example.tp_listeepicerie.Table_Epicerie
+import com.example.tp_listeepicerie.recyclerItem.InfoItem
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class FavoriteAdaptor(
     val ctx: Context,
@@ -39,12 +44,24 @@ class FavoriteAdaptor(
             holder.img.setImageResource(R.drawable.img)
         }
 
-        holder.btnInformation.setOnClickListener {
+        holder.btnPanier.setImageResource(R.drawable.baseline_star_yellow_24)
 
+        holder.btnInformation.setOnClickListener {
+            val intent = Intent(activity, PageDetails::class.java)
+            val infoItem = InfoItem(
+                currentItem.uid,
+                currentItem.nameProduct,
+                currentItem.quantity,
+                currentItem.foodImageURI,
+                currentItem.category,
+                currentItem.description
+            )
+            intent.putExtra("InfoItem", infoItem)
+            activity.startActivity(intent)
         }
 
         holder.btnPanier.setOnClickListener {
-
+            activity.removeItemFromFavorite(currentItem)
         }
     }
 }

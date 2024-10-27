@@ -130,11 +130,19 @@ class PageListe : AppCompatActivity(){
     fun ajoutPanier(item: Table_Epicerie) {
         val database = Database_Epicerie.getDatabase(applicationContext)
         lifecycleScope.launch(Dispatchers.IO) {
-            // TODO MUST CHANGE CHATGPT
             val existingItem = database.epicerieDao().findByName(item.nameProduct)
 
             if (existingItem != null) {
-                val itemPanier = existingItem.copy(isCart = true, isFavorite = false)
+                val itemPanier = Table_Epicerie(
+                    uid = item.uid,
+                    nameProduct = item.nameProduct,
+                    quantity = item.quantity,
+                    foodImageURI = item.foodImageURI,
+                    category = item.category,
+                    description = item.description,
+                    isCart = true,
+                    isFavorite = item.isFavorite
+                )
                 database.epicerieDao().updateEpicerie(itemPanier)
 
                 withContext(Dispatchers.Main) {
@@ -166,7 +174,7 @@ class PageListe : AppCompatActivity(){
                 category = item.category,
                 description = item.description,
                 isCart = false,
-                isFavorite = false
+                isFavorite = item.isFavorite
             )
             database.epicerieDao().updateEpicerie(itemProduct)
             withContext(Dispatchers.Main){

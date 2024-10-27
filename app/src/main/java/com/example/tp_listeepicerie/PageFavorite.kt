@@ -167,4 +167,42 @@ class PageFavorite : AppCompatActivity() {
         }
     }
 
+    fun removeItemFromFavorite(currentItem: Table_Epicerie) {
+        val database = Database_Epicerie.getDatabase(applicationContext)
+
+        lifecycleScope.launch(Dispatchers.IO) {
+
+            val itemProduct = Table_Epicerie(
+                uid = currentItem.uid,
+                nameProduct = currentItem.nameProduct,
+                quantity = currentItem.quantity,
+                foodImageURI = currentItem.foodImageURI,
+                category = currentItem.category,
+                description = currentItem.description,
+                isCart = currentItem.isCart,
+                isFavorite = false
+            )
+            database.epicerieDao().updateEpicerie(itemProduct)
+
+            listFavorite = database.epicerieDao().getAllFavoris()
+            launch(Dispatchers.Main) {
+                recyclerViewFav.adapter =
+                    FavoriteAdaptor(applicationContext, this@PageFavorite, listFavorite)
+            }
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        val database = Database_Epicerie.getDatabase(applicationContext)
+        lifecycleScope.launch(Dispatchers.IO) {
+            listFavorite = database.epicerieDao().getAllFavoris()
+            launch(Dispatchers.Main) {
+                recyclerViewFav.adapter =
+                    FavoriteAdaptor(applicationContext, this@PageFavorite, listFavorite)
+            }
+        }
+    }
+
 }

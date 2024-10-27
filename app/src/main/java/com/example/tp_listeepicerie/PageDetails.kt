@@ -10,6 +10,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
@@ -105,7 +106,6 @@ class PageDetails : AppCompatActivity() {
 
         saveButton.setOnClickListener {
             updateItems()
-            finish()
         }
     }
 
@@ -113,8 +113,7 @@ class PageDetails : AppCompatActivity() {
         registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uriSelect: Uri? ->
             if (uriSelect != null) {
                 applicationContext.contentResolver.takePersistableUriPermission(
-                    uriSelect,
-                    Intent.FLAG_GRANT_READ_URI_PERMISSION
+                    uriSelect, Intent.FLAG_GRANT_READ_URI_PERMISSION
                 )
                 productImage.setImageURI(uriSelect)
                 imageUri = uriSelect
@@ -158,33 +157,43 @@ class PageDetails : AppCompatActivity() {
     }
 
     private fun updateItems() {
-        val updatedName = textProductName.text.toString()
-        val updatedDescription = textProductDescription.text.toString()
-        val updatedCategory = textCategory.text.toString()
-        val updatedQuantity = textQuantity.text.toString().toInt()
-        val updatedImageUri = imageUri.toString()
-        val database = Database_Epicerie.getDatabase(applicationContext)
+        // ChatGPT help me take variable even thought it could be null/blank
+        val updatedName: String? = textProductName.text.toString().takeIf { it.isNotBlank() }
+        val updatedDescription: String? = textProductDescription.text.toString().takeIf { it.isNotBlank() }
+        val updatedCategory: String? = textCategory.text.toString().takeIf { it.isNotBlank() }
+        val updatedQuantity: Int? = textQuantity.text.toString().toIntOrNull()
+        val updatedImageUri: String? = imageUri?.toString()
 
-        lifecycleScope.launch(Dispatchers.IO) {
-            val updatedItem = Table_Epicerie(
-                uid = productId,
-                nameProduct = updatedName,
-                description = updatedDescription,
-                category = updatedCategory,
-                quantity = updatedQuantity,
-                foodImageURI = updatedImageUri,
-                isCart = false,
-                isFavorite = false
-            )
-            database.epicerieDao().updateEpicerie(updatedItem)
-
-            withContext(Dispatchers.Main) {
-                Toast.makeText(
-                    applicationContext,
-                    "Le produit à était mis à jours",
-                    Toast.LENGTH_SHORT
-                ).show()
-                finish()
+        if (updatedName.isNullOrBlank() || updatedDescription.isNullOrBlank() || updatedCategory.isNullOrBlank() || updatedQuantity == null || updatedImageUri.isNullOrBlank()
+        ) {
+            Toast.makeText(
+                this@PageDetails,
+                "Veuillez remplir tous les informations nécessaires",
+                Toast.LENGTH_LONG
+            ).show()
+        } else {
+            lifecycleScope.launch(Dispatchers.IO) {
+                val database = Database_Epicerie.getDatabase(applicationContext)
+                val currentItem = database.epicerieDao().findByName(itemName)
+                if (currentItem != null) {
+                    val updatedItem = Table_Epicerie(
+                        uid = productId,
+                        nameProduct = updatedName,
+                        description = updatedDescription,
+                        category = updatedCategory,
+                        quantity = updatedQuantity,
+                        foodImageURI = updatedImageUri,
+                        isCart = currentItem.isCart,
+                        isFavorite = currentItem.isFavorite
+                    )
+                    database.epicerieDao().insertEpicerie(updatedItem)
+                    withContext(Dispatchers.Main) {
+                        Toast.makeText(
+                            applicationContext, "Le produit à était mis à jours", Toast.LENGTH_SHORT
+                        ).show()
+                        finish()
+                    }
+                }
             }
         }
     }

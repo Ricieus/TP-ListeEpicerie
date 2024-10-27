@@ -10,6 +10,7 @@ import android.view.MenuItem
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -72,20 +73,33 @@ class PageAjouter : AppCompatActivity() {
         val categoryItem: EditText = findViewById(R.id.CategoryEdit)
         val descriptionItem: EditText = findViewById(R.id.DescriptionEdit)
 
-        val database = Database_Epicerie.getDatabase(applicationContext)
-        lifecycleScope.launch(Dispatchers.IO) {
-            if (imageUri != null) {
-                val itemGrocery  = Table_Epicerie(
-                    uid = 0,
-                    nameProduct = nameItem.text.toString(),
-                    quantity = quantityItem.text.toString().toIntOrNull() ?: 1,
-                    foodImageURI = imageUri.toString(),
-                    category = categoryItem.text.toString(),
-                    description = descriptionItem.text.toString(),
-                    isCart = false,
-                    isFavorite = false
-                )
-                database.epicerieDao().insertEpicerie(itemGrocery)
+        if (nameItem.text.isNullOrBlank() ||
+            quantityItem.text.isNullOrBlank() ||
+            categoryItem.text.isNullOrBlank() ||
+            descriptionItem.text.isNullOrBlank()) {
+
+            Toast.makeText(
+                this@PageAjouter,
+                "Veuillez remplir tous les informations nécessaires",
+                Toast.LENGTH_LONG
+            ).show()
+        } else {
+            val database = Database_Epicerie.getDatabase(applicationContext)
+            lifecycleScope.launch(Dispatchers.IO) {
+                if (imageUri != null) {
+                    val itemGrocery = Table_Epicerie(
+                        uid = 0,
+                        nameProduct = nameItem.text.toString(),
+                        quantity = quantityItem.text.toString().toIntOrNull() ?: 1,
+                        foodImageURI = imageUri.toString(),
+                        category = categoryItem.text.toString(),
+                        description = descriptionItem.text.toString(),
+                        isCart = false,
+                        isFavorite = false
+                    )
+                    database.epicerieDao().insertEpicerie(itemGrocery)
+                    finish()
+                }
             }
         }
     }
