@@ -85,7 +85,7 @@
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
                     android:layout_margin="8dp"
-                    android:background="@drawable/cube" />
+                    android:background="@drawable/cube_developers" />
 
                 <View
                     android:id="@+id/settings"
