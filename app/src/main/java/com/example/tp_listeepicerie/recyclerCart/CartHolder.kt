@@ -16,6 +16,7 @@ class CartHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     val btnInformation: ImageButton
     val btnPanier: ImageButton
 
+    //Initialisation des variables
     init {
         layout = itemView as ConstraintLayout
         textName = itemView.findViewById(R.id.itemName)

@@ -65,8 +65,12 @@
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
                     android:layout_margin="8dp"
-                    android:background="@drawable/cube" />
+                    android:background="@drawable/cube"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackground" />
 
+                <!--Référence pour animation: https://stackoverflow.com/questions/39168252/using-selectableitembackground-with-a-white-background-color-->
                 <View
                     android:id="@+id/favoris"
                     android:layout_width="0dp"
@@ -74,7 +78,10 @@
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
                     android:layout_margin="8dp"
-                    android:background="@drawable/cube_favorite" />
+                    android:background="@drawable/cube_favorite"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackground" />
 
                 <View
                     android:id="@+id/developerPage"
@@ -83,7 +90,10 @@
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
                     android:layout_margin="8dp"
-                    android:background="@drawable/cube_developers" />
+                    android:background="@drawable/cube_developers"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackground" />
 
                 <View
                     android:id="@+id/settings"
@@ -92,7 +102,10 @@
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
                     android:layout_margin="8dp"
-                    android:background="@drawable/cube_settings" />
+                    android:background="@drawable/cube_settings"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackground" />
             </GridLayout>
         </LinearLayout>
     </ScrollView>

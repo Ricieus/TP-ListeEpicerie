@@ -37,8 +37,8 @@ class MainActivity : AppCompatActivity() {
         initializeViewPages()
 
         setListeners()
-
     }
+
 
     private fun setListeners() {
 
@@ -62,6 +62,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+
     private fun initializeViewPages() {
         pageDevelopers = findViewById(R.id.developerPage)
         productList = findViewById(R.id.fruit)
@@ -75,7 +76,9 @@ class MainActivity : AppCompatActivity() {
         return super.onCreateOptionsMenu(menu)
     }
 
+    //Permet de changer le mode de l'application
     private fun nightMode() {
+        //https://www.youtube.com/watch?v=AHsggyb0vGw&t=52s
         val sharedPreferences = getSharedPreferences("Mode", Context.MODE_PRIVATE)
         val nightMode = sharedPreferences.getBoolean("night", false)
 

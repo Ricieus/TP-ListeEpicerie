@@ -44,7 +44,9 @@ class PageSettings : AppCompatActivity() {
         setTheme()
     }
 
+    //Permet de changer le thème
     private fun setTheme() {
+        //https://www.youtube.com/watch?v=AHsggyb0vGw&t=52s
         val sharedPreferences = getSharedPreferences("Mode", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
         val nightMode = sharedPreferences.getBoolean("night", false)
@@ -54,7 +56,6 @@ class PageSettings : AppCompatActivity() {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         }
 
-        //https://www.youtube.com/watch?v=AHsggyb0vGw&t=52s
         switch.setOnCheckedChangeListener { switchThemes, isChecked ->
             if (!isChecked) {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
@@ -84,6 +85,7 @@ class PageSettings : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
+    //Permet de supprimer toutes les données
     private fun deleteData() {
         val database = Database_Epicerie.getDatabase(applicationContext)
 

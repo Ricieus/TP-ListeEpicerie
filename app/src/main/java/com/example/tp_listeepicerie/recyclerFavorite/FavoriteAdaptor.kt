@@ -32,6 +32,7 @@ class FavoriteAdaptor(
         holder.textName.text = currentItem.nameProduct
         holder.textQuantity.text = "Quantite: ${currentItem.quantity}"
 
+        //Permet d'afficher l'image
         val imageUri = currentItem.foodImageURI
         if (imageUri.isNotEmpty()) {
             holder.img.setImageURI(Uri.parse(imageUri))
@@ -41,6 +42,7 @@ class FavoriteAdaptor(
 
         holder.btnFavorite.setImageResource(R.drawable.baseline_star_yellow_24)
 
+        //Permet de transferer les informations dans l'activité PageDetails
         holder.btnInformation.setOnClickListener {
             val intent = Intent(activity, PageDetails::class.java)
             val infoItem = InfoItem(
@@ -55,6 +57,7 @@ class FavoriteAdaptor(
             activity.startActivity(intent)
         }
 
+        //Permet de retirer un item des favoris
         holder.btnFavorite.setOnClickListener {
             activity.removeItemFromFavorite(currentItem)
         }

@@ -80,8 +80,12 @@ class PageDetails : AppCompatActivity() {
         initializeVariables()
         loadImageOfProducts()
 
+
         val selectionPhoto = takeImageFromDevice()
+
+        //Permet de récupérer l'URI de la photo
         val uriPhoto = createUriPhoto()
+
         val takePhoto = photoFromCamera(uriPhoto)
 
         textProductName.text = itemName
@@ -129,7 +133,7 @@ class PageDetails : AppCompatActivity() {
         if (itemImage.isNotEmpty()) {
             val imageUri = Uri.parse(itemImage)
             productImage.setImageURI(imageUri)
-            this.imageUri = imageUri
+            this.imageUri = imageUri //Aidé par ChatGPT
         }
     }
 
@@ -154,7 +158,7 @@ class PageDetails : AppCompatActivity() {
     }
 
     private fun updateItems() {
-        // ChatGPT help me take variable even thought it could be null/blank
+        //ChatGPT m'a aidé à gérer les valeurs nulles/vides
         val updatedName: String? = textProductName.text.toString().takeIf { it.isNotBlank() }
         val updatedDescription: String? =
             textProductDescription.text.toString().takeIf { it.isNotBlank() }
@@ -162,6 +166,7 @@ class PageDetails : AppCompatActivity() {
         val updatedQuantity: Int? = textQuantity.text.toString().toIntOrNull()
         val updatedImageUri: String? = imageUri?.toString()
 
+        //Permet de gérer les nulles/vides (Inspiré de ChatGPT)
         if (updatedName.isNullOrBlank() || updatedDescription.isNullOrBlank() || updatedCategory.isNullOrBlank() || updatedQuantity == null || updatedImageUri.isNullOrBlank()
         ) {
             Toast.makeText(
@@ -186,7 +191,7 @@ class PageDetails : AppCompatActivity() {
                     )
                     database.GroceryDAO().insertEpicerie(updatedItem)
 
-                    withContext(Dispatchers.Main) { //Aided by ChatGPT
+                    withContext(Dispatchers.Main) { //Aidé par ChatGPT
                         Toast.makeText(
                             applicationContext, "Le produit à était mis à jours", Toast.LENGTH_SHORT
                         ).show()

@@ -35,7 +35,12 @@ class PageFavorite : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         initializeReycler()
+        loadFavorite()
 
+    }
+
+    //Permet de charger les favoris
+    private fun loadFavorite(){
         val database = Database_Epicerie.getDatabase(applicationContext)
         // https://stackoverflow.com/questions/3386667/query-if-android-database-exists
         lifecycleScope.launch(Dispatchers.IO) {
@@ -73,6 +78,7 @@ class PageFavorite : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
+    //Permet d'afficher le menu de filtre
     // Référence : https://www.geeksforgeeks.org/popup-menu-in-android-with-example/
     private fun showFilterMenu() {
         val popupMenu = PopupMenu(this, findViewById(R.id.ButtonFilter))
@@ -91,8 +97,9 @@ class PageFavorite : AppCompatActivity() {
     }
 
 
+    //Permet d'appliquer le filtre
     private fun applyFilter(filter: String) {
-        //Aided by chatgpt
+        //Aidé par ChatGPT
         val filterList: MutableList<Table_Grocery> = when (filter) {
             "Reaffichage des produits" -> listFavorite
             "Quantité: Peu à Beaucoup" -> listFavorite.sortedBy { it.quantity }.toMutableList()

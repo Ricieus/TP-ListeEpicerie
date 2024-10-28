@@ -42,6 +42,7 @@ class PageList : AppCompatActivity() {
         recyclerViewCart = findViewById(R.id.recycleCart)
 
         val orientation = resources.configuration.orientation
+        //Permet de changer la configuration de la page
         if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
 
             val gridLayoutManagerItem = GridLayoutManager(this, 4)

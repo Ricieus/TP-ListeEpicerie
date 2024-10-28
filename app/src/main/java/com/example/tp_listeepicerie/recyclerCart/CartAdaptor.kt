@@ -39,6 +39,7 @@ class CartAdaptor(
             holder.img.setImageResource(R.drawable.img)
         }
 
+        //Permet de transferer les informations dans l'activité PageDetails
         holder.btnInformation.setOnClickListener {
             val intent = Intent(activity, PageDetails::class.java)
             val infoItem = InfoItem(
@@ -52,8 +53,9 @@ class CartAdaptor(
             intent.putExtra("InfoItem", infoItem)
             activity.startActivity(intent)
         }
+
+        //Permet de retirer un item du panier
         holder.btnPanier.setOnClickListener {
-            //DO SOMETHING (AJOUTER PANIER)
             activity.removeFromPanier(currentItem)
         }
     }

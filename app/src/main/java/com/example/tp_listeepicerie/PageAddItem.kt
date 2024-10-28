@@ -49,10 +49,12 @@ class PageAddItem : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         initializeVariables()
+
+        //Permet de récupérer l'URI de la photo
         val uriPhoto = createUriPhoto()
+
         val takePhoto = takePhotoFromCamera(uriPhoto)
         val photoSelection = importImageFromDevice()
-
 
         btnAdd.setOnClickListener {
             addNewProduct()
@@ -61,6 +63,7 @@ class PageAddItem : AppCompatActivity() {
         btnPhotoImg.setOnClickListener {
             takePhoto.launch(uriPhoto)
         }
+
         btnLoadImg.setOnClickListener {
             photoSelection.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
         }
@@ -73,6 +76,7 @@ class PageAddItem : AppCompatActivity() {
         val categoryItem: EditText = findViewById(R.id.CategoryEdit)
         val descriptionItem: EditText = findViewById(R.id.DescriptionEdit)
 
+        //Permet de gérer les nulles/vides (Inspiré de ChatGPT)
         if (nameItem.text.isNullOrBlank() || quantityItem.text.isNullOrBlank() || categoryItem.text.isNullOrBlank() || descriptionItem.text.isNullOrBlank()) {
 
             Toast.makeText(

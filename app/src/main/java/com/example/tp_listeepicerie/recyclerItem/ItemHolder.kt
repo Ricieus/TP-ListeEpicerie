@@ -17,6 +17,7 @@ class ItemHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     val btnPanier: ImageButton
     val favorite: ImageButton
 
+    //Initialisation des variables
     init {
         layout = itemView as ConstraintLayout
         textName = itemView.findViewById(R.id.itemName)

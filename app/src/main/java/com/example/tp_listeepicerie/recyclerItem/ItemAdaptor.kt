@@ -37,32 +37,41 @@ class ItemAdaptor(
         holder.img.setImageURI(Uri.parse(imageUri))
 
         changeIcon(holder, currentItem)
-        startPageDetails(holder, currentItem, activity)
 
+        holder.btnInformation.setOnClickListener {
+            val intent = Intent(activity, PageDetails::class.java)
+            val infoItem = InfoItem(
+                currentItem.uid,
+                currentItem.nameProduct,
+                currentItem.quantity,
+                currentItem.foodImageURI,
+                currentItem.category,
+                currentItem.description
+            )
+            intent.putExtra("InfoItem", infoItem)
+            activity.startActivity(intent)
+        }
+
+        //Permet d'ajouter un item au panier
         holder.btnPanier.setOnClickListener {
             activity.ajoutPanier(currentItem)
         }
 
-        addToFavoriteToggle(holder, currentItem, activity)
+        holder.favorite.setOnClickListener {
+            if (!currentItem.isFavorite) {
+                activity.addItemToFavorite(currentItem)
+                currentItem.isFavorite = true
+                holder.favorite.setImageResource(R.drawable.baseline_star_yellow_24)
+            } else {
+                activity.removeItemFromFavorite(currentItem)
+                currentItem.isFavorite = false
+                holder.favorite.setImageResource(R.drawable.baseline_star_24)
+            }
+        }
     }
 }
 
-private fun startPageDetails(holder: ItemHolder, currentItem: Table_Grocery, activity: PageList) {
-    holder.btnInformation.setOnClickListener {
-        val intent = Intent(activity, PageDetails::class.java)
-        val infoItem = InfoItem(
-            currentItem.uid,
-            currentItem.nameProduct,
-            currentItem.quantity,
-            currentItem.foodImageURI,
-            currentItem.category,
-            currentItem.description
-        )
-        intent.putExtra("InfoItem", infoItem)
-        activity.startActivity(intent)
-    }
-}
-
+//Permet de changer l'icone du bouton favorite
 private fun changeIcon(holder: ItemHolder, currentItem: Table_Grocery) {
     if (currentItem.isFavorite) {
         holder.favorite.setImageResource(R.drawable.baseline_star_yellow_24)
@@ -71,23 +80,6 @@ private fun changeIcon(holder: ItemHolder, currentItem: Table_Grocery) {
     }
 }
 
-private fun addToFavoriteToggle(
-    holder: ItemHolder,
-    currentItem: Table_Grocery,
-    activity: PageList
-) {
-    holder.favorite.setOnClickListener {
-        if (!currentItem.isFavorite) {
-            activity.addItemToFavorite(currentItem)
-            currentItem.isFavorite = true
-            holder.favorite.setImageResource(R.drawable.baseline_star_yellow_24)
-        } else {
-            activity.removeItemFromFavorite(currentItem)
-            currentItem.isFavorite = false
-            holder.favorite.setImageResource(R.drawable.baseline_star_24)
-        }
-    }
-}
 
 @Parcelize
 class InfoItem(
