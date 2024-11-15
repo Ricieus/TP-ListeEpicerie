@@ -1,4 +1,4 @@
-package com.example.tp_listeepicerie
+package com.example.tp_listeepicerie.page
 
 import android.content.Intent
 import android.content.res.Configuration
@@ -13,6 +13,9 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.tp_listeepicerie.Database_Epicerie
+import com.example.tp_listeepicerie.R
+import com.example.tp_listeepicerie.Table_Grocery
 import com.example.tp_listeepicerie.recyclerItem.ItemAdaptor
 import com.example.tp_listeepicerie.recyclerCart.CartAdaptor
 import kotlinx.coroutines.Dispatchers

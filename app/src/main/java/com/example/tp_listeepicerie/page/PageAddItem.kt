@@ -1,4 +1,4 @@
-package com.example.tp_listeepicerie
+package com.example.tp_listeepicerie.page
 
 import android.content.Intent
 import android.net.Uri
@@ -19,6 +19,9 @@ import androidx.core.content.FileProvider
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
+import com.example.tp_listeepicerie.Database_Epicerie
+import com.example.tp_listeepicerie.R
+import com.example.tp_listeepicerie.Table_Grocery
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.io.File

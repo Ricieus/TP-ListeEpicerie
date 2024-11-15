@@ -13,19 +13,19 @@
         android:theme="@style/Theme.TPListeEpicerie"
         tools:targetApi="31">
         <activity
-            android:name=".PageDevelopers"
+            android:name=".page.PageDevelopers"
             android:exported="false" />
         <activity
-            android:name=".PageSettings"
+            android:name=".page.PageSettings"
             android:exported="false" />
         <activity
-            android:name=".PageList"
+            android:name=".page.PageList"
             android:exported="false" />
         <activity
-            android:name=".PageFavorite"
+            android:name=".page.PageFavorite"
             android:exported="false" />
         <activity
-            android:name=".PageDetails"
+            android:name=".page.PageDetails"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
@@ -38,7 +38,7 @@
         </activity>
 
         <activity
-            android:name=".PageAddItem"
+            android:name=".page.PageAddItem"
             android:exported="true" />
 
         <provider

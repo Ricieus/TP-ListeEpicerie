@@ -1,4 +1,4 @@
-package com.example.tp_listeepicerie
+package com.example.tp_listeepicerie.page
 
 import android.content.Context
 import android.os.Bundle
@@ -14,6 +14,8 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
+import com.example.tp_listeepicerie.Database_Epicerie
+import com.example.tp_listeepicerie.R
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
