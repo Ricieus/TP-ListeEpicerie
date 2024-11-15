@@ -1,4 +1,4 @@
-package com.example.tp_listeepicerie
+package com.example.tp_listeepicerie.page
 
 import android.os.Bundle
 import android.view.Menu
@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.tp_listeepicerie.R
 
 class PageDevelopers : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -1,4 +1,4 @@
-package com.example.tp_listeepicerie
+package com.example.tp_listeepicerie.page
 
 import android.os.Bundle
 import android.view.Menu
@@ -12,6 +12,9 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.tp_listeepicerie.Database_Epicerie
+import com.example.tp_listeepicerie.R
+import com.example.tp_listeepicerie.Table_Grocery
 import com.example.tp_listeepicerie.recyclerFavorite.FavoriteAdaptor
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

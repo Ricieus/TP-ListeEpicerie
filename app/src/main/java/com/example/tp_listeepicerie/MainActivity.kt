@@ -12,6 +12,11 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.tp_listeepicerie.page.PageAddItem
+import com.example.tp_listeepicerie.page.PageDevelopers
+import com.example.tp_listeepicerie.page.PageFavorite
+import com.example.tp_listeepicerie.page.PageList
+import com.example.tp_listeepicerie.page.PageSettings
 
 class MainActivity : AppCompatActivity() {
 
