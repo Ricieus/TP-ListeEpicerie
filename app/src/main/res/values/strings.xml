@@ -7,4 +7,6 @@
         <item>Ordre en alphabetique (Par nom)</item>
         <item>Ordre en alphabetique (Par catégorie)</item>
     </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
