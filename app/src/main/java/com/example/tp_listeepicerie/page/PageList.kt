@@ -24,8 +24,8 @@ import kotlinx.coroutines.withContext
 
 class PageList : AppCompatActivity() {
     private var cartItems: MutableList<Table_Grocery> = mutableListOf()
-    private lateinit var recyclerViewCart: RecyclerView
-    private lateinit var recyclerView: RecyclerView
+//    private lateinit var recyclerViewCart: RecyclerView
+//    private lateinit var recyclerView: RecyclerView
     private var groceryList: MutableList<Table_Grocery> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,41 +40,6 @@ class PageList : AppCompatActivity() {
 
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
-
-        recyclerView = findViewById(R.id.recyclerItem)
-        recyclerViewCart = findViewById(R.id.recycleCart)
-
-        val orientation = resources.configuration.orientation
-        //Permet de changer la configuration de la page
-        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
-
-            val gridLayoutManagerItem = GridLayoutManager(this, 4)
-            recyclerView.layoutManager = gridLayoutManagerItem
-            val gridLayoutManagerPanier = GridLayoutManager(this, 4)
-            recyclerViewCart.layoutManager = gridLayoutManagerPanier
-        } else {
-            val gridLayoutManagerItem = GridLayoutManager(this, 2)
-            recyclerView.layoutManager = gridLayoutManagerItem
-            val gridLayoutManagerPanier = GridLayoutManager(this, 2)
-            recyclerViewCart.layoutManager = gridLayoutManagerPanier
-        }
-
-
-        val database = Database_Epicerie.getDatabase(applicationContext)
-        lifecycleScope.launch(Dispatchers.IO) {
-            groceryList = database.GroceryDAO().getAllProduct()
-            cartItems = database.GroceryDAO().getAllPanier()
-            launch(Dispatchers.Main) {
-                refreshRecyclerView()
-            }
-        }
-    }
-
-    fun refreshRecyclerView() {
-        recyclerView.adapter = ItemAdaptor(applicationContext, this@PageList, groceryList)
-        recyclerViewCart.adapter = CartAdaptor(applicationContext, this@PageList, cartItems)
-        recyclerView.adapter?.notifyDataSetChanged()
-        recyclerViewCart.adapter?.notifyDataSetChanged()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -96,106 +61,6 @@ class PageList : AppCompatActivity() {
             }
 
             else -> super.onOptionsItemSelected(item)
-        }
-    }
-
-    fun ajoutPanier(item: Table_Grocery) {
-        val database = Database_Epicerie.getDatabase(applicationContext)
-        lifecycleScope.launch(Dispatchers.IO) {
-            val existingItem = database.GroceryDAO().findByName(item.nameProduct)
-
-            if (existingItem != null) {
-                val itemPanier = Table_Grocery(
-                    uid = item.uid,
-                    nameProduct = item.nameProduct,
-                    quantity = item.quantity,
-                    foodImageURI = item.foodImageURI,
-                    category = item.category,
-                    description = item.description,
-                    isCart = true,
-                    isFavorite = item.isFavorite
-                )
-                database.GroceryDAO().updateEpicerie(itemPanier)
-
-                withContext(Dispatchers.Main) {
-                    cartItems = database.GroceryDAO().getAllPanier()
-                    groceryList = database.GroceryDAO().getAllProduct()
-                    refreshRecyclerView()
-                }
-            }
-        }
-    }
-
-    fun removeFromPanier(item: Table_Grocery) {
-        val database = Database_Epicerie.getDatabase(applicationContext)
-        lifecycleScope.launch(Dispatchers.IO) {
-
-            val itemProduct = Table_Grocery(
-                uid = item.uid,
-                nameProduct = item.nameProduct,
-                quantity = item.quantity,
-                foodImageURI = item.foodImageURI,
-                category = item.category,
-                description = item.description,
-                isCart = false,
-                isFavorite = item.isFavorite
-            )
-            database.GroceryDAO().updateEpicerie(itemProduct)
-            withContext(Dispatchers.Main) {
-                groceryList = database.GroceryDAO().getAllProduct()
-                cartItems = database.GroceryDAO().getAllPanier()
-                refreshRecyclerView()
-            }
-        }
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-        val database = Database_Epicerie.getDatabase(applicationContext)
-        lifecycleScope.launch(Dispatchers.IO) {
-            groceryList = database.GroceryDAO().getAllProduct()
-            cartItems = database.GroceryDAO().getAllPanier()
-            launch(Dispatchers.Main) {
-                refreshRecyclerView()
-            }
-        }
-    }
-
-    fun addItemToFavorite(item: Table_Grocery) {
-        val database = Database_Epicerie.getDatabase(applicationContext)
-        lifecycleScope.launch(Dispatchers.IO) {
-
-            val itemProduct = Table_Grocery(
-                uid = item.uid,
-                nameProduct = item.nameProduct,
-                quantity = item.quantity,
-                foodImageURI = item.foodImageURI,
-                category = item.category,
-                description = item.description,
-                isCart = item.isCart,
-                isFavorite = true
-            )
-            database.GroceryDAO().updateEpicerie(itemProduct)
-        }
-    }
-
-    fun removeItemFromFavorite(item: Table_Grocery) {
-        val database = Database_Epicerie.getDatabase(applicationContext)
-
-        lifecycleScope.launch(Dispatchers.IO) {
-
-            val itemProduct = Table_Grocery(
-                uid = item.uid,
-                nameProduct = item.nameProduct,
-                quantity = item.quantity,
-                foodImageURI = item.foodImageURI,
-                category = item.category,
-                description = item.description,
-                isCart = item.isCart,
-                isFavorite = false
-            )
-            database.GroceryDAO().updateEpicerie(itemProduct)
         }
     }
 }

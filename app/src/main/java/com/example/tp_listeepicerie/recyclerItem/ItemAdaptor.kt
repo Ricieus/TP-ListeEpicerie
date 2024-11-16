@@ -2,20 +2,22 @@ package com.example.tp_listeepicerie.recyclerItem
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.pdf.PdfDocument.Page
 import android.net.Uri
 import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tp_listeepicerie.page.PageDetails
-import com.example.tp_listeepicerie.page.PageList
 import com.example.tp_listeepicerie.R
 import com.example.tp_listeepicerie.Table_Grocery
+import com.example.tp_listeepicerie.fragment.list_product
+import com.example.tp_listeepicerie.fragment.more_detail
 import kotlinx.android.parcel.Parcelize
 
 class ItemAdaptor(
     val ctx: Context,
-    val activity: PageList,
+    val activity: list_product,
     var data: MutableList<Table_Grocery>
 ) : RecyclerView.Adapter<ItemHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
@@ -39,7 +41,6 @@ class ItemAdaptor(
         changeIcon(holder, currentItem)
 
         holder.btnInformation.setOnClickListener {
-            val intent = Intent(activity, PageDetails::class.java)
             val infoItem = InfoItem(
                 currentItem.uid,
                 currentItem.nameProduct,
@@ -48,8 +49,11 @@ class ItemAdaptor(
                 currentItem.category,
                 currentItem.description
             )
-            intent.putExtra("InfoItem", infoItem)
-            activity.startActivity(intent)
+
+            val intent = Intent(ctx, PageDetails::class.java).apply {
+                putExtra("InfoItem", infoItem)
+            }
+            ctx.startActivity(intent)
         }
 
         //Permet d'ajouter un item au panier

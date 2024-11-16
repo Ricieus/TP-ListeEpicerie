@@ -7,14 +7,14 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tp_listeepicerie.page.PageDetails
-import com.example.tp_listeepicerie.page.PageList
 import com.example.tp_listeepicerie.R
 import com.example.tp_listeepicerie.Table_Grocery
+import com.example.tp_listeepicerie.fragment.list_cart
 import com.example.tp_listeepicerie.recyclerItem.InfoItem
 
 class CartAdaptor(
     val ctx: Context,
-    val activity: PageList,
+    val activity: list_cart,
     var data: MutableList<Table_Grocery>
 ) : RecyclerView.Adapter<CartHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartHolder {
@@ -41,17 +41,17 @@ class CartAdaptor(
 
         //Permet de transferer les informations dans l'activité PageDetails
         holder.btnInformation.setOnClickListener {
-            val intent = Intent(activity, PageDetails::class.java)
-            val infoItem = InfoItem(
-                currentItem.uid,
-                currentItem.nameProduct,
-                currentItem.quantity,
-                currentItem.foodImageURI,
-                currentItem.category,
-                currentItem.description
-            )
-            intent.putExtra("InfoItem", infoItem)
-            activity.startActivity(intent)
+//            val intent = Intent(activity, PageDetails::class.java)
+//            val infoItem = InfoItem(
+//                currentItem.uid,
+//                currentItem.nameProduct,
+//                currentItem.quantity,
+//                currentItem.foodImageURI,
+//                currentItem.category,
+//                currentItem.description
+//            )
+//            intent.putExtra("InfoItem", infoItem)
+//            activity.startActivity(intent)
         }
 
         //Permet de retirer un item du panier
