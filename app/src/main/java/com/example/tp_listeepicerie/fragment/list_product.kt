@@ -6,10 +6,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tp_listeepicerie.Database_Epicerie
+import com.example.tp_listeepicerie.GroceryViewModel
 import com.example.tp_listeepicerie.R
 import com.example.tp_listeepicerie.Table_Grocery
 import com.example.tp_listeepicerie.recyclerCart.CartAdaptor
@@ -19,6 +21,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class list_product : Fragment() {
+    private lateinit var groceryViewModel: GroceryViewModel
     private lateinit var recyclerView: RecyclerView
     private var groceryList: MutableList<Table_Grocery> = mutableListOf()
     override fun onCreateView(
@@ -32,6 +35,7 @@ class list_product : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        groceryViewModel = ViewModelProvider(requireActivity())[GroceryViewModel::class.java]
         recyclerView = view.findViewById(R.id.recyclerItem)
 
         val orientation = resources.configuration.orientation
@@ -52,6 +56,11 @@ class list_product : Fragment() {
                 recyclerView.adapter = ItemAdaptor(requireContext(), this@list_product, groceryList)
             }
         }
+
+        groceryViewModel.groceryList.observe(viewLifecycleOwner) { updatedCartItems ->
+            groceryList.addAll(updatedCartItems)
+            refreshRecyclerView()
+        }
     }
 
     fun refreshRecyclerView() {
@@ -59,10 +68,38 @@ class list_product : Fragment() {
         recyclerView.adapter?.notifyDataSetChanged()
     }
 
+//    fun ajoutPanier(item: Table_Grocery) {
+//        val database = Database_Epicerie.getDatabase(requireContext())
+//        lifecycleScope.launch(Dispatchers.IO) {
+//            val existingItem = database.GroceryDAO().findByName(item.nameProduct)
+//
+//            if (existingItem != null) {
+//                val itemPanier = Table_Grocery(
+//                    uid = item.uid,
+//                    nameProduct = item.nameProduct,
+//                    quantity = item.quantity,
+//                    foodImageURI = item.foodImageURI,
+//                    category = item.category,
+//                    description = item.description,
+//                    isCart = true,
+//                    isFavorite = item.isFavorite
+//                )
+//                database.GroceryDAO().updateEpicerie(itemPanier)
+//
+//                withContext(Dispatchers.Main) {
+//                    groceryList = database.GroceryDAO().getAllProduct()
+//                    refreshRecyclerView()
+//                }
+//            }
+//        }
+//    }
+
     fun ajoutPanier(item: Table_Grocery) {
         val database = Database_Epicerie.getDatabase(requireContext())
         lifecycleScope.launch(Dispatchers.IO) {
+            database.GroceryDAO().updateEpicerie(item.copy(isCart = true))
             val existingItem = database.GroceryDAO().findByName(item.nameProduct)
+            val updatedCartItems = database.GroceryDAO().getAllPanier()
 
             if (existingItem != null) {
                 val itemPanier = Table_Grocery(
@@ -79,6 +116,7 @@ class list_product : Fragment() {
 
                 withContext(Dispatchers.Main) {
                     groceryList = database.GroceryDAO().getAllProduct()
+                    groceryViewModel.setCartItems(updatedCartItems)
                     refreshRecyclerView()
                 }
             }
@@ -115,6 +153,8 @@ class list_product : Fragment() {
             database.GroceryDAO().updateEpicerie(itemProduct)
         }
     }
+
+
 
     fun removeItemFromFavorite(item: Table_Grocery) {
         val database = Database_Epicerie.getDatabase(requireContext())

@@ -6,10 +6,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tp_listeepicerie.Database_Epicerie
+import com.example.tp_listeepicerie.GroceryViewModel
 import com.example.tp_listeepicerie.R
 import com.example.tp_listeepicerie.Table_Grocery
 import com.example.tp_listeepicerie.recyclerCart.CartAdaptor
@@ -19,6 +21,7 @@ import kotlinx.coroutines.withContext
 
 
 class list_cart : Fragment() {
+    private lateinit var groceryViewModel: GroceryViewModel
     private lateinit var recyclerViewCart: RecyclerView
     private var cartItems: MutableList<Table_Grocery> = mutableListOf()
     override fun onCreateView(
@@ -32,6 +35,7 @@ class list_cart : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        groceryViewModel = ViewModelProvider(requireActivity())[GroceryViewModel::class.java] //Aidé par ChatGPT
         recyclerViewCart = view.findViewById(R.id.recycleCart)
 
         val orientation = resources.configuration.orientation
@@ -42,6 +46,11 @@ class list_cart : Fragment() {
         } else {
             val gridLayoutManagerPanier = GridLayoutManager(requireContext(), 2)
             recyclerViewCart.layoutManager = gridLayoutManagerPanier
+        }
+
+        groceryViewModel.cartItems.observe(viewLifecycleOwner) { updatedCartItems ->
+            cartItems.addAll(updatedCartItems)
+            refreshRecyclerView()
         }
 
 
@@ -76,6 +85,7 @@ class list_cart : Fragment() {
             database.GroceryDAO().updateEpicerie(itemProduct)
             withContext(Dispatchers.Main) {
                 cartItems = database.GroceryDAO().getAllPanier()
+                groceryViewModel.setGroceryList(cartItems)
                 refreshRecyclerView()
             }
         }
