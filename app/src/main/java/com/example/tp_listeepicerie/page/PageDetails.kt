@@ -35,26 +35,6 @@ import java.util.Date
 import java.util.Locale
 
 class PageDetails : AppCompatActivity() {
-
-    private lateinit var textProductName: TextView
-    private lateinit var productImage: ImageView
-    private lateinit var textProductDescription: TextView
-    private lateinit var textCategory: TextView
-    private lateinit var textQuantity: TextView
-    private lateinit var saveButton: Button
-    private lateinit var deleteButton: Button
-    private lateinit var updateImageButton: Button
-    private lateinit var takePhotoButton: Button
-
-    private var imageUri: Uri? = null
-    private var productId: Int = 0
-
-    private var itemName: String = ""
-    private var itemImage: String = ""
-    private var productDescription: String = ""
-    private var itemCategory: String = ""
-    private var itemQuantity: Int = 0
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -96,13 +76,9 @@ class PageDetails : AppCompatActivity() {
             }
 
             R.id.edit -> {
-                updateImageButton.isEnabled = true
-                takePhotoButton.isEnabled = true
-                textProductName.isEnabled = true
-                textProductDescription.isEnabled = true
-                textCategory.isEnabled = true
-                textQuantity.isEnabled = true
-                saveButton.isEnabled = true
+                // Aided by ChatGPT
+                val fragment = supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as more_detail
+                fragment.enableModification(true)
             }
 
         }

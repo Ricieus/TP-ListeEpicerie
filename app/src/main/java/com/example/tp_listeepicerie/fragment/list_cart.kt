@@ -59,32 +59,6 @@ class list_cart : Fragment() {
         recyclerViewCart.adapter?.notifyDataSetChanged()
     }
 
-    fun ajoutPanier(item: Table_Grocery) {
-        val database = Database_Epicerie.getDatabase(requireContext())
-        lifecycleScope.launch(Dispatchers.IO) {
-            val existingItem = database.GroceryDAO().findByName(item.nameProduct)
-
-            if (existingItem != null) {
-                val itemPanier = Table_Grocery(
-                    uid = item.uid,
-                    nameProduct = item.nameProduct,
-                    quantity = item.quantity,
-                    foodImageURI = item.foodImageURI,
-                    category = item.category,
-                    description = item.description,
-                    isCart = true,
-                    isFavorite = item.isFavorite
-                )
-                database.GroceryDAO().updateEpicerie(itemPanier)
-
-                withContext(Dispatchers.Main) {
-                    cartItems = database.GroceryDAO().getAllPanier()
-                    refreshRecyclerView()
-                }
-            }
-        }
-    }
-
     fun removeFromPanier(item: Table_Grocery) {
         val database = Database_Epicerie.getDatabase(requireContext())
         lifecycleScope.launch(Dispatchers.IO) {
@@ -116,43 +90,6 @@ class list_cart : Fragment() {
             launch(Dispatchers.Main) {
                 refreshRecyclerView()
             }
-        }
-    }
-
-    fun addItemToFavorite(item: Table_Grocery) {
-        val database = Database_Epicerie.getDatabase(requireContext())
-        lifecycleScope.launch(Dispatchers.IO) {
-
-            val itemProduct = Table_Grocery(
-                uid = item.uid,
-                nameProduct = item.nameProduct,
-                quantity = item.quantity,
-                foodImageURI = item.foodImageURI,
-                category = item.category,
-                description = item.description,
-                isCart = item.isCart,
-                isFavorite = true
-            )
-            database.GroceryDAO().updateEpicerie(itemProduct)
-        }
-    }
-
-    fun removeItemFromFavorite(item: Table_Grocery) {
-        val database = Database_Epicerie.getDatabase(requireContext())
-
-        lifecycleScope.launch(Dispatchers.IO) {
-
-            val itemProduct = Table_Grocery(
-                uid = item.uid,
-                nameProduct = item.nameProduct,
-                quantity = item.quantity,
-                foodImageURI = item.foodImageURI,
-                category = item.category,
-                description = item.description,
-                isCart = item.isCart,
-                isFavorite = false
-            )
-            database.GroceryDAO().updateEpicerie(itemProduct)
         }
     }
 }

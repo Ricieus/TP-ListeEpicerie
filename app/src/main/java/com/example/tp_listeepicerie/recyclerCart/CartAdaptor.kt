@@ -41,17 +41,19 @@ class CartAdaptor(
 
         //Permet de transferer les informations dans l'activité PageDetails
         holder.btnInformation.setOnClickListener {
-//            val intent = Intent(activity, PageDetails::class.java)
-//            val infoItem = InfoItem(
-//                currentItem.uid,
-//                currentItem.nameProduct,
-//                currentItem.quantity,
-//                currentItem.foodImageURI,
-//                currentItem.category,
-//                currentItem.description
-//            )
-//            intent.putExtra("InfoItem", infoItem)
-//            activity.startActivity(intent)
+            val infoItem = InfoItem(
+                currentItem.uid,
+                currentItem.nameProduct,
+                currentItem.quantity,
+                currentItem.foodImageURI,
+                currentItem.category,
+                currentItem.description
+            )
+
+            val intent = Intent(ctx, PageDetails::class.java).apply {
+                putExtra("InfoItem", infoItem)
+            }
+            ctx.startActivity(intent)
         }
 
         //Permet de retirer un item du panier
