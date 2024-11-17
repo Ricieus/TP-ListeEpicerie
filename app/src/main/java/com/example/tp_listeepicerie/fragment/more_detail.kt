@@ -89,6 +89,26 @@ class more_detail : Fragment() {
         saveButton.setOnClickListener { updateItems() }
     }
 
+    fun enableModification(isEnable: Boolean){
+        if (saveButton.isEnabled){
+            updateImageButton.isEnabled = false
+            takePhotoButton.isEnabled = false
+            textProductName.isEnabled = false
+            textProductDescription.isEnabled = false
+            textCategory.isEnabled = false
+            textQuantity.isEnabled = false
+            saveButton.isEnabled = false
+        } else {
+            updateImageButton.isEnabled = isEnable
+            takePhotoButton.isEnabled = isEnable
+            textProductName.isEnabled = isEnable
+            textProductDescription.isEnabled = isEnable
+            textCategory.isEnabled = isEnable
+            textQuantity.isEnabled = isEnable
+            saveButton.isEnabled = isEnable
+        }
+    }
+
     private fun initializeVariables(view: View) {
         textProductName = view.findViewById(R.id.productName)
         productImage = view.findViewById(R.id.imageProduit)
