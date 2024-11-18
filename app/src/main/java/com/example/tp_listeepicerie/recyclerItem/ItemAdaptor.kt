@@ -2,7 +2,6 @@ package com.example.tp_listeepicerie.recyclerItem
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.pdf.PdfDocument.Page
 import android.net.Uri
 import android.os.Parcelable
 import android.view.LayoutInflater
@@ -12,13 +11,12 @@ import com.example.tp_listeepicerie.page.PageDetails
 import com.example.tp_listeepicerie.R
 import com.example.tp_listeepicerie.Table_Grocery
 import com.example.tp_listeepicerie.fragment.list_product
-import com.example.tp_listeepicerie.fragment.more_detail
 import kotlinx.android.parcel.Parcelize
 
 class ItemAdaptor(
     val ctx: Context,
     val activity: list_product,
-    var data: MutableList<Table_Grocery>
+    var data: List<Table_Grocery>
 ) : RecyclerView.Adapter<ItemHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
         val view = LayoutInflater.from(ctx).inflate(R.layout.list_grocery_item, parent, false)

@@ -15,12 +15,21 @@ class GroceryViewModel() : ViewModel() {
     private val _groceryList = MutableLiveData<List<Table_Grocery>>()
     val groceryList: LiveData<List<Table_Grocery>> get() = _groceryList
 
-    fun setCartItems(items: List<Table_Grocery>) {
-        _cartItems.value = items
+    // Reupdate the list in cart
+    fun updateCartItems(context: Context) {
+        val database = Database_Epicerie.getDatabase(context)
+        viewModelScope.launch(Dispatchers.IO) {
+            val cartList = database.GroceryDAO().getAllPanier()
+            _cartItems.postValue(cartList)
+        }
     }
 
-    fun setGroceryList(items: List<Table_Grocery>) {
-        _groceryList.value = items
+    // Reupdate the list in product
+    fun updateGroceryList(context: Context) {
+        val database = Database_Epicerie.getDatabase(context)
+        viewModelScope.launch(Dispatchers.IO) {
+            val productList = database.GroceryDAO().getAllProduct()
+            _groceryList.postValue(productList)
+        }
     }
-
 }

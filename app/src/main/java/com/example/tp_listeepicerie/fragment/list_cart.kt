@@ -15,6 +15,7 @@ import com.example.tp_listeepicerie.GroceryViewModel
 import com.example.tp_listeepicerie.R
 import com.example.tp_listeepicerie.Table_Grocery
 import com.example.tp_listeepicerie.recyclerCart.CartAdaptor
+import com.example.tp_listeepicerie.recyclerItem.ItemAdaptor
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -35,34 +36,27 @@ class list_cart : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        groceryViewModel = ViewModelProvider(requireActivity())[GroceryViewModel::class.java] //Aidé par ChatGPT
+        groceryViewModel = ViewModelProvider(requireActivity())[GroceryViewModel::class.java]
         recyclerViewCart = view.findViewById(R.id.recycleCart)
 
         val orientation = resources.configuration.orientation
-        //Permet de changer la configuration de la page
         if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            val gridLayoutManagerPanier = GridLayoutManager(requireContext(), 4)
-            recyclerViewCart.layoutManager = gridLayoutManagerPanier
+            val gridLayoutManagerItem = GridLayoutManager(requireContext(), 4)
+            recyclerViewCart.layoutManager = gridLayoutManagerItem
         } else {
-            val gridLayoutManagerPanier = GridLayoutManager(requireContext(), 2)
-            recyclerViewCart.layoutManager = gridLayoutManagerPanier
+            val gridLayoutManagerItem = GridLayoutManager(requireContext(), 2)
+            recyclerViewCart.layoutManager = gridLayoutManagerItem
         }
 
         groceryViewModel.cartItems.observe(viewLifecycleOwner) { updatedCartItems ->
-            cartItems.addAll(updatedCartItems)
+            cartItems = updatedCartItems.toMutableList()
             refreshRecyclerView()
         }
 
-
-        val database = Database_Epicerie.getDatabase(requireContext())
-        lifecycleScope.launch(Dispatchers.IO) {
-            cartItems = database.GroceryDAO().getAllPanier()
-            launch(Dispatchers.Main) {
-                refreshRecyclerView()
-            }
-        }
+        groceryViewModel.updateCartItems(requireContext())
     }
 
+    // Function depreciated (NO USE)
     fun refreshRecyclerView() {
         recyclerViewCart.adapter = CartAdaptor(requireContext(), this@list_cart, cartItems)
         recyclerViewCart.adapter?.notifyDataSetChanged()
@@ -71,26 +65,15 @@ class list_cart : Fragment() {
     fun removeFromPanier(item: Table_Grocery) {
         val database = Database_Epicerie.getDatabase(requireContext())
         lifecycleScope.launch(Dispatchers.IO) {
-
-            val itemProduct = Table_Grocery(
-                uid = item.uid,
-                nameProduct = item.nameProduct,
-                quantity = item.quantity,
-                foodImageURI = item.foodImageURI,
-                category = item.category,
-                description = item.description,
-                isCart = false,
-                isFavorite = item.isFavorite
-            )
-            database.GroceryDAO().updateEpicerie(itemProduct)
-            withContext(Dispatchers.Main) {
-                cartItems = database.GroceryDAO().getAllPanier()
-                groceryViewModel.setGroceryList(cartItems)
-                refreshRecyclerView()
-            }
+            // item.copy would allow directly to edit the variable MANBIR (DO YOU UNDERSTAND?)
+            database.GroceryDAO().updateEpicerie(item.copy(isCart = false))
+            // Here is where you update the information of each list. Same thing as refreshRecyclerView did
+            groceryViewModel.updateCartItems(requireContext())
+            groceryViewModel.updateGroceryList(requireContext())
         }
     }
 
+    // Function depreciated (NO USE)
     override fun onResume() {
         super.onResume()
 

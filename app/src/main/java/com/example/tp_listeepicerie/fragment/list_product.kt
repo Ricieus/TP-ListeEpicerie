@@ -14,11 +14,9 @@ import com.example.tp_listeepicerie.Database_Epicerie
 import com.example.tp_listeepicerie.GroceryViewModel
 import com.example.tp_listeepicerie.R
 import com.example.tp_listeepicerie.Table_Grocery
-import com.example.tp_listeepicerie.recyclerCart.CartAdaptor
 import com.example.tp_listeepicerie.recyclerItem.ItemAdaptor
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class list_product : Fragment() {
     private lateinit var groceryViewModel: GroceryViewModel
@@ -39,9 +37,9 @@ class list_product : Fragment() {
         recyclerView = view.findViewById(R.id.recyclerItem)
 
         val orientation = resources.configuration.orientation
+
         //Permet de changer la configuration de la page
         if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
-
             val gridLayoutManagerItem = GridLayoutManager(requireContext(), 4)
             recyclerView.layoutManager = gridLayoutManagerItem
         } else {
@@ -49,81 +47,31 @@ class list_product : Fragment() {
             recyclerView.layoutManager = gridLayoutManagerItem
         }
 
-        val database = Database_Epicerie.getDatabase(requireContext())
-        lifecycleScope.launch(Dispatchers.IO) {
-            groceryList = database.GroceryDAO().getAllProduct()
-            launch(Dispatchers.Main) {
-                recyclerView.adapter = ItemAdaptor(requireContext(), this@list_product, groceryList)
-            }
-        }
-
-        groceryViewModel.groceryList.observe(viewLifecycleOwner) { updatedCartItems ->
-            groceryList.addAll(updatedCartItems)
-            refreshRecyclerView()
+        groceryViewModel.groceryList.observe(viewLifecycleOwner) { updatedGroceryList ->
+            recyclerView.adapter = ItemAdaptor(requireContext(), this@list_product, updatedGroceryList.toMutableList())
+            recyclerView.adapter?.notifyDataSetChanged()
         }
     }
 
+    // Function depreciated (NO USE)
     fun refreshRecyclerView() {
         recyclerView.adapter = ItemAdaptor(requireContext(), this@list_product, groceryList)
         recyclerView.adapter?.notifyDataSetChanged()
     }
 
-//    fun ajoutPanier(item: Table_Grocery) {
-//        val database = Database_Epicerie.getDatabase(requireContext())
-//        lifecycleScope.launch(Dispatchers.IO) {
-//            val existingItem = database.GroceryDAO().findByName(item.nameProduct)
-//
-//            if (existingItem != null) {
-//                val itemPanier = Table_Grocery(
-//                    uid = item.uid,
-//                    nameProduct = item.nameProduct,
-//                    quantity = item.quantity,
-//                    foodImageURI = item.foodImageURI,
-//                    category = item.category,
-//                    description = item.description,
-//                    isCart = true,
-//                    isFavorite = item.isFavorite
-//                )
-//                database.GroceryDAO().updateEpicerie(itemPanier)
-//
-//                withContext(Dispatchers.Main) {
-//                    groceryList = database.GroceryDAO().getAllProduct()
-//                    refreshRecyclerView()
-//                }
-//            }
-//        }
-//    }
 
     fun ajoutPanier(item: Table_Grocery) {
         val database = Database_Epicerie.getDatabase(requireContext())
         lifecycleScope.launch(Dispatchers.IO) {
+            // item.copy would allow directly to edit the variable MANBIR (DO YOU UNDERSTAND?)
             database.GroceryDAO().updateEpicerie(item.copy(isCart = true))
-            val existingItem = database.GroceryDAO().findByName(item.nameProduct)
-            val updatedCartItems = database.GroceryDAO().getAllPanier()
-
-            if (existingItem != null) {
-                val itemPanier = Table_Grocery(
-                    uid = item.uid,
-                    nameProduct = item.nameProduct,
-                    quantity = item.quantity,
-                    foodImageURI = item.foodImageURI,
-                    category = item.category,
-                    description = item.description,
-                    isCart = true,
-                    isFavorite = item.isFavorite
-                )
-                database.GroceryDAO().updateEpicerie(itemPanier)
-
-                withContext(Dispatchers.Main) {
-                    groceryList = database.GroceryDAO().getAllProduct()
-                    groceryViewModel.setCartItems(updatedCartItems)
-                    refreshRecyclerView()
-                }
-            }
+            // Here is where you update the information of each list. Same thing as refreshRecyclerView did
+            groceryViewModel.updateCartItems(requireContext())
+            groceryViewModel.updateGroceryList(requireContext())
         }
     }
 
-
+    // Function depreciated (NO USE)
     override fun onResume() {
         super.onResume()
 
@@ -153,7 +101,6 @@ class list_product : Fragment() {
             database.GroceryDAO().updateEpicerie(itemProduct)
         }
     }
-
 
 
     fun removeItemFromFavorite(item: Table_Grocery) {
