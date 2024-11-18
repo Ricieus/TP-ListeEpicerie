@@ -64,6 +64,8 @@ dependencies {
     // To use lifecycle
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.6")
 
+    implementation(libs.androidx.fragment.ktx)
+
 
 
 }

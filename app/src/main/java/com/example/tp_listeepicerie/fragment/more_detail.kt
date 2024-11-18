@@ -6,7 +6,6 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
-import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.FileProvider
@@ -20,6 +19,7 @@ import com.example.tp_listeepicerie.Database_Epicerie
 import com.example.tp_listeepicerie.R
 import com.example.tp_listeepicerie.Table_Grocery
 import com.example.tp_listeepicerie.recyclerItem.InfoItem
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -162,7 +162,7 @@ class more_detail : Fragment() {
         val updatedImageUri = imageUri?.toString()
 
         if (updatedName.isNullOrBlank() || updatedDescription.isNullOrBlank() || updatedCategory.isNullOrBlank() || updatedQuantity == null || updatedImageUri.isNullOrBlank()) {
-            Toast.makeText(requireContext(), "Veuillez remplir tous les champs", Toast.LENGTH_LONG).show()
+            Snackbar.make(requireView(), "Veuillez remplir tous les champs", Snackbar.LENGTH_INDEFINITE).show()
         } else {
             lifecycleScope.launch(Dispatchers.IO) {
                 val database = Database_Epicerie.getDatabase(requireContext())
@@ -178,7 +178,7 @@ class more_detail : Fragment() {
                     database.GroceryDAO().updateEpicerie(updatedItem)
                 }
                 withContext(Dispatchers.Main) {
-                    Toast.makeText(requireContext(), "Produit mis à jour", Toast.LENGTH_SHORT).show()
+                    Snackbar.make(requireView(), "Produit mis à jour", Snackbar.LENGTH_SHORT).show()
                     requireActivity().onBackPressed()
                 }
             }
@@ -191,7 +191,7 @@ class more_detail : Fragment() {
             val itemDelete = database.GroceryDAO().getEpicerieId(productId)
             database.GroceryDAO().deleteEpicerie(itemDelete!!)
             withContext(Dispatchers.Main) {
-                Toast.makeText(requireContext(), "Produit supprimé", Toast.LENGTH_SHORT).show()
+                Snackbar.make(requireView(), "Produit supprimé", Snackbar.LENGTH_SHORT).show()
                 requireActivity().onBackPressed()
             }
         }

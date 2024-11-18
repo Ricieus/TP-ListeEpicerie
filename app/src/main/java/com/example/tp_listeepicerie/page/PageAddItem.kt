@@ -9,7 +9,6 @@ import android.view.MenuItem
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -22,6 +21,7 @@ import androidx.lifecycle.lifecycleScope
 import com.example.tp_listeepicerie.Database_Epicerie
 import com.example.tp_listeepicerie.R
 import com.example.tp_listeepicerie.Table_Grocery
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.io.File
@@ -81,12 +81,11 @@ class PageAddItem : AppCompatActivity() {
 
         //Permet de gérer les nulles/vides (Inspiré de ChatGPT)
         if (nameItem.text.isNullOrBlank() || quantityItem.text.isNullOrBlank() || categoryItem.text.isNullOrBlank() || descriptionItem.text.isNullOrBlank()) {
+            Snackbar.make(
+                findViewById(R.id.main),
+                "Veuillez remplir tous les informations nécessaires", Snackbar.LENGTH_LONG)
+                .show()
 
-            Toast.makeText(
-                this@PageAddItem,
-                "Veuillez remplir tous les informations nécessaires",
-                Toast.LENGTH_LONG
-            ).show()
         } else {
             val database = Database_Epicerie.getDatabase(applicationContext)
             lifecycleScope.launch(Dispatchers.IO) {
