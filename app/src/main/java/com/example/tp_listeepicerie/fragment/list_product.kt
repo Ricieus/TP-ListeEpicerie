@@ -33,19 +33,13 @@ class list_product : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Aidé par ChatGPT
         groceryViewModel = ViewModelProvider(requireActivity())[GroceryViewModel::class.java]
         recyclerView = view.findViewById(R.id.recyclerItem)
 
-        val orientation = resources.configuration.orientation
-
         //Permet de changer la configuration de la page
-        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            val gridLayoutManagerItem = GridLayoutManager(requireContext(), 4)
-            recyclerView.layoutManager = gridLayoutManagerItem
-        } else {
-            val gridLayoutManagerItem = GridLayoutManager(requireContext(), 2)
-            recyclerView.layoutManager = gridLayoutManagerItem
-        }
+        val gridLayoutManagerItem = GridLayoutManager(requireContext(), 2)
+        recyclerView.layoutManager = gridLayoutManagerItem
 
         groceryViewModel.groceryList.observe(viewLifecycleOwner) { updatedGroceryList ->
             recyclerView.adapter = ItemAdaptor(requireContext(), this@list_product, updatedGroceryList.toMutableList())

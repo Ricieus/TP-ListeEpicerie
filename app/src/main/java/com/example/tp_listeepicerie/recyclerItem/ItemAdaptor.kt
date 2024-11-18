@@ -7,7 +7,7 @@ import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.tp_listeepicerie.page.PageDetails
+import com.example.tp_listeepicerie.PageDetails
 import com.example.tp_listeepicerie.R
 import com.example.tp_listeepicerie.Table_Grocery
 import com.example.tp_listeepicerie.fragment.list_product

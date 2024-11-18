@@ -36,17 +36,12 @@ class list_cart : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Aidé par ChatGPT
         groceryViewModel = ViewModelProvider(requireActivity())[GroceryViewModel::class.java]
         recyclerViewCart = view.findViewById(R.id.recycleCart)
 
-        val orientation = resources.configuration.orientation
-        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            val gridLayoutManagerItem = GridLayoutManager(requireContext(), 4)
-            recyclerViewCart.layoutManager = gridLayoutManagerItem
-        } else {
-            val gridLayoutManagerItem = GridLayoutManager(requireContext(), 2)
-            recyclerViewCart.layoutManager = gridLayoutManagerItem
-        }
+        val gridLayoutManagerItem = GridLayoutManager(requireContext(), 2)
+        recyclerViewCart.layoutManager = gridLayoutManagerItem
 
         groceryViewModel.cartItems.observe(viewLifecycleOwner) { updatedCartItems ->
             cartItems = updatedCartItems.toMutableList()
