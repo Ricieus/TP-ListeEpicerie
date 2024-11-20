@@ -1,9 +1,11 @@
 package com.example.tp_listeepicerie.page
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Button
 import android.widget.ImageButton
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -18,10 +20,12 @@ import com.example.tp_listeepicerie.R
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlin.math.sign
 
 class PageSettings : AppCompatActivity() {
     private lateinit var switch: SwitchCompat
     private lateinit var buttonDelete: ImageButton
+    private lateinit var signUp: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,9 +42,15 @@ class PageSettings : AppCompatActivity() {
 
         switch = findViewById(R.id.switch1)
         buttonDelete = findViewById(R.id.deleteData)
+        signUp = findViewById(R.id.signUpbuttonSettings)
 
         buttonDelete.setOnClickListener {
             deleteData()
+        }
+
+        signUp.setOnClickListener {
+            val intent = Intent(this, PageSignUp::class.java)
+            startActivity(intent)
         }
 
         setTheme()
