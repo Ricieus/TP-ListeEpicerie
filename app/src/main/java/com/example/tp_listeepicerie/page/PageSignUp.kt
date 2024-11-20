@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.tp_listeepicerie.R
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
@@ -43,12 +44,27 @@ class PageSignUp : AppCompatActivity() {
             val password = passwordText.text.toString()
             val confirmPassword = confirmPasswordText.text.toString()
             if (password != confirmPassword) {
-                Toast.makeText(this, "Les mots de passe ne correspondent pas", Toast.LENGTH_SHORT).show()
+                Snackbar.make(findViewById(android.R.id.content), "Le mot de passe et la confirmation ne sont pas identiques", Snackbar.LENGTH_LONG).show()
                 return@setOnClickListener
                 }
 
+            if (lastName.isEmpty() || firstName.isEmpty() || email.isEmpty() || password.isEmpty()){
+                Snackbar.make(findViewById(android.R.id.content), "SVP, remplissez tous les champs", Snackbar.LENGTH_LONG).show()
+                return@setOnClickListener
+            }
+
+            if(!checkEmail(email)){
+                Snackbar.make(findViewById(android.R.id.content), "Courriel invalide", Snackbar.LENGTH_LONG).show()
+                return@setOnClickListener
+            }
+
             createUser(firstName, lastName, email, password)
         }
+    }
+
+    fun checkEmail(email: String): Boolean {
+        //https://stackoverflow.com/questions/1819142/how-should-i-validate-an-e-mail-address
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
     }
 
     //https://firebase.google.com/docs/auth/android/start
@@ -61,12 +77,7 @@ class PageSignUp : AppCompatActivity() {
                         saveUser(it.uid, firstName, lastName, email)
                     }
                 } else {
-                    Log.w(TAG, "createUserWithEmail:failure", task.exception)
-                    Toast.makeText(
-                        baseContext,
-                        "Échec de l'inscription : ${task.exception?.message}",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    Snackbar.make(findViewById(android.R.id.content), "Échec de l'inscription, vérifiez vos informations", Snackbar.LENGTH_LONG).show()
                 }
             }
     }
@@ -81,12 +92,11 @@ class PageSignUp : AppCompatActivity() {
         firestore.collection("users").document(uid)
             .set(user)
             .addOnSuccessListener {
-                Toast.makeText(this, "Utilisateur créé avec succès", Toast.LENGTH_SHORT).show()
+                Snackbar.make(findViewById(android.R.id.content), "Inscription réussie", Snackbar.LENGTH_LONG).show()
                 finish()
             }
             .addOnFailureListener { e ->
-                Log.e(TAG, "Erreur de enregistrement de utilisateur : ${e.message}")
-                Toast.makeText(this, "Erreur de enregistrement : ${e.message}", Toast.LENGTH_SHORT).show()
+                Snackbar.make(findViewById(android.R.id.content), "Erreur d'inscription", Snackbar.LENGTH_LONG).show()
             }
     }
 }
