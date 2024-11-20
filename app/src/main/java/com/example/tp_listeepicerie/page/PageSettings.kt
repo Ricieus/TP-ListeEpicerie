@@ -26,6 +26,7 @@ class PageSettings : AppCompatActivity() {
     private lateinit var switch: SwitchCompat
     private lateinit var buttonDelete: ImageButton
     private lateinit var signUp: Button
+    private lateinit var signIn: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +44,7 @@ class PageSettings : AppCompatActivity() {
         switch = findViewById(R.id.switch1)
         buttonDelete = findViewById(R.id.deleteData)
         signUp = findViewById(R.id.signUpbuttonSettings)
+        signIn = findViewById(R.id.signInbuttonSettings)
 
         buttonDelete.setOnClickListener {
             deleteData()
@@ -50,6 +52,11 @@ class PageSettings : AppCompatActivity() {
 
         signUp.setOnClickListener {
             val intent = Intent(this, PageSignUp::class.java)
+            startActivity(intent)
+        }
+
+        signIn.setOnClickListener {
+            val intent = Intent(this, PageSignIn::class.java)
             startActivity(intent)
         }
 

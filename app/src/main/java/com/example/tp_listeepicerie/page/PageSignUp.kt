@@ -3,18 +3,23 @@ package com.example.tp_listeepicerie.page
 import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.tp_listeepicerie.R
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.ktx.Firebase
 import kotlin.math.sign
 
 class PageSignUp : AppCompatActivity() {
@@ -25,8 +30,11 @@ class PageSignUp : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_page_signup)
 
-        auth = FirebaseAuth.getInstance()
+        auth = Firebase.auth
         firestore = FirebaseFirestore.getInstance()
+
+        val toolbar: Toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
 
         val lastNameText = findViewById<EditText>(R.id.lastName)
         val firstNameText = findViewById<EditText>(R.id.firstName)
@@ -98,5 +106,21 @@ class PageSignUp : AppCompatActivity() {
             .addOnFailureListener { e ->
                 Snackbar.make(findViewById(android.R.id.content), "Erreur d'inscription", Snackbar.LENGTH_LONG).show()
             }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.page_settings_menu, menu)
+        return super.onCreateOptionsMenu(
+            menu
+        )
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.goBack -> {
+                finish()
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
