@@ -48,8 +48,9 @@
                 android:rowCount="3"
                 android:layout_gravity="center">
 
-                <ImageView
-                    android:id="@+id/promo_rec"
+
+                <com.google.android.gms.ads.AdView
+                    android:id="@+id/ad_ViewBanner"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:layout_rowSpan="1"
@@ -58,7 +59,9 @@
                     android:layout_columnWeight="1"
                     android:layout_margin="8dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/ad_image" />
+                    app:adSize="BANNER"
+                    app:adUnitId="ca-app-pub-3940256099942544/6300978111" />
+
 
                 <View
                     android:id="@+id/fruit"
