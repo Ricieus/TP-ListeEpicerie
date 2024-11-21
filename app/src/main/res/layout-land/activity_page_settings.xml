@@ -61,7 +61,25 @@
                 android:backgroundTint="#80FF1300"
                 android:contentDescription="Supprimer"
                 android:src="@android:drawable/ic_menu_delete"
-                app:tint="@color/black" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/itemImage"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.953"
+                app:tint="#000000" />
+
+            <Button
+                android:id="@+id/signUpbuttonSettings"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="S'inscrire" />
+
+            <Button
+                android:id="@+id/signInbuttonSettings"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Se connecter" />
 
         </LinearLayout>
     </ScrollView>

@@ -36,6 +36,9 @@
         </receiver>
 
         <activity
+            android:name=".page.PageProfil"
+            android:exported="false" />
+        <activity
             android:name=".page.PageSignIn"
             android:exported="false" />
         <activity

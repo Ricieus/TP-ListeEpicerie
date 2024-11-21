@@ -81,6 +81,12 @@
                 android:layout_height="wrap_content"
                 android:text="Se connecter" />
 
+            <Button
+                android:id="@+id/profilButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Mon profil" />
+
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
