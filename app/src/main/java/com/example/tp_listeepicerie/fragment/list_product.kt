@@ -1,5 +1,9 @@
 package com.example.tp_listeepicerie.fragment
 
+import android.appwidget.AppWidgetManager
+import android.content.ComponentName
+import android.content.Context
+import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -15,6 +19,7 @@ import com.example.tp_listeepicerie.GroceryViewModel
 import com.example.tp_listeepicerie.R
 import com.example.tp_listeepicerie.Table_Grocery
 import com.example.tp_listeepicerie.recyclerItem.ItemAdaptor
+import com.example.tp_listeepicerie.widget.ItemListWidget
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -44,6 +49,7 @@ class list_product : Fragment() {
         groceryViewModel.groceryList.observe(viewLifecycleOwner) { updatedGroceryList ->
             recyclerView.adapter = ItemAdaptor(requireContext(), this@list_product, updatedGroceryList.toMutableList())
             recyclerView.adapter?.notifyDataSetChanged()
+            notifyWidgetUpdate(requireContext())
         }
     }
 
@@ -114,5 +120,12 @@ class list_product : Fragment() {
             )
             database.GroceryDAO().updateEpicerie(itemProduct)
         }
+    }
+
+    fun notifyWidgetUpdate(context: Context) {
+        val intent = Intent(AppWidgetManager.ACTION_APPWIDGET_UPDATE).apply {
+            component = ComponentName(context, ItemListWidget::class.java)
+        }
+        context.sendBroadcast(intent)
     }
 }

@@ -2,6 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <uses-permission android:name="android.permission.READ_MEDIA_VISUAL_USER_SELECTED" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -12,6 +18,23 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TPListeEpicerie"
         tools:targetApi="31">
+        <service android:name=".widget.ItemListWidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
+        <receiver android:name=".widget.ItemListWidget"
+            android:exported="true">
+            <!-- https://stackoverflow.com/questions/2082998/how-to-implement-a-button-on-an-android-widget -->
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_DELETE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/item_list_widget_info" />
+        </receiver>
+
         <activity
             android:name=".page.PageDevelopers"
             android:exported="false" />
@@ -25,7 +48,7 @@
             android:name=".page.PageFavorite"
             android:exported="false" />
         <activity
-            android:name=".page.PageDetails"
+            android:name=".PageDetails"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
@@ -36,7 +59,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".page.PageAddItem"
             android:exported="true" />
@@ -50,15 +72,6 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
-
     </application>
 
-    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
-    <uses-permission android:name="android.permission.READ_MEDIA_VISUAL_USER_SELECTED" />
-    <uses-permission
-        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-        android:maxSdkVersion="32" />
-
 </manifest>
-
-

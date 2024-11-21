@@ -1,7 +1,12 @@
 package com.example.tp_listeepicerie.fragment
 
+import android.appwidget.AppWidgetManager
+import android.content.ComponentName
+import android.content.Context
+import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +21,7 @@ import com.example.tp_listeepicerie.R
 import com.example.tp_listeepicerie.Table_Grocery
 import com.example.tp_listeepicerie.recyclerCart.CartAdaptor
 import com.example.tp_listeepicerie.recyclerItem.ItemAdaptor
+import com.example.tp_listeepicerie.widget.ItemListWidget
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -46,6 +52,7 @@ class list_cart : Fragment() {
         groceryViewModel.cartItems.observe(viewLifecycleOwner) { updatedCartItems ->
             cartItems = updatedCartItems.toMutableList()
             refreshRecyclerView()
+            notifyWidgetUpdate(requireContext())
         }
 
         groceryViewModel.updateCartItems(requireContext())
@@ -79,5 +86,13 @@ class list_cart : Fragment() {
                 refreshRecyclerView()
             }
         }
+    }
+
+    fun notifyWidgetUpdate(context: Context) {
+        val intent = Intent(AppWidgetManager.ACTION_APPWIDGET_UPDATE).apply {
+            component = ComponentName(context, ItemListWidget::class.java)
+        }
+        context.sendBroadcast(intent)
+        Log.d("WidgetUpdate", "Broadcast sent to update widget")
     }
 }
