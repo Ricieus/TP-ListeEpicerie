@@ -6,6 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
+import com.example.tp_listeepicerie.widget.ItemListWidget
+import com.example.tp_listeepicerie.widget.ItemListWidgetService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
