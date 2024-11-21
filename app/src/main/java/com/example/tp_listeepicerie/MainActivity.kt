@@ -1,10 +1,8 @@
 package com.example.tp_listeepicerie
 
-import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -19,6 +17,9 @@ import com.example.tp_listeepicerie.page.PageDevelopers
 import com.example.tp_listeepicerie.page.PageFavorite
 import com.example.tp_listeepicerie.page.PageList
 import com.example.tp_listeepicerie.page.PageSettings
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.MobileAds
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
@@ -29,6 +30,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var productFavorite: View
     private lateinit var pageSettings: View
 
+    private lateinit var adView: AdView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -38,6 +41,15 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        MobileAds.initialize(this@MainActivity)
+        adView = findViewById(R.id.ad_ViewBanner)
+
+        val adRequest = AdRequest.Builder().build()
+        adView.loadAd(adRequest)
+
+
+
 
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
@@ -95,7 +107,6 @@ class MainActivity : AppCompatActivity() {
 //            }
 
     }
-
 
 
 
