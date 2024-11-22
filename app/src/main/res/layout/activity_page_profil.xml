@@ -92,6 +92,15 @@
             android:padding="12dp"
             android:layout_marginBottom="24dp" />
 
+        <EditText
+            android:id="@+id/passwordEditConfirm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Confirmer votre mot de passe"
+            android:inputType="textPassword"
+            android:padding="12dp"
+            android:layout_marginBottom="24dp" />
+
         <Button
             android:id="@+id/btnSave"
             android:layout_width="match_parent"

@@ -20,6 +20,7 @@ class PageProfil : AppCompatActivity() {
     private lateinit var lastNameText: EditText
     private lateinit var firstNameText: EditText
     private lateinit var emailText: EditText
+    private lateinit var passwordText: EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +31,8 @@ class PageProfil : AppCompatActivity() {
         lastNameText = findViewById(R.id.nameEdit)
         firstNameText = findViewById(R.id.firstNameEdit)
         emailText = findViewById(R.id.emailEdit)
+        passwordText = findViewById(R.id.passwordEdit)
+
 
         val user = auth.currentUser
         val db = Firebase.firestore
@@ -43,6 +46,8 @@ class PageProfil : AppCompatActivity() {
                     if (document.exists()) {
                         firstNameText.setText(document.getString("firstName"))
                         lastNameText.setText(document.getString("lastName"))
+                        emailText.setText(document.getString("email"))
+
                     } else {
                         Toast.makeText(this, "Aucune donnée trouvée pour cet utilisateur", Toast.LENGTH_SHORT).show()
                     }
