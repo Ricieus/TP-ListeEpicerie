@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.google.gms.google.services)
 }
 
+
 android {
     namespace = "com.example.tp_listeepicerie"
     compileSdk = 34

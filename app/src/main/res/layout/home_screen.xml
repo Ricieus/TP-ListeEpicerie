@@ -60,7 +60,7 @@
                     android:layout_margin="8dp"
                     android:scaleType="centerCrop"
                     app:adSize="BANNER"
-                    app:adUnitId="ca-app-pub-3940256099942544/6300978111" />
+                    app:adUnitId="ca-app-pub-4348949294661709/5061999888" />
 
 
                 <View

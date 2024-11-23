@@ -93,6 +93,5 @@ class list_cart : Fragment() {
             component = ComponentName(context, ItemListWidget::class.java)
         }
         context.sendBroadcast(intent)
-        Log.d("WidgetUpdate", "Broadcast sent to update widget")
     }
 }

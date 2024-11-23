@@ -1,5 +1,6 @@
 package com.example.tp_listeepicerie
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -37,4 +38,6 @@ interface GroceryDAO {
     @Query("DELETE FROM Table_Grocery")
     suspend fun deleteAllInformation()
 
+    @Query("SELECT * FROM Table_Grocery WHERE isCart = true")
+    fun getAllPanierLive(): LiveData<List<Table_Grocery>>
 }
