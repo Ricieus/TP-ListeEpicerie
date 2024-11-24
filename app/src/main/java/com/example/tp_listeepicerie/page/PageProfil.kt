@@ -21,6 +21,8 @@ class PageProfil : AppCompatActivity() {
     private lateinit var firstNameText: EditText
     private lateinit var emailText: EditText
     private lateinit var passwordText: EditText
+    private lateinit var btnSave: Button
+    private lateinit var btnDelete: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,10 +30,13 @@ class PageProfil : AppCompatActivity() {
 
         auth = Firebase.auth
 
-        lastNameText = findViewById(R.id.nameEdit)
+        lastNameText = findViewById(R.id.nameText)
         firstNameText = findViewById(R.id.firstNameEdit)
         emailText = findViewById(R.id.emailEdit)
         passwordText = findViewById(R.id.passwordEdit)
+
+        btnSave = findViewById(R.id.btnSaveProfil)
+        btnDelete = findViewById(R.id.btnDeleteProfil)
 
 
         val user = auth.currentUser
@@ -54,6 +59,48 @@ class PageProfil : AppCompatActivity() {
                 }
         } else {
             Toast.makeText(this, "Aucun utilisateur connecté", Toast.LENGTH_SHORT).show()
+        }
+
+        btnSave.setOnClickListener {
+
+            db.collection("users").document(user!!.uid).update(
+                "firstName", firstNameText.text.toString(),
+                "lastName", lastNameText.text.toString(),
+                "email", emailText.text.toString()
+            )
+
+            val password = passwordText.text.toString()
+            val confirmPassword = passwordText.text.toString()
+
+            if (password != confirmPassword) {
+                Snackbar.make(findViewById(android.R.id.content), "Le mot de passe et la confirmation ne sont pas identiques", Snackbar.LENGTH_LONG).show()
+                return@setOnClickListener
+            }
+
+            user.updatePassword(password).addOnSuccessListener {
+                Snackbar.make(findViewById(android.R.id.content), "Mot de passe mis à jour", Snackbar.LENGTH_LONG).show()
+            }.addOnFailureListener {
+                Snackbar.make(findViewById(android.R.id.content), "Erreur de mise à jour du mot de passe", Snackbar.LENGTH_LONG).show()
+            }
+        }
+
+        btnDelete.setOnClickListener {
+            db.collection("users").document(user!!.uid).delete().addOnSuccessListener {
+                user.delete().addOnSuccessListener {
+                    Snackbar.make(
+                        findViewById(android.R.id.content),
+                        "Compte supprimé",
+                        Snackbar.LENGTH_LONG
+                    ).show()
+                    finish()
+                }.addOnFailureListener {
+                    Snackbar.make(
+                        findViewById(android.R.id.content),
+                        "Erreur de suppression du compte",
+                        Snackbar.LENGTH_LONG
+                    ).show()
+                }
+            }
         }
     }
 }
