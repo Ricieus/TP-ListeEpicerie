@@ -1,33 +1,5 @@
 [
   {
-    "id": "default-product-almonds",
-    "name": "Almonds",
-    "iconId": "nuts.png",
-    "categoryId": "default-category-snacks-and-bakery",
-    "isDefault": true
-  },
-  {
-    "id": "default-product-apple",
-    "name": "Apples",
-    "iconId": "apple.png",
-    "categoryId": "default-category-fruits-and-vegetables",
-    "isDefault": true
-  },
-  {
-    "id": "default-product-apricots",
-    "name": "Apricots",
-    "iconId": "apricots.png",
-    "categoryId": "default-category-fruits-and-vegetables",
-    "isDefault": true
-  },
-  {
-    "id": "default-product-avocado",
-    "name": "Avocado",
-    "iconId": "avocado.png",
-    "categoryId": "default-category-fruits-and-vegetables",
-    "isDefault": true
-  },
-  {
     "id": "default-product-bacon",
     "name": "Bacon",
     "iconId": "bacon.png",
@@ -80,13 +52,6 @@
     "id": "default-product-cotton-swabs",
     "name": "Cotton swabs",
     "iconId": "cotton_swabs.png",
-    "categoryId": "default-category-health-and-beauty",
-    "isDefault": true
-  },
-  {
-    "id": "default-product-cotton-pads",
-    "name": "Cotton pads",
-    "iconId": "cotton_pads.png",
     "categoryId": "default-category-health-and-beauty",
     "isDefault": true
   },
