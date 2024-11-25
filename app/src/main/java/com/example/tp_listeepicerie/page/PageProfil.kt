@@ -1,6 +1,8 @@
 package com.example.tp_listeepicerie.page
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -23,10 +25,14 @@ class PageProfil : AppCompatActivity() {
     private lateinit var passwordText: EditText
     private lateinit var btnSave: Button
     private lateinit var btnDelete: Button
+    private lateinit var btnDisconnect: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_page_profil)
+
+        val toolbar: Toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
 
         auth = Firebase.auth
 
@@ -37,6 +43,7 @@ class PageProfil : AppCompatActivity() {
 
         btnSave = findViewById(R.id.btnSaveProfil)
         btnDelete = findViewById(R.id.btnDeleteProfil)
+        btnDisconnect = findViewById(R.id.btnDisconnectProfil)
 
 
         val user = auth.currentUser
@@ -62,25 +69,30 @@ class PageProfil : AppCompatActivity() {
         }
 
         btnSave.setOnClickListener {
-
             db.collection("users").document(user!!.uid).update(
                 "firstName", firstNameText.text.toString(),
                 "lastName", lastNameText.text.toString(),
                 "email", emailText.text.toString()
-            )
+            ).addOnSuccessListener {
+                Snackbar.make(findViewById(android.R.id.content), "Profil mis à jour", Snackbar.LENGTH_LONG).show()
+            }.addOnFailureListener {
+                Snackbar.make(findViewById(android.R.id.content), "Erreur de mise à jour du profil", Snackbar.LENGTH_LONG).show()
+            }
 
             val password = passwordText.text.toString()
             val confirmPassword = passwordText.text.toString()
 
-            if (password != confirmPassword) {
-                Snackbar.make(findViewById(android.R.id.content), "Le mot de passe et la confirmation ne sont pas identiques", Snackbar.LENGTH_LONG).show()
-                return@setOnClickListener
-            }
+            if (password.isEmpty() and confirmPassword.isEmpty()){
+                if (password != confirmPassword) {
+                    Snackbar.make(findViewById(android.R.id.content), "Le mot de passe et la confirmation ne sont pas identiques", Snackbar.LENGTH_LONG).show()
+                    return@setOnClickListener
+                }
 
-            user.updatePassword(password).addOnSuccessListener {
-                Snackbar.make(findViewById(android.R.id.content), "Mot de passe mis à jour", Snackbar.LENGTH_LONG).show()
-            }.addOnFailureListener {
-                Snackbar.make(findViewById(android.R.id.content), "Erreur de mise à jour du mot de passe", Snackbar.LENGTH_LONG).show()
+                user.updatePassword(password).addOnSuccessListener {
+                    Snackbar.make(findViewById(android.R.id.content), "Mot de passe mis à jour", Snackbar.LENGTH_LONG).show()
+                }.addOnFailureListener {
+                    Snackbar.make(findViewById(android.R.id.content), "Erreur de mise à jour du mot de passe", Snackbar.LENGTH_LONG).show()
+                }
             }
         }
 
@@ -102,5 +114,26 @@ class PageProfil : AppCompatActivity() {
                 }
             }
         }
+
+        btnDisconnect.setOnClickListener{
+            Firebase.auth.signOut()
+            finish()
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.page_settings_menu, menu)
+        return super.onCreateOptionsMenu(
+            menu
+        )
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.goBack -> {
+                finish()
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
