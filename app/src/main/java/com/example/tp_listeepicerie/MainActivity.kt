@@ -6,6 +6,9 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.EditText
+import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -20,15 +23,19 @@ import com.example.tp_listeepicerie.page.PageSettings
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var auth: FirebaseAuth
     private lateinit var pageDevelopers: View
     private lateinit var productList: View
     private lateinit var productFavorite: View
     private lateinit var pageSettings: View
+    private lateinit var nameMainPage: TextView
 
     private lateinit var adView: AdView
 
@@ -49,8 +56,6 @@ class MainActivity : AppCompatActivity() {
         adView.loadAd(adRequest)
 
 
-
-
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
@@ -59,55 +64,29 @@ class MainActivity : AppCompatActivity() {
 
         setListeners()
 
-        val db = Firebase.firestore
-//        // Create a new user with a first and last name
-//        val user = hashMapOf(
-//            "first" to "Ada",
-//            "last" to "Lovelace",
-//            "born" to 1815
-//        )
-//
-//// Add a new document with a generated ID
-//        db.collection("users")
-//            .add(user)
-//            .addOnSuccessListener { documentReference ->
-//                Log.d(TAG, "DocumentSnapshot added with ID: ${documentReference.id}")
-//            }
-//            .addOnFailureListener { e ->
-//                Log.w(TAG, "Error adding document", e)
-//            }
-//
-//        // Create a new user with a first, middle, and last name
-//        val user2 = hashMapOf(
-//            "first" to "Alan",
-//            "middle" to "Mathison",
-//            "last" to "Turing",
-//            "born" to 1912
-//        )
-//
-//// Add a new document with a generated ID
-//        db.collection("users")
-//            .add(user2)
-//            .addOnSuccessListener { documentReference ->
-//                Log.d(TAG, "DocumentSnapshot added with ID: ${documentReference.id}")
-//            }
-//            .addOnFailureListener { e ->
-//                Log.w(TAG, "Error adding document", e)
-//            }
-//
-//        db.collection("users")
-//            .get()
-//            .addOnSuccessListener { result ->
-//                for (document in result) {
-//                    Log.d(TAG, "${document.id} => ${document.data}")
-//                }
-//            }
-//            .addOnFailureListener { exception ->
-//                Log.w(TAG, "Error getting documents.", exception)
-//            }
+        auth = Firebase.auth
+        nameMainPage = findViewById(R.id.helloName)
+
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        val user = auth.currentUser
+        val db = Firebase.firestore
+
+        if (user != null) {
+            val userId = user.uid
+            db.collection("users").document(userId).get()
+                .addOnSuccessListener { document ->
+                    if (document.exists()) {
+                        nameMainPage.text = document.getString("firstName")
+                    }
+                }
+        } else {
+            Toast.makeText(this, "Aucun utilisateur connecté", Toast.LENGTH_SHORT).show()
+        }
+    }
 
 
     private fun setListeners() {
@@ -166,6 +145,7 @@ class MainActivity : AppCompatActivity() {
                 startActivity(intent)
                 true
             }
+
             else -> super.onOptionsItemSelected(item)
         }
     }
