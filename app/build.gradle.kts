@@ -82,5 +82,6 @@ dependencies {
 
     implementation(libs.play.services.ads)
 
-
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
 }
