@@ -15,6 +15,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.FileProvider
+import androidx.core.text.isDigitsOnly
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
@@ -80,13 +81,15 @@ class PageAddItem : AppCompatActivity() {
         val descriptionItem: EditText = findViewById(R.id.DescriptionEdit)
 
         //Permet de gérer les nulles/vides (Inspiré de ChatGPT)
-        if (nameItem.text.isNullOrBlank() || quantityItem.text.isNullOrBlank() || categoryItem.text.isNullOrBlank() || descriptionItem.text.isNullOrBlank()) {
+        if (nameItem.text.isNullOrBlank() || quantityItem.text.isNullOrBlank() || categoryItem.text.isNullOrBlank() || descriptionItem.text.isNullOrBlank() || imageUri == null) {
             Snackbar.make(
                 findViewById(R.id.main),
                 "Veuillez remplir tous les informations nécessaires", Snackbar.LENGTH_LONG)
                 .show()
 
-        } else {
+        } else if(!quantityItem.text.isDigitsOnly() || quantityItem.text.toString().toInt() <= 0){
+            Snackbar.make(findViewById(R.id.main), "Veuillez entrer une quantité valide", Snackbar.LENGTH_LONG).show()
+        } else{
             val database = Database_Epicerie.getDatabase(applicationContext)
             lifecycleScope.launch(Dispatchers.IO) {
                 if (imageUri != null) {
