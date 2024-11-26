@@ -24,8 +24,8 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycleCart"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="391dp"
+            android:layout_height="300dp"
             android:layout_marginTop="16dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintTop_toBottomOf="@+id/textPanier"

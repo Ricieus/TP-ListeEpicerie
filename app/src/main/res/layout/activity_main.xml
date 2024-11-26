@@ -32,13 +32,13 @@
                 android:id="@+id/fragmentContainerViewProduct"
                 android:name="com.example.tp_listeepicerie.fragment.list_product"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="400dp" />
 
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/fragmentContainerViewCart"
                 android:name="com.example.tp_listeepicerie.fragment.list_cart"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="400dp"/>
         </LinearLayout>
     </ScrollView>
 
