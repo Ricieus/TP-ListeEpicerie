@@ -45,6 +45,12 @@
                 android:text="Theme sombre:"
                 android:textSize="16sp" />
 
+            <Button
+                android:id="@+id/btnAPI"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="API" />
+
             <TextView
                 android:id="@+id/clearData"
                 android:layout_width="match_parent"

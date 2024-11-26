@@ -16,7 +16,7 @@ import kotlinx.coroutines.withContext
 
 class GroceryViewModel() : ViewModel() {
     var search = ""
-    var groceryResult = emptyList<GroceryItem>()
+    var groceryResult = MutableLiveData<List<GroceryItem>>()
     private val _cartItems = MutableLiveData<List<Table_Grocery>>()
     val cartItems: LiveData<List<Table_Grocery>> get() = _cartItems
 
@@ -43,9 +43,10 @@ class GroceryViewModel() : ViewModel() {
 
     fun search() {
         viewModelScope.launch(Dispatchers.IO) {
-            val result = API_Items.apiService.getProducts(search).body()!!
+            val result = API_Items.apiService.getProducts(search)
+
             withContext(Dispatchers.Main) {
-                groceryResult = result
+                groceryResult.postValue(result)
             }
         }
     }

@@ -7,6 +7,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
 import android.widget.ImageButton
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -28,6 +29,7 @@ class PageSettings : AppCompatActivity() {
     private lateinit var signUp: Button
     private lateinit var signIn: Button
     private lateinit var profil: Button
+    private lateinit var API: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,6 +49,7 @@ class PageSettings : AppCompatActivity() {
         signUp = findViewById(R.id.signUpbuttonSettings)
         signIn = findViewById(R.id.signInbuttonSettings)
         profil = findViewById(R.id.profilButton)
+        API = findViewById(R.id.btnAPI)
 
         buttonDelete.setOnClickListener {
             deleteData()
@@ -66,6 +69,12 @@ class PageSettings : AppCompatActivity() {
             val intent = Intent(this, PageProfil::class.java)
             startActivity(intent)
         }
+
+        API.setOnClickListener {
+            val intent = Intent(this, PageSearch::class.java)
+            startActivity(intent)
+        }
+
 
         setTheme()
     }

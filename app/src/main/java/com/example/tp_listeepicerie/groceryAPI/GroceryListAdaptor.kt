@@ -22,7 +22,7 @@ class GroceryListAdaptor(
     override fun onBindViewHolder(holder: GroceryAPIHolder, position: Int) {
         val grocery = groceryList[position]
         holder.name.text = grocery.name
-        holder.location.text = grocery.categoryId
+        holder.category.text = grocery.categoryId
 
     }
 }

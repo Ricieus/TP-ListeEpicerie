@@ -1,5 +1,6 @@
 package com.example.tp_listeepicerie.groceryAPI
 
+import androidx.lifecycle.MutableLiveData
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.annotations.SerializedName
@@ -12,12 +13,12 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface API_Grocery {
-    @GET("items")
-    suspend fun getProducts(@Query("name") name: String): Response<List<GroceryItem>>
+    @GET("/items")
+    suspend fun getProducts(@Query("categoryId") name: String): List<GroceryItem>
 }
 
 object API_Items {
-    private const val BASE_URL: String = "http://localhost:3000/"
+    private const val BASE_URL: String = "http://10.0.2.2:3000/"
 
     private val gson: Gson by lazy {
         GsonBuilder().setLenient().create()

@@ -9,11 +9,11 @@ import com.example.tp_listeepicerie.R
 class GroceryAPIHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
     val layout: ConstraintLayout
     val name: TextView
-    val location: TextView
+    val category: TextView
 
     init {
         layout = itemView as ConstraintLayout
         name = itemView.findViewById(R.id.viewHolderName)
-        location = itemView.findViewById(R.id.viewHolderCountry)
+        category = itemView.findViewById(R.id.viewHolderCategory)
     }
 }
