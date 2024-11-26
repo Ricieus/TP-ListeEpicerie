@@ -8,7 +8,6 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.EditText
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -23,6 +22,7 @@ import com.example.tp_listeepicerie.page.PageSettings
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
@@ -83,8 +83,6 @@ class MainActivity : AppCompatActivity() {
                         nameMainPage.text = document.getString("firstName")
                     }
                 }
-        } else {
-            Toast.makeText(this, "Aucun utilisateur connecté", Toast.LENGTH_SHORT).show()
         }
     }
 

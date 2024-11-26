@@ -5,7 +5,6 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
 import android.widget.EditText
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.example.tp_listeepicerie.R
@@ -26,6 +25,7 @@ class PageProfil : AppCompatActivity() {
     private lateinit var btnSave: Button
     private lateinit var btnDelete: Button
     private lateinit var btnDisconnect: Button
+    private lateinit var db: FirebaseFirestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +35,7 @@ class PageProfil : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         auth = Firebase.auth
+        db = Firebase.firestore
 
         lastNameText = findViewById(R.id.nameText)
         firstNameText = findViewById(R.id.firstNameEdit)
@@ -46,8 +47,24 @@ class PageProfil : AppCompatActivity() {
         btnDisconnect = findViewById(R.id.btnDisconnectProfil)
 
 
+        loadUserInformation()
+
+        btnSave.setOnClickListener {
+            saveUserInformation()
+        }
+
+        btnDelete.setOnClickListener {
+            deleteUserInformation()
+        }
+
+        btnDisconnect.setOnClickListener {
+            Firebase.auth.signOut()
+            finish()
+        }
+    }
+
+    private fun loadUserInformation() {
         val user = auth.currentUser
-        val db = Firebase.firestore
 
         if (user != null) {
             emailText.setText(user.email)
@@ -59,14 +76,25 @@ class PageProfil : AppCompatActivity() {
                         firstNameText.setText(document.getString("firstName"))
                         lastNameText.setText(document.getString("lastName"))
                         emailText.setText(document.getString("email"))
-
                     } else {
-                        Toast.makeText(this, "Aucune donnée trouvée pour cet utilisateur", Toast.LENGTH_SHORT).show()
+                        Snackbar.make(
+                            findViewById(android.R.id.content),
+                            "Erreur de récupération des données",
+                            Snackbar.LENGTH_SHORT
+                        ).show()
                     }
                 }
         } else {
-            Toast.makeText(this, "Aucun utilisateur connecté", Toast.LENGTH_SHORT).show()
+            Snackbar.make(
+                findViewById(android.R.id.content),
+                "Aucun utilisateur connecté",
+                Snackbar.LENGTH_SHORT
+            ).show()
         }
+    }
+
+    private fun saveUserInformation() {
+        val user = auth.currentUser
 
         btnSave.setOnClickListener {
             db.collection("users").document(user!!.uid).update(
@@ -74,50 +102,67 @@ class PageProfil : AppCompatActivity() {
                 "lastName", lastNameText.text.toString(),
                 "email", emailText.text.toString()
             ).addOnSuccessListener {
-                Snackbar.make(findViewById(android.R.id.content), "Profil mis à jour", Snackbar.LENGTH_LONG).show()
+                Snackbar.make(
+                    findViewById(android.R.id.content),
+                    "Profil mis à jour",
+                    Snackbar.LENGTH_LONG
+                ).show()
             }.addOnFailureListener {
-                Snackbar.make(findViewById(android.R.id.content), "Erreur de mise à jour du profil", Snackbar.LENGTH_LONG).show()
+                Snackbar.make(
+                    findViewById(android.R.id.content),
+                    "Erreur de mise à jour du profil",
+                    Snackbar.LENGTH_LONG
+                ).show()
             }
 
             val password = passwordText.text.toString()
             val confirmPassword = passwordText.text.toString()
 
-            if (password.isEmpty() and confirmPassword.isEmpty()){
+            if (password.isEmpty() and confirmPassword.isEmpty()) {
                 if (password != confirmPassword) {
-                    Snackbar.make(findViewById(android.R.id.content), "Le mot de passe et la confirmation ne sont pas identiques", Snackbar.LENGTH_LONG).show()
+                    Snackbar.make(
+                        findViewById(android.R.id.content),
+                        "Le mot de passe et la confirmation ne sont pas identiques",
+                        Snackbar.LENGTH_LONG
+                    ).show()
                     return@setOnClickListener
                 }
 
                 user.updatePassword(password).addOnSuccessListener {
-                    Snackbar.make(findViewById(android.R.id.content), "Mot de passe mis à jour", Snackbar.LENGTH_LONG).show()
-                }.addOnFailureListener {
-                    Snackbar.make(findViewById(android.R.id.content), "Erreur de mise à jour du mot de passe", Snackbar.LENGTH_LONG).show()
-                }
-            }
-        }
-
-        btnDelete.setOnClickListener {
-            db.collection("users").document(user!!.uid).delete().addOnSuccessListener {
-                user.delete().addOnSuccessListener {
                     Snackbar.make(
                         findViewById(android.R.id.content),
-                        "Compte supprimé",
+                        "Mot de passe mis à jour",
                         Snackbar.LENGTH_LONG
                     ).show()
-                    finish()
                 }.addOnFailureListener {
                     Snackbar.make(
                         findViewById(android.R.id.content),
-                        "Erreur de suppression du compte",
+                        "Erreur de mise à jour du mot de passe",
                         Snackbar.LENGTH_LONG
                     ).show()
                 }
             }
         }
+    }
 
-        btnDisconnect.setOnClickListener{
-            Firebase.auth.signOut()
-            finish()
+    private fun deleteUserInformation() {
+        val user = auth.currentUser
+
+        db.collection("users").document(user!!.uid).delete().addOnSuccessListener {
+            user.delete().addOnSuccessListener {
+                Snackbar.make(
+                    findViewById(android.R.id.content),
+                    "Compte supprimé",
+                    Snackbar.LENGTH_LONG
+                ).show()
+                finish()
+            }.addOnFailureListener {
+                Snackbar.make(
+                    findViewById(android.R.id.content),
+                    "Erreur de suppression du compte",
+                    Snackbar.LENGTH_LONG
+                ).show()
+            }
         }
     }
 
