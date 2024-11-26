@@ -2,21 +2,22 @@ package com.example.tp_listeepicerie.groceryAPI
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import com.google.gson.annotations.SerializedName
 import okhttp3.OkHttpClient
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface API_Grocery {
-//    @GET("product/default_products_en.json")
-//    suspend fun getProducts(
-//        @Path("languageCode") languageCode: String = "en",
-//    ): List<ResultItem>
+    @GET("items")
+    suspend fun getProducts(@Query("name") name: String): Response<List<GroceryItem>>
 }
 
-object ApiClient {
-    private const val BASE_URL: String = "https://github.com/DanielRendox/GroceryGenius/blob/develop/assets/"
+object API_Items {
+    private const val BASE_URL: String = "http://localhost:3000/"
 
     private val gson: Gson by lazy {
         GsonBuilder().setLenient().create()
