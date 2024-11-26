@@ -45,6 +45,12 @@
                 android:text="Theme sombre:"
                 android:textSize="16sp" />
 
+            <Button
+                android:id="@+id/btnAPI"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="API" />
+
             <TextView
                 android:id="@+id/clearData"
                 android:layout_width="match_parent"
@@ -69,32 +75,23 @@
                 app:layout_constraintVertical_bias="0.953"
                 app:tint="#000000" />
 
-            <LinearLayout
+            <Button
+                android:id="@+id/signUpbuttonSettings"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:text="S'inscrire" />
 
-                <Button
-                    android:id="@+id/signUpbuttonSettings"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
-                    android:text="S'inscrire" />
+            <Button
+                android:id="@+id/signInbuttonSettings"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Se connecter" />
 
-                <Button
-                    android:id="@+id/signInbuttonSettings"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
-                    android:text="Se connecter" />
-
-                <Button
-                    android:id="@+id/profilButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
-                    android:text="Mon profil" />
-            </LinearLayout>
+            <Button
+                android:id="@+id/profilButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Mon profil" />
 
         </LinearLayout>
     </ScrollView>
