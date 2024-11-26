@@ -1,0 +1,885 @@
+{
+  "items" :
+    [
+      {
+      "id": "amandes",
+      "name": "Amandes",
+      "iconId": "noix.png",
+      "categoryId": "Snacks et boulangerie"
+      },
+      {
+      "id": "pomme",
+      "name": "Pommes",
+      "iconId": "pomme.png",
+      "categoryId": "Fruits et légumes"
+      },
+      {
+      "id": "abricots",
+      "name": "Abricots",
+      "iconId": "abricots.png",
+      "categoryId": "Fruits et légumes"
+      },
+      {
+      "id": "avocat",
+      "name": "Avocat",
+      "iconId": "avocat.png",
+      "categoryId": "Fruits et légumes"
+      },
+      {
+      "id": "bacon",
+      "name": "Bacon",
+      "iconId": "bacon.png",
+      "categoryId": "Viande et poisson"
+      },
+      {
+      "id": "baguette",
+      "name": "Baguette",
+      "iconId": "baguette.png",
+      "categoryId": "Snacks et boulangerie"
+      },
+      {
+      "id": "bananes",
+      "name": "Bananes",
+      "iconId": "bananes.png",
+      "categoryId": "Fruits et légumes"
+      },
+      {
+      "id": "soap-bar",
+      "name": "Savon en barre",
+      "iconId": "soap_bar.png",
+      "categoryId": "Ménage"
+      },
+      {
+      "id": "piles",
+      "name": "piles",
+      "iconId": "piles.png",
+      "categoryId": "Ménage"
+      },
+      {
+      "id": "bœuf",
+      "name": "Bœuf",
+      "iconId": "vache.png",
+      "categoryId": "Viande et poisson"
+      },
+      {
+      "id": "bière",
+      "name": "Bière",
+      "iconId": "bière.png",
+      "categoryId": "Boissons"
+      },
+      {
+      "id": "betterave",
+      "name": "Betterave",
+      "iconId": "betterave.png",
+      "categoryId": "Fruits et légumes"
+      },
+      {
+      "id": "poivre",
+      "name": "Poivron",
+      "iconId": "poivre.png",
+      "categoryId": "Fruits et légumes"
+      },
+      {
+      "id": "baies",
+      "name": "Baies",
+      "iconId": "baies.png",
+      "categoryId": "Fruits et légumes"
+      },
+      {
+      "id": "bread",
+      "name": "Pain",
+      "iconId": "bread.png",
+      "categoryId": "Snacks et boulangerie"
+      },
+      {
+      "id": "brocoli",
+      "name": "Brocoli",
+      "iconId": "brocoli.png",
+      "categoryId": "Fruits et légumes"
+      },
+      {
+      "id": "buns",
+      "name": "Buns",
+      "iconId": "buns.png",
+      "categoryId": "Snacks et boulangerie"
+      },
+      {
+      "id": "butter",
+      "name": "Butter",
+      "iconId": "butter.png",
+      "categoryId": "Produits laitiers et œufs"
+      },
+      {
+      "id": "chou",
+      "name": "chou",
+      "iconId": "chou.png",
+      "categoryId": "Fruits et légumes"
+      },
+      {
+      "id": "gâteau",
+      "name": "Gâteau",
+      "iconId": "gâteau.png",
+      "categoryId": "Snacks et boulangerie"
+      },
+      {
+      "id": "carottes",
+      "name": "Carottes",
+      "iconId": "carottes.png",
+      "categoryId": "Fruits et légumes"
+      },
+      {
+      "id": "nourriture pour chat",
+      "name": "Nourriture pour chat",
+      "iconId": "cat.png",
+      "categoryId": "Fournitures pour animaux de compagnie"
+      },
+      {
+      "id": "litière pour chat",
+      "name": "Litière pour chat",
+      "iconId": "cat.png",
+      "categoryId": "Fournitures pour animaux de compagnie"
+      },
+      {
+      "id": "cat-treats",
+      "name": "Friandises pour chats",
+      "iconId": "cat.png",
+      "categoryId": "Fournitures pour animaux de compagnie"
+      },
+      {
+      "id": "cereal",
+      "name": "Cereal",
+      "iconId": "cereal.png",
+      "categoryId": "grain-products"
+      },
+      {
+      "id": "cheese",
+      "name": "Fromage",
+      "iconId": "cheese.png",
+      "categoryId": "Produits laitiers et œufs"
+      },
+      {
+      "id": "cherries",
+      "name": "Cerises",
+      "iconId": "cherries.png",
+      "categoryId": "Fruits et légumes"
+      },
+      {
+      "id": "chicken",
+      "name": "Poulet",
+      "iconId": "chicken.png",
+      "categoryId": "Viande et poisson"
+      },
+      {
+      "id": "chicken-legs",
+      "name": "Chicken_legs",
+      "iconId": "chicken_legs.png",
+      "categoryId": "Viande et poisson"
+      },
+      {
+      "id": "chips",
+      "name": "Chips",
+      "iconId": "chips.png",
+      "categoryId": "Snacks et boulangerie"
+      },
+      {
+      "id": "chocolate",
+      "name": "Chocolat",
+      "iconId": "chocolate.png",
+      "categoryId": "Snacks et boulangerie"
+      },
+      {
+      "id": "cannelle",
+      "name": "Cannelle",
+      "iconId": "cinnamon.png",
+      "categoryId": "Sauces et épices"
+      },
+      {
+      "id": "cleaner-spray",
+      "name": "Cleaner Spray",
+      "iconId": "cleaner_spray.png",
+      "categoryId": "Ménage"
+      },
+      {
+      "id": "cola",
+      "name": "Cola",
+      "iconId": "can.png",
+      "categoryId": "Boissons"
+      },
+      {
+      "id": "cookies",
+      "name": "Cookies",
+      "iconId": "cookies.png",
+      "categoryId": "Snacks et boulangerie"
+      },
+      {
+      "id": "cottage-cheese",
+      "name": "Cottage Cheese",
+      "iconId": "cottage_cheese.png",
+      "categoryId": "Produits laitiers et œufs"
+      },
+      {
+      "id": "cotton-swabs",
+      "name": "Cotons-tiges",
+      "iconId": "cotton_swabs.png",
+      "categoryId": "Santé et Beauté"
+      },
+      {
+      "id": "coton-tampons",
+      "name": "Coton-tampons",
+      "iconId": "coton_tampons.png",
+      "categoryId": "Santé et Beauté"
+      },
+      {
+      "id": "crème",
+      "name": "Crème",
+      "iconId": "tube.png",
+      "categoryId": "Santé et Beauté"
+      },
+      {
+      "id": "concombre",
+      "name": "Concombre",
+      "iconId": "concombre.png",
+      "categoryId": "Fruits et Légumes"
+      },
+      {
+      "id": "déodorant",
+      "name": "Déodorant",
+      "iconId": "déodorant.png",
+      "categoryId": "Santé et Beauté"
+      },
+      {
+      "id": "liquide vaisselle",
+      "name": "Liquide vaisselle",
+      "iconId": "washing_liquid.png",
+      "categoryId": "Santé et beauté"
+      },
+      {
+      "id": "nourriture-pour-chien",
+      "name": "Nourriture pour chien",
+      "iconId": "dog.png",
+      "categoryId": "Fournitures pour animaux"
+      },
+      {
+      "id": "dog-treats",
+      "name": "Friandises pour chien",
+      "iconId": "dog.png",
+      "categoryId": "Fournitures pour animaux"
+      },
+      {
+      "id": "Boissons",
+      "name": "Boissons",
+      "iconId": "Boissons.png",
+      "categoryId": "Boissons"
+      },
+      {
+      "id": "aubergine",
+      "name": "Aubergine",
+      "iconId": "aubergine.png",
+      "categoryId": "Fruits et légumes"
+      },
+      {
+      "id": "oeufs",
+      "name": "Oeufs",
+      "iconId": "oeufs.png",
+      "categoryId": "Produits laitiers et œufs"
+      },
+      {
+      "id": "energy-drink",
+      "name": "Boisson énergisante",
+      "iconId": "can.png",
+      "categoryId": "Boissons"
+      },
+      {
+      "id": "poisson",
+      "name": "Poisson",
+      "iconId": "poisson.png",
+      "categoryId": "Viande et poisson"
+      },
+      {
+      "id": "farine",
+      "name": "Farine",
+      "iconId": "flour.png",
+      "categoryId": "Sauces et épices"
+      },
+      {
+      "id": "fruits",
+      "name": "Fruits",
+      "iconId": "fruits.png",
+      "categoryId": "Fruits et légumes"
+      },
+      {
+      "id": "ail",
+      "name": "Ail",
+      "iconId": "ail.png",
+      "categoryId": "Fruits et légumes"
+      },
+      {
+      "id": "cadeau",
+      "name": "Cadeau",
+      "iconId": "cadeau.png",
+      "categoryId": "Ménage"
+      },
+      {
+      "id": "céréales",
+      "name": "Céréales",
+      "iconId": "grain.png",
+      "categoryId": "produits-céréaliers"
+      },
+      {
+      "id": "raisins",
+      "name": "Raisins",
+      "iconId": "raisins.png",
+      "categoryId": "Fruits et légumes"
+      },
+      {
+      "id": "minced-meat",
+      "name": "Viande hachée",
+      "iconId": "minced_meat.png",
+      "categoryId": "Viande et poisson"
+      },
+      {
+      "id": "hair-gel",
+      "name": "Gel pour les cheveux",
+      "iconId": "cream.png",
+      "categoryId": "Santé et beauté"
+      },
+      {
+      "id": "ham",
+      "name": "Jambon",
+      "iconId": "ham.png",
+      "categoryId": "Viande et poisson"
+      },
+      {
+      "id": "honey",
+      "name": "Miel",
+      "iconId": "honey.png",
+      "categoryId": "Sauces et épices"
+      },
+      {
+      "id": "ice-cream",
+      "name": "Ice Cream",
+      "iconId": "ice_cream.png",
+      "categoryId": "Snacks et boulangerie"
+      },
+      {
+      "id": "jam",
+      "name": "Jam",
+      "iconId": "jam.png",
+      "categoryId": "Sauces et épices"
+      },
+      {
+      "id": "juice",
+      "name": "Juice",
+      "iconId": "juice.png",
+      "categoryId": "Drinks"
+      },
+      {
+      "id": "ketchup",
+      "name": "Ketchup",
+      "iconId": "ketchup.png",
+      "categoryId": "Sauces et épices"
+      },
+      {
+      "id": "kiwi",
+      "name": "Kiwi",
+      "iconId": "kiwi.png",
+      "categoryId": "Fruits et légumes"
+      },
+      {
+      "id": "lamb",
+      "name": "Agneau",
+      "iconId": "mouton.png",
+      "categoryId": "Viande et poisson"
+      },
+      {
+      "id": "citron",
+      "name": "Citron",
+      "iconId": "citron.png",
+      "categoryId": "Fruits et légumes"
+      },
+      {
+      "id": "rouge à lèvres",
+      "name": "Rouge à lèvres",
+      "iconId": "rouge à lèvres.png",
+      "categoryId": "Santé et beauté"
+      },
+      {
+      "id": "savon-liquide",
+      "name": "Savon liquide",
+      "iconId": "liquide_de_lavage.png",
+      "categoryId": "Ménage"
+      },
+      {
+      "id": "mandarines",
+      "name": "Mandarines",
+      "iconId": "mandarines.png",
+      "categoryId": "Fruits et légumes"
+      },
+      {
+      "id": "margarine",
+      "name": "Margarine",
+      "iconId": "butter.png",
+      "categoryId": "Produits laitiers et œufs"
+      },
+      {
+      "id": "mayonnaise",
+      "name": "Mayonnaise",
+      "iconId": "sauce.png",
+      "categoryId": "Sauces et épices"
+      },
+      {
+      "id": "meat",
+      "name": "Viande",
+      "iconId": "meat.png",
+      "categoryId": "Viande et poisson"
+      },
+      {
+      "id": "milk",
+      "name": "Lait",
+      "iconId": "milk.png",
+      "categoryId": "Produits laitiers et œufs"
+      },
+      {
+      "id": "muesli",
+      "name": "Muesli",
+      "iconId": "cereal.png",
+      "categoryId": "produits-graines"
+      },
+      {
+      "id": "champignon",
+      "name": "Champignon",
+      "iconId": "champignon.png",
+      "categoryId": "Fruits et légumes"},
+      {
+      "id": "moutarde",
+      "name": "Moutarde",
+      "iconId": "crème.png",
+      "categoryId": "Sauces et épices"
+      },
+      {
+      "id": "serviettes",
+      "name": "Serviettes",
+      "iconId": "serviettes.png",
+      "categoryId": "Ménage"
+      },
+      {
+      "id": "nouilles",
+      "name": "Nouilles",
+      "iconId": "pâtes.png",
+      "categoryId": "produits-céréaliers"
+      },
+      {
+      "id": "noix",
+      "name": "Noix",
+      "iconId": "noix.png",
+      "categoryId": "Snacks et boulangerie"
+      },
+      {
+      "id": "avoine",
+      "name": "Avoine",
+      "iconId": "avoine.png",
+      "categoryId": "produits-céréaliers"
+      },
+      {
+      "id": "huile",
+      "name": "Huile",
+      "iconId": "bottle_narrow.png",
+      "categoryId": "Sauces et épices"
+      },
+      {
+      "id": "oignons",
+      "name": "Oignons",
+      "iconId": "oignon.png",
+      "categoryId": "Fruits et légumes"
+      },
+      {
+      "id": "orange",
+      "name": "Orange",
+      "iconId": "orange.png",
+      "categoryId": "Fruits et légumes"
+      },
+      {
+      "id": "tampons",
+      "name": "tampons",
+      "iconId": "tampons.png",
+      "categoryId": "Santé et beauté"
+      },
+      {
+      "id": "essuie-tout",
+      "name": "Papier serviettes",
+      "iconId": "papier_toilette.png",
+      "categoryId": "Ménage"
+      },
+      {
+      "id": "paprika",
+      "name": "Paprika",
+      "iconId": "pot_épices.png",
+      "categoryId": "Fruits et légumes"
+      },
+      {
+      "id": "persil",
+      "name": "Persil",
+      "iconId": "persil.png",
+      "categoryId": "Fruits et légumes"
+      },
+      {
+      "id": "pâtes",
+      "name": "Pâtes",
+      "iconId": "pasta.png",
+      "categoryId": "produits-céréaliers"
+      },
+      {
+      "id": "pêche",
+      "name": "Pêches",
+      "iconId": "peach.png",
+      "categoryId": "Fruits et Légumes"
+      },
+      {
+      "id": "cacahuètes",
+      "name": "Cacahuètes",
+      "iconId": "nuts.png",
+      "categoryId": "Snacks et boulangerie"
+      },
+      {
+      "id": "poire",
+      "name": "Poire",
+      "iconId": "poire.png",
+      "categoryId": "Fruits et légumes"
+      },
+      {
+      "id": "petits pois",
+      "name": "Petits pois",
+      "iconId": "petits pois.png",
+      "categoryId": "Fruits et légumes"
+      },
+      {
+      "id": "grains de poivre",
+      "name": "grains de poivre",
+      "iconId": "pot_épices.png",
+      "categoryId": "Sauces et épices"
+      },
+      {
+      "id": "parfum",
+      "name": "Parfum",
+      "iconId": "perfume.png",
+      "categoryId": "Santé et beauté"
+      },
+      {
+      "id": "pills",
+      "name": "Pills",
+      "iconId": "pills.png",
+      "categoryId": "Santé et beauté"
+      },
+      {
+      "id": "pineapple",
+      "name": "Pineapple",
+      "iconId": "pineapple.png",
+      "categoryId": "Fruits et légumes"
+      },
+      {
+      "id": "pizza",
+      "name": "Pizza",
+      "iconId": "pizza.png",
+      "categoryId": "Snacks et boulangerie"
+      },
+      {
+      "id": "plums",
+      "name": "Prunes",
+      "iconId": "plums.png",
+      "categoryId": "Fruits et Légumes"
+      },
+      {
+      "id": "popcorn",
+      "name": "Popcorn",
+      "iconId": "popcorn.png",
+      "categoryId": "Snacks et boulangerie"
+      },
+      {
+      "id": "porc",
+      "name": "Porc",
+      "iconId": "porc.png",
+      "categoryId": "Viande et poisson"
+      },
+      {
+      "id": "pommes de terre",
+      "name": "Pommes de terre",
+      "iconId": "pommes de terre.png",
+      "categoryId": "Fruits et légumes"
+      },
+      {
+      "id": "bretzels",
+      "name": "Bretzels",
+      "iconId": "bretzels.png",
+      "categoryId": "Snacks et boulangerie"
+      },
+      {
+      "id": "citrouille",
+      "name": "Citrouille",
+      "iconId": "citrouille.png",
+      "categoryId": "Fruits et légumes"
+      },
+      {
+      "id": "framboise",
+      "name": "Framboise",
+      "iconId": "framboise.png",
+      "categoryId": "Fruits et légumes"
+      },
+      {
+      "id": "rasoir",
+      "name": "Rasoir",
+      "iconId": "rasoir.png",
+      "categoryId": "Santé et beauté"
+      },
+      {
+      "id": "riz",
+      "name": "Riz",
+      "iconId": "riz.png",
+      "categoryId": "produits-céréaliers"
+      },
+      {
+      "id": "sacs-poubelles",
+      "name": "Sacs-poubelles",
+      "iconId": "sacs_poubelles.png",
+      "categoryId": "Ménage"
+      },
+      {
+      "id": "salami",
+      "name": "Salami",
+      "iconId": "salami.png",
+      "categoryId": "Viande et poisson"
+      },
+      {
+      "id": "saumon",
+      "name": "Saumon",
+      "iconId": "poisson.png",
+      "categoryId": "Viande et poisson"
+      },
+      {
+      "id": "sel",
+      "name": "Sel",
+      "iconId": "sel.png",
+      "categoryId": "Sauces et épices"
+      },
+      {
+      "id": "sauce",
+      "name": "Sauce",
+      "iconId": "ketchup.png",
+      "categoryId": "Sauces et épices"
+      },
+      {
+      "id": "saucisses",
+      "name": "Saucisses",
+      "iconId": "saucisses.png",
+      "categoryId": "Viande et poisson"
+      },
+      {
+      "id": "shampooing",
+      "name": "Shampoing",
+      "iconId": "washing_liquid.png",
+      "categoryId": "Santé et beauté"
+      },{
+      "id": "saving-cream",
+      "name": "Crème à raser",
+      "iconId": "tube.png",
+      "categoryId": "Santé et beauté"
+      },
+      {
+      "id": "shopping-bag",
+      "name": "Sac de courses",
+      "iconId": "shopping_bag.png",
+      "categoryId": "Ménage"
+      },
+      {
+      "id": "shower-gel",
+      "name": "Gel douche",
+      "iconId": "washing_liquid.png",
+      "categoryId": "Santé et beauté"
+      },
+      {
+      "id": "shrimp",
+      "name": "Shrimp",
+      "iconId": "shrimp.png",
+      "categoryId": "Viande et poisson"
+      },
+      {
+      "id": "smoothie",
+      "name": "Smoothie",
+      "iconId": "smoothie.png",
+      "categoryId": "Boissons"
+      },
+      {
+      "id": "snacks",
+      "name": "Snacks",
+      "iconId": "snacks.png",
+      "categoryId": "Snacks et boulangerie"
+      },
+      {
+      "id": "soda",
+      "name": "Soda",
+      "iconId": "can.png",
+      "categoryId": "Boissons"
+      },
+      {
+      "id": "sour-cream",
+      "name": "Crème aigre",
+      "iconId": "sauce.png",
+      "categoryId": "Produits laitiers et œufs"
+      },
+      {
+      "id": "soy-sauce",
+      "name": "Sauce soja",
+      "iconId": "bottle_narrow.png",
+      "categoryId": "Sauces et épices"
+      },
+      {
+      "id": "spaghetti",
+      "name": "Spaghetti",
+      "iconId": "pasta.png",
+      "categoryId": "produits-graines"
+      },
+      {
+      "id": "épices",
+      "name": "Épices",
+      "iconId": "spices.png",
+      "categoryId": "Sauces et épices"
+      },
+      {
+      "id": "éponge",
+      "name": "Éponge",
+      "iconId": "éponge.png",
+      "categoryId": "Ménage"
+      },
+      {
+      "id": "fraise",
+      "name": "Fraise",
+      "iconId": "fraises.png",
+      "categoryId": "Fruits et légumes"
+      },
+      {
+      "id": "sucre",
+      "name": "Sucre",
+      "iconId": "sucre_cubes.png",
+      "categoryId": "Sauces et épices"
+      },
+      {
+      "id": "maïs doux",
+      "name": "Maïs doux",
+      "iconId": "maïs_doux.png",
+      "categoryId": "Fruits et légumes"
+      },
+      {
+      "id": "bonbons",
+      "name": "Bonbons",
+      "iconId": "bonbons.png",
+      "categoryId": "Snacks et boulangerie"
+      },
+      {
+      "id": "mandarines",
+      "name": "Mandarines",
+      "iconId": "mandarines.png",
+      "categoryId": "Fruits et légumes"
+      },
+      {
+      "id": "thé",
+      "name": "Thé",
+      "iconId": "thé.png",
+      "categoryId": "Boissons"
+      },
+      {
+      "id": "toast",
+      "name": "Toast",
+      "iconId": "toast.png",
+      "categoryId": "Snacks et boulangerie"
+      },
+      {
+      "id": "toilet-paper",
+      "name": "Papier hygiénique",
+      "iconId": "toilet_paper.png",
+      "categoryId": "Santé et beauté"
+      },
+      {
+      "id": "tomatoes",
+      "name": "Tomatoes",
+      "iconId": "tomatoes.png",
+      "categoryId": "Fruits et légumes"
+      },
+      {
+      "id": "tomato-paste",
+      "name": "Pâte de tomate",
+      "iconId": "tomato_paste.png",
+      "categoryId": "Sauces et épices"
+      },
+      {
+      "id": "toothbrush",
+      "name": "Brosse à dents",
+      "iconId": "toothbrush.png",
+      "categoryId": "Santé et beauté"
+      },
+      {
+      "id": "dentifrice",
+      "name": "Dentifrice",
+      "iconId": "tube.png",
+      "categoryId": "Santé et beauté"
+      },
+      {
+      "id": "truite",
+      "name": "Truite",
+      "iconId": "poisson.png",
+      "categoryId": "Viande et poisson"
+      },
+      {
+      "id": "thon",
+      "name": "thon",
+      "iconId": "poisson.png",
+      "categoryId": "Viande et poisson"
+      },
+      {
+      "id": "légumes",
+      "name": "Légumes",
+      "iconId": "vegetables.png",
+      "categoryId": "Fruits et légumes"
+      },
+      {
+      "id": "vinegar",
+      "name": "Vinaigre",
+      "iconId": "bottle_narrow.png",
+      "categoryId": "Sauces et épices"
+      },
+      {
+      "id": "walnuts",
+      "name": "Walnuts",
+      "iconId": "walnuts.png",
+      "categoryId": "Snacks et boulangerie"
+      },
+      {
+      "id": "water",
+      "name": "Eau",
+      "iconId": "bottle_plastic.png",
+      "categoryId": "Boissons"
+      },
+      {
+      "id": "watermelon",
+      "name": "Watermelon",
+      "iconId": "watermelon.png",
+      "categoryId": "Fruits et légumes"
+      },
+      {
+      "id": "wine",
+      "name": "Wine",
+      "iconId": "wine.png",
+      "categoryId": "Boissons"
+      },
+      {
+      "id": "yogourt",
+      "name": "Yaourt",
+      "iconId": "bottle_small.png",
+      "categoryId": "Produits laitiers et œufs"
+      },
+      {
+      "id": "zucchini",
+      "name": "Zucchini",
+      "iconId": "zucchini.png",
+      "categoryId": "Fruits et légumes"
+      }
+    ]
+  }
