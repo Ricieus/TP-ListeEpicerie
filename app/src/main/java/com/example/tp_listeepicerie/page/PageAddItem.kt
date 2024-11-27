@@ -4,12 +4,15 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
+import android.speech.RecognizerIntent
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -36,6 +39,18 @@ class PageAddItem : AppCompatActivity() {
     private lateinit var btnPhotoImg: Button
     private lateinit var btnLoadImg: Button
     private lateinit var productImage: ImageView
+    private lateinit var nameItem: EditText
+    private lateinit var quantityItem: EditText
+    private lateinit var categoryItem: EditText
+    private lateinit var descriptionItem: EditText
+    //private lateinit var btnSpeak: Button
+    private lateinit var btnSpeakName: ImageView
+    private lateinit var btnSpeakQuantity: ImageView
+    private lateinit var btnSpeakCategory: ImageView
+    private lateinit var btnSpeakDescription: ImageView
+
+    private lateinit var speechToTextLauncher: ActivityResultLauncher<Intent>
+    private var activeEditText: EditText? = null
 
     private var imageUri: Uri? = null
 
@@ -53,6 +68,49 @@ class PageAddItem : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         initializeVariables()
+
+        nameItem = findViewById(R.id.NameEdit)
+        quantityItem = findViewById(R.id.QuantityEdit)
+        categoryItem = findViewById(R.id.CategoryEdit)
+        descriptionItem = findViewById(R.id.DescriptionEdit)
+        //btnSpeak = findViewById(R.id.btnSpeak)
+        btnSpeakName = findViewById(R.id.NameEditSpeak)
+        btnSpeakQuantity = findViewById(R.id.QuantityEditSpeak)
+        btnSpeakCategory = findViewById(R.id.CategoryEditSpeak)
+        btnSpeakDescription = findViewById(R.id.DescriptionEditSpeak)
+
+        //https://www.youtube.com/watch?v=yNCBWmSSV4Y
+        speechToTextLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+                if (result.resultCode == RESULT_OK && result.data != null) {
+                    val spokenText =
+                        result.data?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)?.get(0)
+                    if (!spokenText.isNullOrBlank()) {
+                        activeEditText?.setText(spokenText) // Définir le texte reconnu dans le champ
+                    }
+                }
+            }
+
+        // Configurer le bouton pour lancer la reconnaissance vocale
+        btnSpeakName.setOnClickListener {
+            activeEditText = nameItem
+            startSpeechToText()
+        }
+
+        btnSpeakQuantity.setOnClickListener {
+            activeEditText = quantityItem
+            startSpeechToText()
+        }
+
+        btnSpeakCategory.setOnClickListener {
+            activeEditText = categoryItem
+            startSpeechToText()
+        }
+
+        btnSpeakDescription.setOnClickListener {
+            activeEditText = descriptionItem
+            startSpeechToText()
+        }
 
         //Permet de récupérer l'URI de la photo
         val uriPhoto = createUriPhoto()
@@ -73,23 +131,37 @@ class PageAddItem : AppCompatActivity() {
         }
     }
 
+    private fun startSpeechToText() {
+        val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
+            putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
+            putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
+            putExtra(RecognizerIntent.EXTRA_PROMPT, "Parlez maintenant...")
+        }
+        speechToTextLauncher.launch(intent)
+    }
+
 
     private fun addNewProduct() {
-        val nameItem: EditText = findViewById(R.id.NameEdit)
-        val quantityItem: EditText = findViewById(R.id.QuantityEdit)
-        val categoryItem: EditText = findViewById(R.id.CategoryEdit)
-        val descriptionItem: EditText = findViewById(R.id.DescriptionEdit)
+        //val nameItem: EditText = findViewById(R.id.NameEdit)
+        //val quantityItem: EditText = findViewById(R.id.QuantityEdit)
+        //val categoryItem: EditText = findViewById(R.id.CategoryEdit)
+        //val descriptionItem: EditText = findViewById(R.id.DescriptionEdit)
 
         //Permet de gérer les nulles/vides (Inspiré de ChatGPT)
         if (nameItem.text.isNullOrBlank() || quantityItem.text.isNullOrBlank() || categoryItem.text.isNullOrBlank() || descriptionItem.text.isNullOrBlank() || imageUri == null) {
             Snackbar.make(
                 findViewById(R.id.main),
-                "Veuillez remplir tous les informations nécessaires", Snackbar.LENGTH_LONG)
+                "Veuillez remplir tous les informations nécessaires", Snackbar.LENGTH_LONG
+            )
                 .show()
 
-        } else if(!quantityItem.text.isDigitsOnly() || quantityItem.text.toString().toInt() <= 0){
-            Snackbar.make(findViewById(R.id.main), "Veuillez entrer une quantité valide", Snackbar.LENGTH_LONG).show()
-        } else{
+        } else if (!quantityItem.text.isDigitsOnly() || quantityItem.text.toString().toInt() <= 0) {
+            Snackbar.make(
+                findViewById(R.id.main),
+                "Veuillez entrer une quantité valide",
+                Snackbar.LENGTH_LONG
+            ).show()
+        } else {
             val database = Database_Epicerie.getDatabase(applicationContext)
             lifecycleScope.launch(Dispatchers.IO) {
                 if (imageUri != null) {
