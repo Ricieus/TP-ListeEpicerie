@@ -86,30 +86,29 @@ class PageAddItem : AppCompatActivity() {
                     val spokenText =
                         result.data?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)?.get(0)
                     if (!spokenText.isNullOrBlank()) {
-                        activeEditText?.setText(spokenText) // Définir le texte reconnu dans le champ
+                        activeEditText?.setText(spokenText)
                     }
                 }
             }
 
-        // Configurer le bouton pour lancer la reconnaissance vocale
         btnSpeakName.setOnClickListener {
             activeEditText = nameItem
-            startSpeechToText()
+            speechToTextAddItem()
         }
 
         btnSpeakQuantity.setOnClickListener {
             activeEditText = quantityItem
-            startSpeechToText()
+            speechToTextAddItem()
         }
 
         btnSpeakCategory.setOnClickListener {
             activeEditText = categoryItem
-            startSpeechToText()
+            speechToTextAddItem()
         }
 
         btnSpeakDescription.setOnClickListener {
             activeEditText = descriptionItem
-            startSpeechToText()
+            speechToTextAddItem()
         }
 
         //Permet de récupérer l'URI de la photo
@@ -131,7 +130,7 @@ class PageAddItem : AppCompatActivity() {
         }
     }
 
-    private fun startSpeechToText() {
+    private fun speechToTextAddItem() {
         val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
             putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
             putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())

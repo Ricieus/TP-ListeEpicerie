@@ -1,11 +1,13 @@
 package com.example.tp_listeepicerie
 
+import android.app.Activity
 import android.content.Intent
 import android.hardware.usb.UsbManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
+import android.speech.RecognizerIntent
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
@@ -13,6 +15,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.ActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -50,6 +53,8 @@ class PageDetails : AppCompatActivity() {
     private var productDescription: String = ""
     private var itemCategory: String = ""
     private var itemQuantity: Int = 0
+
+    private lateinit var speechToTextButton: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -108,7 +113,36 @@ class PageDetails : AppCompatActivity() {
         saveButton.setOnClickListener {
             updateItems()
         }
+
+        speechToTextButton = findViewById(R.id.NameEditSpeak)
+        speechToTextButton.setOnClickListener {
+            startSpeechToText()
+        }
     }
+
+    private val speechToTextLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val data: Intent? = result.data
+                val matches = data?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
+                if (!matches.isNullOrEmpty()) {
+                    textProductName.text = matches[0] // Remplit le champ avec le premier résultat
+                }
+            } else {
+                Toast.makeText(this, "Échec de la reconnaissance vocale", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+    private fun startSpeechToText() {
+        val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
+            putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
+            putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
+            putExtra(RecognizerIntent.EXTRA_PROMPT, "Parlez pour entrer un nom de produit")
+        }
+        speechToTextLauncher.launch(intent)
+    }
+
+
 
     private fun takeImageFromDevice() =
         registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uriSelect: Uri? ->
