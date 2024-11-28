@@ -62,42 +62,106 @@
                 android:layout_marginBottom="8dp"
                 tools:srcCompat="@tools:sample/avatars" />
 
-            <EditText
-                android:id="@+id/productName"
+            <!-- Champ: Nom produit -->
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:enabled="false"
-                android:hint="Nom produit"
-                android:padding="8dp"
-                android:textSize="24sp" />
+                android:layout_marginBottom="8dp">
 
-            <EditText
-                android:id="@+id/productCategory"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:enabled="false"
-                android:hint="Categorie"
-                android:padding="8dp" />
+                <EditText
+                    android:id="@+id/productName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toStartOf="@+id/NameEditSpeak"
+                    android:enabled="false"
+                    android:hint="Nom produit"
+                    android:padding="8dp"
+                    android:textSize="24sp" />
 
-            <EditText
-                android:id="@+id/productQuantity"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:enabled="false"
-                android:hint="Quantité"
-                android:padding="8dp" />
+                <ImageView
+                    android:id="@+id/NameEditSpeak"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:src="@android:drawable/ic_btn_speak_now"
+                    android:contentDescription="Parler" />
+            </RelativeLayout>
 
-            <EditText
-                android:id="@+id/productDescription"
+            <!-- Champ: Catégorie -->
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:enabled="false"
-                android:hint="Description"
-                android:padding="8dp" />
+                android:layout_marginBottom="8dp">
+
+                <EditText
+                    android:id="@+id/productCategory"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toStartOf="@+id/CategoryEditSpeak"
+                    android:enabled="false"
+                    android:hint="Catégorie"
+                    android:padding="8dp" />
+
+                <ImageView
+                    android:id="@+id/CategoryEditSpeak"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:src="@android:drawable/ic_btn_speak_now"
+                    android:contentDescription="Parler" />
+            </RelativeLayout>
+
+            <!-- Champ: Quantité -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp">
+
+                <EditText
+                    android:id="@+id/productQuantity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toStartOf="@+id/QuantityEditSpeak"
+                    android:enabled="false"
+                    android:hint="Quantité"
+                    android:padding="8dp" />
+
+                <ImageView
+                    android:id="@+id/QuantityEditSpeak"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:src="@android:drawable/ic_btn_speak_now"
+                    android:contentDescription="Parler" />
+            </RelativeLayout>
+
+            <!-- Champ: Description -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp">
+
+                <EditText
+                    android:id="@+id/productDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toStartOf="@+id/DescriptionEditSpeak"
+                    android:enabled="false"
+                    android:hint="Description"
+                    android:padding="8dp" />
+
+                <ImageView
+                    android:id="@+id/DescriptionEditSpeak"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:src="@android:drawable/ic_btn_speak_now"
+                    android:contentDescription="Parler" />
+            </RelativeLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
