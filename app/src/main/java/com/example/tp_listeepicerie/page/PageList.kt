@@ -23,11 +23,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class PageList : AppCompatActivity() {
-    private var cartItems: MutableList<Table_Grocery> = mutableListOf()
-//    private lateinit var recyclerViewCart: RecyclerView
-//    private lateinit var recyclerView: RecyclerView
-    private var groceryList: MutableList<Table_Grocery> = mutableListOf()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()

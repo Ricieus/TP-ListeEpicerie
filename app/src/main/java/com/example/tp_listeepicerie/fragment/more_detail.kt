@@ -1,9 +1,7 @@
 package com.example.tp_listeepicerie.fragment
 
 import android.content.Intent
-import android.content.res.Configuration
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import androidx.activity.result.PickVisualMediaRequest
@@ -17,7 +15,6 @@ import android.widget.TextView
 import androidx.lifecycle.lifecycleScope
 import com.example.tp_listeepicerie.Database_Epicerie
 import com.example.tp_listeepicerie.R
-import com.example.tp_listeepicerie.Table_Grocery
 import com.example.tp_listeepicerie.recyclerItem.InfoItem
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.Dispatchers
@@ -52,7 +49,6 @@ class more_detail : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_more_detail, container, false)
     }
 
@@ -87,26 +83,6 @@ class more_detail : Fragment() {
         }
         takePhotoButton.setOnClickListener { takePhoto.launch(uriPhoto) }
         saveButton.setOnClickListener { updateItems() }
-    }
-
-    fun enableModification(isEnable: Boolean){
-        if (saveButton.isEnabled){
-            updateImageButton.isEnabled = false
-            takePhotoButton.isEnabled = false
-            textProductName.isEnabled = false
-            textProductDescription.isEnabled = false
-            textCategory.isEnabled = false
-            textQuantity.isEnabled = false
-            saveButton.isEnabled = false
-        } else {
-            updateImageButton.isEnabled = isEnable
-            takePhotoButton.isEnabled = isEnable
-            textProductName.isEnabled = isEnable
-            textProductDescription.isEnabled = isEnable
-            textCategory.isEnabled = isEnable
-            textQuantity.isEnabled = isEnable
-            saveButton.isEnabled = isEnable
-        }
     }
 
     private fun initializeVariables(view: View) {

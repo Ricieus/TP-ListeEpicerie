@@ -4,9 +4,7 @@ import android.appwidget.AppWidgetManager
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
-import android.content.res.Configuration
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -20,14 +18,12 @@ import com.example.tp_listeepicerie.GroceryViewModel
 import com.example.tp_listeepicerie.R
 import com.example.tp_listeepicerie.Table_Grocery
 import com.example.tp_listeepicerie.recyclerCart.CartAdaptor
-import com.example.tp_listeepicerie.recyclerItem.ItemAdaptor
 import com.example.tp_listeepicerie.widget.ItemListWidget
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 
 class list_cart : Fragment() {
@@ -64,7 +60,6 @@ class list_cart : Fragment() {
         auth = Firebase.auth
     }
 
-    // Function depreciated (NO USE)
     fun refreshRecyclerView() {
         recyclerViewCart.adapter = CartAdaptor(requireContext(), this@list_cart, cartItems)
         recyclerViewCart.adapter?.notifyDataSetChanged()
@@ -73,15 +68,12 @@ class list_cart : Fragment() {
     fun removeFromPanier(item: Table_Grocery) {
         val database = Database_Epicerie.getDatabase(requireContext())
         lifecycleScope.launch(Dispatchers.IO) {
-            // item.copy would allow directly to edit the variable MANBIR (DO YOU UNDERSTAND?)
             database.GroceryDAO().updateEpicerie(item.copy(isCart = false))
-            // Here is where you update the information of each list. Same thing as refreshRecyclerView did
             groceryViewModel.updateCartItems(requireContext())
             groceryViewModel.updateGroceryList(requireContext())
         }
     }
 
-    // Function depreciated (NO USE)
     override fun onResume() {
         super.onResume()
         val user = auth.currentUser

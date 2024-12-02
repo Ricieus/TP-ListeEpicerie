@@ -47,7 +47,6 @@ class PageAddItem : AppCompatActivity() {
     private lateinit var quantityItem: EditText
     private lateinit var categoryItem: EditText
     private lateinit var descriptionItem: EditText
-    //private lateinit var btnSpeak: Button
     private lateinit var btnSpeakName: ImageView
     private lateinit var btnSpeakQuantity: ImageView
     private lateinit var btnSpeakCategory: ImageView
@@ -79,7 +78,6 @@ class PageAddItem : AppCompatActivity() {
         quantityItem = findViewById(R.id.QuantityEdit)
         categoryItem = findViewById(R.id.CategoryEdit)
         descriptionItem = findViewById(R.id.DescriptionEdit)
-        //btnSpeak = findViewById(R.id.btnSpeak)
         btnSpeakName = findViewById(R.id.NameEditSpeak)
         btnSpeakQuantity = findViewById(R.id.QuantityEditSpeak)
         btnSpeakCategory = findViewById(R.id.CategoryEditSpeak)
@@ -149,11 +147,6 @@ class PageAddItem : AppCompatActivity() {
 
 
     private fun addNewProduct() {
-        //val nameItem: EditText = findViewById(R.id.NameEdit)
-        //val quantityItem: EditText = findViewById(R.id.QuantityEdit)
-        //val categoryItem: EditText = findViewById(R.id.CategoryEdit)
-        //val descriptionItem: EditText = findViewById(R.id.DescriptionEdit)
-
         //Permet de gérer les nulles/vides (Inspiré de ChatGPT)
         if (nameItem.text.isNullOrBlank() || quantityItem.text.isNullOrBlank() || categoryItem.text.isNullOrBlank() || descriptionItem.text.isNullOrBlank() || imageUri == null) {
             Snackbar.make(

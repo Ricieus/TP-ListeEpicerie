@@ -37,7 +37,6 @@ class list_product : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_list_product, container, false)
     }
 
@@ -61,7 +60,6 @@ class list_product : Fragment() {
         auth = Firebase.auth
     }
 
-    // Function depreciated (NO USE)
     fun refreshRecyclerView() {
         recyclerView.adapter = ItemAdaptor(requireContext(), this@list_product, groceryList)
         recyclerView.adapter?.notifyDataSetChanged()
@@ -71,15 +69,12 @@ class list_product : Fragment() {
     fun ajoutPanier(item: Table_Grocery) {
         val database = Database_Epicerie.getDatabase(requireContext())
         lifecycleScope.launch(Dispatchers.IO) {
-            // item.copy would allow directly to edit the variable MANBIR (DO YOU UNDERSTAND?)
             database.GroceryDAO().updateEpicerie(item.copy(isCart = true))
-            // Here is where you update the information of each list. Same thing as refreshRecyclerView did
             groceryViewModel.updateCartItems(requireContext())
             groceryViewModel.updateGroceryList(requireContext())
         }
     }
 
-    // Function depreciated (NO USE)
     override fun onResume() {
         super.onResume()
         val user = auth.currentUser

@@ -25,6 +25,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import com.example.tp_listeepicerie.recyclerItem.InfoItem
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -237,11 +238,12 @@ class PageDetails : AppCompatActivity() {
         //Permet de gérer les nulles/vides (Inspiré de ChatGPT)
         if (updatedName.isNullOrBlank() || updatedDescription.isNullOrBlank() || updatedCategory.isNullOrBlank() || updatedQuantity == null || updatedImageUri.isNullOrBlank()
         ) {
-            Toast.makeText(
-                this@PageDetails,
+            Snackbar.make(
+                findViewById(R.id.main),
                 "Veuillez remplir tous les informations nécessaires",
-                Toast.LENGTH_LONG
+                Snackbar.LENGTH_LONG
             ).show()
+
         } else {
             lifecycleScope.launch(Dispatchers.IO) {
                 val database = Database_Epicerie.getDatabase(applicationContext)
@@ -261,9 +263,7 @@ class PageDetails : AppCompatActivity() {
                     database.GroceryDAO().insertEpicerie(updatedItem)
 
                     withContext(Dispatchers.Main) { //Aidé par ChatGPT
-                        Toast.makeText(
-                            applicationContext, "Le produit à était mis à jours", Toast.LENGTH_SHORT
-                        ).show()
+                        Snackbar.make(findViewById(R.id.main), "Le produit à était mis à jours", Snackbar.LENGTH_LONG).show()
                         finish()
                     }
                 }
@@ -281,11 +281,7 @@ class PageDetails : AppCompatActivity() {
             }
 
             withContext(Dispatchers.Main) {
-                Toast.makeText(
-                    applicationContext,
-                    "Le produit à était supprimer avec succès",
-                    Toast.LENGTH_SHORT
-                ).show()
+                Snackbar.make(findViewById(R.id.main), "Le produit à était supprimer", Snackbar.LENGTH_LONG).show()
                 finish()
             }
         }
