@@ -255,7 +255,8 @@ class PageDetails : AppCompatActivity() {
                         quantity = updatedQuantity,
                         foodImageURI = updatedImageUri,
                         isCart = currentItem.isCart,
-                        isFavorite = currentItem.isFavorite
+                        isFavorite = currentItem.isFavorite,
+                        currentUser = currentItem.currentUser
                     )
                     database.GroceryDAO().insertEpicerie(updatedItem)
 

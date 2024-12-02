@@ -10,6 +10,7 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import com.example.tp_listeepicerie.MainActivity
 import com.example.tp_listeepicerie.R
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
@@ -36,6 +37,10 @@ class PageSignIn : AppCompatActivity() {
 
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
+
+        if (auth.currentUser != null) {
+            goMainActivity()
+        }
 
         emailText = findViewById(R.id.email)
         passwordText = findViewById(R.id.password)
@@ -96,6 +101,12 @@ class PageSignIn : AppCompatActivity() {
         return true
     }
 
+    private fun goMainActivity() {
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
     //https://firebase.google.com/docs/auth/android/start
     private fun signInUser(email: String, password: String) {
         auth.signInWithEmailAndPassword(email, password)
@@ -106,7 +117,8 @@ class PageSignIn : AppCompatActivity() {
                         "Authentification réussie",
                         Snackbar.LENGTH_LONG
                     ).show()
-                    finish()
+//                        finish()
+                    goMainActivity()
                 } else {
                     Snackbar.make(
                         findViewById(android.R.id.content),

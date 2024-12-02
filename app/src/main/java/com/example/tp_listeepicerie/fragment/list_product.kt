@@ -20,6 +20,9 @@ import com.example.tp_listeepicerie.R
 import com.example.tp_listeepicerie.Table_Grocery
 import com.example.tp_listeepicerie.recyclerItem.ItemAdaptor
 import com.example.tp_listeepicerie.widget.ItemListWidget
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -27,6 +30,9 @@ class list_product : Fragment() {
     private lateinit var groceryViewModel: GroceryViewModel
     private lateinit var recyclerView: RecyclerView
     private var groceryList: MutableList<Table_Grocery> = mutableListOf()
+
+    private lateinit var auth: FirebaseAuth
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -51,6 +57,8 @@ class list_product : Fragment() {
             recyclerView.adapter?.notifyDataSetChanged()
             notifyWidgetUpdate(requireContext())
         }
+
+        auth = Firebase.auth
     }
 
     // Function depreciated (NO USE)
@@ -74,10 +82,10 @@ class list_product : Fragment() {
     // Function depreciated (NO USE)
     override fun onResume() {
         super.onResume()
-
+        val user = auth.currentUser
         val database = Database_Epicerie.getDatabase(requireContext())
         lifecycleScope.launch(Dispatchers.IO) {
-            groceryList = database.GroceryDAO().getAllProduct()
+            groceryList = database.GroceryDAO().getAllProductUser(user?.email.toString())
             launch(Dispatchers.Main) {
                 refreshRecyclerView()
             }
@@ -96,7 +104,8 @@ class list_product : Fragment() {
                 category = item.category,
                 description = item.description,
                 isCart = item.isCart,
-                isFavorite = true
+                isFavorite = true,
+                currentUser = item.currentUser
             )
             database.GroceryDAO().updateEpicerie(itemProduct)
         }
@@ -116,7 +125,8 @@ class list_product : Fragment() {
                 category = item.category,
                 description = item.description,
                 isCart = item.isCart,
-                isFavorite = false
+                isFavorite = false,
+                currentUser = item.currentUser
             )
             database.GroceryDAO().updateEpicerie(itemProduct)
         }

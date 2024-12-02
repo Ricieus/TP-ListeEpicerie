@@ -66,8 +66,6 @@ class MainActivity : AppCompatActivity() {
 
         auth = Firebase.auth
         nameMainPage = findViewById(R.id.helloName)
-
-
     }
 
     override fun onResume() {

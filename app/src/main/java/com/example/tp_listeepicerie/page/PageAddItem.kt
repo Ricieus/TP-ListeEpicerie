@@ -26,6 +26,10 @@ import com.example.tp_listeepicerie.Database_Epicerie
 import com.example.tp_listeepicerie.R
 import com.example.tp_listeepicerie.Table_Grocery
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.io.File
@@ -53,6 +57,8 @@ class PageAddItem : AppCompatActivity() {
     private var activeEditText: EditText? = null
 
     private var imageUri: Uri? = null
+
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -128,6 +134,8 @@ class PageAddItem : AppCompatActivity() {
         btnLoadImg.setOnClickListener {
             photoSelection.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
         }
+
+        auth = Firebase.auth
     }
 
     private fun speechToTextAddItem() {
@@ -161,6 +169,8 @@ class PageAddItem : AppCompatActivity() {
                 Snackbar.LENGTH_LONG
             ).show()
         } else {
+            val user = auth.currentUser
+
             val database = Database_Epicerie.getDatabase(applicationContext)
             lifecycleScope.launch(Dispatchers.IO) {
                 if (imageUri != null) {
@@ -172,7 +182,8 @@ class PageAddItem : AppCompatActivity() {
                         category = categoryItem.text.toString(),
                         description = descriptionItem.text.toString(),
                         isCart = false,
-                        isFavorite = false
+                        isFavorite = false,
+                        currentUser = user?.email.toString()
                     )
                     database.GroceryDAO().insertEpicerie(itemGrocery)
                     finish()

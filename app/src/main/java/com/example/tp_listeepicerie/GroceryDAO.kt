@@ -11,8 +11,8 @@ import androidx.room.Update
 @Dao
 interface GroceryDAO {
 
-    @Query("SELECT * FROM Table_Grocery WHERE isCart = false")
-    suspend fun getAllProduct(): MutableList<Table_Grocery>
+    @Query("SELECT * FROM Table_Grocery WHERE isCart = false AND currentUser = :currentUser")
+    suspend fun getAllProductUser(currentUser: String): MutableList<Table_Grocery>
 
     @Query("SELECT * FROM Table_Grocery WHERE nameProduct = :nom LIMIT 1")
     suspend fun findByName(nom: String): Table_Grocery?
@@ -23,8 +23,8 @@ interface GroceryDAO {
     @Delete
     suspend fun deleteEpicerie(epicerie: Table_Grocery)
 
-    @Query("SELECT * FROM Table_Grocery WHERE isCart = true")
-    suspend fun getAllPanier(): MutableList<Table_Grocery>
+    @Query("SELECT * FROM Table_Grocery WHERE isCart = true AND currentUser = :currentUser")
+    suspend fun getAllPanierUser(currentUser: String): MutableList<Table_Grocery>
 
     @Update
     suspend fun updateEpicerie(item: Table_Grocery)

@@ -13,6 +13,7 @@ data class Table_Grocery(
     var category: String,
     var description: String,
     var isCart: Boolean,
-    var isFavorite: Boolean
+    var isFavorite: Boolean,
+    var currentUser: String
 ) {
 }

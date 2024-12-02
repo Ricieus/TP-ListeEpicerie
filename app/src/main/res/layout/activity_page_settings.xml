@@ -76,18 +76,6 @@
                 app:tint="#000000" />
 
             <Button
-                android:id="@+id/signUpbuttonSettings"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="S'inscrire" />
-
-            <Button
-                android:id="@+id/signInbuttonSettings"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Se connecter" />
-
-            <Button
                 android:id="@+id/profilButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
