@@ -26,8 +26,6 @@ import kotlin.math.sign
 class PageSettings : AppCompatActivity() {
     private lateinit var switch: SwitchCompat
     private lateinit var buttonDelete: ImageButton
-    private lateinit var signUp: Button
-    private lateinit var signIn: Button
     private lateinit var profil: Button
     private lateinit var API: Button
 
@@ -46,23 +44,11 @@ class PageSettings : AppCompatActivity() {
 
         switch = findViewById(R.id.switch1)
         buttonDelete = findViewById(R.id.deleteData)
-        signUp = findViewById(R.id.signUpbuttonSettings)
-        signIn = findViewById(R.id.signInbuttonSettings)
         profil = findViewById(R.id.profilButton)
         API = findViewById(R.id.btnAPI)
 
         buttonDelete.setOnClickListener {
             deleteData()
-        }
-
-        signUp.setOnClickListener {
-            val intent = Intent(this, PageSignUp::class.java)
-            startActivity(intent)
-        }
-
-        signIn.setOnClickListener {
-            val intent = Intent(this, PageSignIn::class.java)
-            startActivity(intent)
         }
 
         profil.setOnClickListener {
