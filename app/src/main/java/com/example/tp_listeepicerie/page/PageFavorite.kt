@@ -139,7 +139,8 @@ class PageFavorite : AppCompatActivity() {
                 category = currentItem.category,
                 description = currentItem.description,
                 isCart = currentItem.isCart,
-                isFavorite = false
+                isFavorite = false,
+                currentUser = currentItem.currentUser
             )
             database.GroceryDAO().updateEpicerie(itemProduct)
 

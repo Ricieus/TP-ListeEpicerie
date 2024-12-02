@@ -1,5 +1,6 @@
 package com.example.tp_listeepicerie.page
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -61,6 +62,8 @@ class PageProfil : AppCompatActivity() {
 
         btnDisconnect.setOnClickListener {
             Firebase.auth.signOut()
+            val intent = Intent(this, PageSignIn::class.java)
+            startActivity(intent)
             finish()
         }
     }

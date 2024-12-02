@@ -1,6 +1,7 @@
 package com.example.tp_listeepicerie.page
 
 import android.content.ContentValues.TAG
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -14,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.tp_listeepicerie.MainActivity
 import com.example.tp_listeepicerie.R
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
@@ -128,6 +130,12 @@ class PageSignUp : AppCompatActivity() {
             }
     }
 
+    private fun goMainActivity() {
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
     private fun saveUser(uid: String, firstName: String, lastName: String, email: String) {
         val user = mapOf(
             "firstName" to firstName,
@@ -143,7 +151,8 @@ class PageSignUp : AppCompatActivity() {
                     "Inscription réussie",
                     Snackbar.LENGTH_LONG
                 ).show()
-                finish()
+                //finish()
+                goMainActivity()
             }
             .addOnFailureListener { e ->
                 Snackbar.make(

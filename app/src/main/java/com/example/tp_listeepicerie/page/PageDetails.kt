@@ -6,13 +6,16 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
+import android.speech.RecognizerIntent
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -51,6 +54,19 @@ class PageDetails : AppCompatActivity() {
     private var itemCategory: String = ""
     private var itemQuantity: Int = 0
 
+    private lateinit var btnSpeakName: ImageView
+    private lateinit var btnSpeakQuantity: ImageView
+    private lateinit var btnSpeakCategory: ImageView
+    private lateinit var btnSpeakDescription: ImageView
+
+    private lateinit var nameItem: EditText
+    private lateinit var quantityItem: EditText
+    private lateinit var categoryItem: EditText
+    private lateinit var descriptionItem: EditText
+
+    private lateinit var speechToTextLauncher: ActivityResultLauncher<Intent>
+    private var activeEditText: EditText? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -62,6 +78,13 @@ class PageDetails : AppCompatActivity() {
         }
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
+
+        initializeVariables()
+
+        nameItem = findViewById(R.id.productName)
+        quantityItem = findViewById(R.id.productCategory)
+        categoryItem = findViewById(R.id.productQuantity)
+        descriptionItem = findViewById(R.id.productDescription)
 
         val infoItem: InfoItem
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.S_V2) {
@@ -77,7 +100,43 @@ class PageDetails : AppCompatActivity() {
         itemCategory = infoItem.category
         itemQuantity = infoItem.quantity
 
-        initializeVariables()
+        btnSpeakName = findViewById(R.id.NameEditSpeakUpdate)
+        btnSpeakQuantity = findViewById(R.id.QuantityEditSpeakUpdate)
+        btnSpeakCategory = findViewById(R.id.CategoryEditSpeakUpdate)
+        btnSpeakDescription = findViewById(R.id.DescriptionEditSpeakUpdate)
+
+        speechToTextLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+                if (result.resultCode == RESULT_OK && result.data != null) {
+                    val spokenText =
+                        result.data?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)?.get(0)
+                    if (!spokenText.isNullOrBlank()) {
+                        activeEditText?.setText(spokenText)
+                    }
+                }
+            }
+
+        btnSpeakName.setOnClickListener {
+            activeEditText = nameItem
+            speechToTextAddItem()
+        }
+
+        btnSpeakQuantity.setOnClickListener {
+            activeEditText = quantityItem
+            speechToTextAddItem()
+        }
+
+        btnSpeakCategory.setOnClickListener {
+            activeEditText = categoryItem
+            speechToTextAddItem()
+        }
+
+        btnSpeakDescription.setOnClickListener {
+            activeEditText = descriptionItem
+            speechToTextAddItem()
+        }
+
+
         loadImageOfProducts()
 
 
@@ -108,6 +167,15 @@ class PageDetails : AppCompatActivity() {
         saveButton.setOnClickListener {
             updateItems()
         }
+    }
+
+    private fun speechToTextAddItem() {
+        val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
+            putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
+            putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
+            putExtra(RecognizerIntent.EXTRA_PROMPT, "Parlez maintenant...")
+        }
+        speechToTextLauncher.launch(intent)
     }
 
     private fun takeImageFromDevice() =
@@ -187,7 +255,8 @@ class PageDetails : AppCompatActivity() {
                         quantity = updatedQuantity,
                         foodImageURI = updatedImageUri,
                         isCart = currentItem.isCart,
-                        isFavorite = currentItem.isFavorite
+                        isFavorite = currentItem.isFavorite,
+                        currentUser = currentItem.currentUser
                     )
                     database.GroceryDAO().insertEpicerie(updatedItem)
 

@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".page.PageAddItem">
 
-    <!-- Include Toolbar -->
     <include
         android:id="@+id/toolbar"
         layout="@layout/toolbar"
@@ -16,7 +14,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 
     <ScrollView
         android:layout_width="0dp"
@@ -39,7 +36,6 @@
                 android:layout_gravity="center"
                 android:layout_margin="16dp"
                 android:text="Prendre un photo" />
-
 
             <Button
                 android:id="@+id/btnLoadImg"
@@ -67,15 +63,29 @@
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
-            <EditText
-                android:id="@+id/NameEdit"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginBottom="16dp"
-                android:hint="Enter nom"
-                android:inputType="textPersonName" />
+                android:layout_marginBottom="16dp">
+
+                <EditText
+                    android:id="@+id/NameEdit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Enter nom"
+                    android:layout_toStartOf="@+id/NameEditSpeak"
+                    android:layout_marginEnd="50dp"
+                    android:inputType="textPersonName" />
+
+                <ImageView
+                    android:id="@+id/NameEditSpeak"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:src="@android:drawable/ic_btn_speak_now"
+                    android:contentDescription="Parler" />
+            </RelativeLayout>
 
             <TextView
                 android:id="@+id/textViewQuantite"
@@ -87,15 +97,29 @@
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
-            <EditText
-                android:id="@+id/QuantityEdit"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginBottom="16dp"
-                android:hint="Enter quantité"
-                android:inputType="number" />
+                android:layout_marginBottom="16dp">
+
+                <EditText
+                    android:id="@+id/QuantityEdit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Enter quantité"
+                    android:layout_toStartOf="@+id/QuantityEditSpeak"
+                    android:layout_marginEnd="50dp"
+                    android:inputType="number" />
+
+                <ImageView
+                    android:id="@+id/QuantityEditSpeak"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:src="@android:drawable/ic_btn_speak_now"
+                    android:contentDescription="Parler" />
+            </RelativeLayout>
 
             <TextView
                 android:id="@+id/textViewCategorie"
@@ -107,15 +131,29 @@
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
-            <EditText
-                android:id="@+id/CategoryEdit"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginBottom="16dp"
-                android:hint="Enter catégorie"
-                android:inputType="text" />
+                android:layout_marginBottom="16dp">
+
+                <EditText
+                    android:id="@+id/CategoryEdit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Enter catégorie"
+                    android:layout_toStartOf="@+id/CategoryEditSpeak"
+                    android:layout_marginEnd="50dp"
+                    android:inputType="text" />
+
+                <ImageView
+                    android:id="@+id/CategoryEditSpeak"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:src="@android:drawable/ic_btn_speak_now"
+                    android:contentDescription="Parler" />
+            </RelativeLayout>
 
             <TextView
                 android:id="@+id/textViewDescription"
@@ -127,17 +165,30 @@
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
-            <EditText
-                android:id="@+id/DescriptionEdit"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginBottom="16dp"
-                android:gravity="top"
-                android:hint="Enter description"
-                android:inputType="textMultiLine"
-                android:lines="4" />
+                android:layout_marginBottom="16dp">
+
+                <EditText
+                    android:id="@+id/DescriptionEdit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Enter description"
+                    android:layout_toStartOf="@+id/DescriptionEditSpeak"
+                    android:layout_marginEnd="50dp"
+                    android:inputType="textMultiLine"
+                    android:lines="4" />
+
+                <ImageView
+                    android:id="@+id/DescriptionEditSpeak"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:src="@android:drawable/ic_btn_speak_now"
+                    android:contentDescription="Parler" />
+            </RelativeLayout>
 
             <Button
                 android:id="@+id/btnSave"
@@ -149,5 +200,4 @@
 
         </LinearLayout>
     </ScrollView>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
