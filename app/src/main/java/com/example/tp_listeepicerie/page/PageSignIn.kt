@@ -117,7 +117,6 @@ class PageSignIn : AppCompatActivity() {
                         "Authentification réussie",
                         Snackbar.LENGTH_LONG
                     ).show()
-//                        finish()
                     goMainActivity()
                 } else {
                     Snackbar.make(

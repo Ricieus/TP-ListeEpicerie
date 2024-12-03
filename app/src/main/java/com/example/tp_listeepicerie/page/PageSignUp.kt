@@ -1,29 +1,21 @@
 package com.example.tp_listeepicerie.page
 
-import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.example.tp_listeepicerie.MainActivity
 import com.example.tp_listeepicerie.R
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
-import kotlin.math.sign
 
 class PageSignUp : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
@@ -50,7 +42,7 @@ class PageSignUp : AppCompatActivity() {
         val signupButton = findViewById<Button>(R.id.signupButton)
 
         userHaveAccount.setOnClickListener {
-            val intent = android.content.Intent(this, PageSignIn::class.java)
+            val intent = Intent(this, PageSignIn::class.java)
             startActivity(intent)
         }
 
@@ -151,7 +143,6 @@ class PageSignUp : AppCompatActivity() {
                     "Inscription réussie",
                     Snackbar.LENGTH_LONG
                 ).show()
-                //finish()
                 goMainActivity()
             }
             .addOnFailureListener { e ->
