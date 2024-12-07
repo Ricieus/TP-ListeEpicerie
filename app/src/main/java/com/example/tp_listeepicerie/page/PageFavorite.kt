@@ -16,6 +16,10 @@ import com.example.tp_listeepicerie.Database_Epicerie
 import com.example.tp_listeepicerie.R
 import com.example.tp_listeepicerie.Table_Grocery
 import com.example.tp_listeepicerie.recyclerFavorite.FavoriteAdaptor
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -23,6 +27,9 @@ class PageFavorite : AppCompatActivity() {
     private lateinit var recyclerViewFav: RecyclerView
 
     private var listFavorite: MutableList<Table_Grocery> = mutableListOf()
+
+    private lateinit var auth: FirebaseAuth
+    private var user: FirebaseUser? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +44,9 @@ class PageFavorite : AppCompatActivity() {
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
+        auth = Firebase.auth
+        user = auth.currentUser
+
         initializeReycler()
         loadFavorite()
 
@@ -48,7 +58,7 @@ class PageFavorite : AppCompatActivity() {
         // https://stackoverflow.com/questions/3386667/query-if-android-database-exists
         lifecycleScope.launch(Dispatchers.IO) {
 
-            listFavorite = database.GroceryDAO().getAllFavoris()
+            listFavorite = database.GroceryDAO().getAllFavorisUser(user?.email.toString())
             launch(Dispatchers.Main) {
                 recyclerViewFav.adapter =
                     FavoriteAdaptor(applicationContext, this@PageFavorite, listFavorite)
@@ -144,7 +154,7 @@ class PageFavorite : AppCompatActivity() {
             )
             database.GroceryDAO().updateEpicerie(itemProduct)
 
-            listFavorite = database.GroceryDAO().getAllFavoris()
+            listFavorite = database.GroceryDAO().getAllFavorisUser(user?.email.toString())
             launch(Dispatchers.Main) {
                 recyclerViewFav.adapter =
                     FavoriteAdaptor(applicationContext, this@PageFavorite, listFavorite)
@@ -157,7 +167,7 @@ class PageFavorite : AppCompatActivity() {
 
         val database = Database_Epicerie.getDatabase(applicationContext)
         lifecycleScope.launch(Dispatchers.IO) {
-            listFavorite = database.GroceryDAO().getAllFavoris()
+            listFavorite = database.GroceryDAO().getAllFavorisUser(user?.email.toString())
             launch(Dispatchers.Main) {
                 recyclerViewFav.adapter =
                     FavoriteAdaptor(applicationContext, this@PageFavorite, listFavorite)

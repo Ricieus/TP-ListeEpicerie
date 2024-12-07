@@ -32,8 +32,8 @@ interface GroceryDAO {
     @Query("SELECT * FROM Table_Grocery WHERE uid = :id")
     suspend fun getEpicerieId(id: Int): Table_Grocery?
 
-    @Query("SELECT * FROM Table_Grocery WHERE isFavorite = true")
-    suspend fun getAllFavoris(): MutableList<Table_Grocery>
+    @Query("SELECT * FROM Table_Grocery WHERE isFavorite = true AND currentUser = :currentUser")
+    suspend fun getAllFavorisUser(currentUser: String): MutableList<Table_Grocery>
 
     @Query("DELETE FROM Table_Grocery")
     suspend fun deleteAllInformation()
