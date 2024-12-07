@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "746289162882",
+    "project_id": "tp-listeepicerie",
+    "storage_bucket": "tp-listeepicerie.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:746289162882:android:f5b53a9e3e18eb7c72e29b",
+        "android_client_info": {
+          "package_name": "com.example.tp_listeepicerie"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAT9M4S9yOFvPRuCe5qIlyYoCWYwPdGkLA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
